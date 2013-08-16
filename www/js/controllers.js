@@ -13,8 +13,10 @@ function LoadingController ($scope, $location, Auth) {
 
 function LoginController ($scope, $location, Auth) {
     $scope.authenticate = function () {
-        Auth.authenticate();
-        $location.path('events');
+        Auth.authenticate(function () {
+            $location.path('events');
+            $scope.$apply();
+        });
     };
 }
 

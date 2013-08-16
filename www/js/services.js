@@ -5,13 +5,13 @@ angular.module('Checkinapp.services', []).
     var oauth = OAuth(options);
     var oauthWindow;
 
-    function authenticate () {
+    function authenticate (onSuccess) {
         oauth.fetchRequestToken(
         // Success
         function (url) {
             oauthWindow = window.open(url, '_blank', 'location=no');
             oauthWindow.addEventListener('loadstart', function(event) {
-                oauthLocationChanged(event.url);
+                oauthLocationChanged(event.url, onSuccess);
             });
         },
         failure
@@ -26,7 +26,7 @@ angular.module('Checkinapp.services', []).
     // This function is triggered when the oauth window changes location.
     // If the new location is the callback url extract verifier from it and
     // get the access token.
-    function oauthLocationChanged(url) {
+    function oauthLocationChanged(url, onSuccess) {
         if (url.indexOf(options['callbackUrl'] + '/?') >= 0) {
             oauthWindow.close();
             // Extract oauth_verifier from the callback call
@@ -39,6 +39,7 @@ angular.module('Checkinapp.services', []).
                     userId = (/[?|&]user_id=([^&;]+?)(&|#|;|$)/g).exec(data.text)[1];
                     setUser(userId);
                     setAccessToken(data.text);
+                    onSuccess();
                 },
                 failure
             );
