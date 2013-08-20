@@ -15,9 +15,9 @@ angular.module('Checkinapp', ['Checkinapp.services']).
             templateUrl: 'partials/events.html',
             controller: 'EventsController'
         }).
-        when('/participant', {
-            templateUrl: 'partials/participant.html',
-            controller: 'ParticipantController'
+        when('/registrant', {
+            templateUrl: 'partials/registrant.html',
+            controller: 'RegistrantController'
         }).
         otherwise({
             redirectTo: '/'

@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">Participant</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td> Name </td><td> {{name}} </td>
+                </tr>
+                <tr>
+                    <td> Registration date </td><td> {{registration_date}} </td>
+                </tr>
+                <tr>
+                    <td> Position </td><td> {{position}} </td>
+                </tr>
+                <tr>
+                    <td> Institution </td><td> {{institution}} </td>
+                </tr>
+                <tr>
+                    <td> Adress </td><td> {{adress}} </td>
+                </tr>
+                <tr>
+                    <td> City </td><td> {{city}} </td>
+                </tr>
+                <tr>
+                    <td> Country </td><td> {{country}} </td>
+                </tr>
+                <tr>
+                    <td> Phone </td><td> {{phone}} </td>
+                </tr>
+                <tr>
+                    <td> Fax </td><td> {{fax}} </td>
+                </tr>
+                <tr>
+                    <td> Personal homepage   </td><td> {{home_page}} </td>
+                </tr>
+                <tr>
+                    <td> Payed </td><td> {{ payed && 'Yes' || 'No' }} </td>
+                </tr>
+                <tr>
+                    <td> Participation reason </td><td> {{participation_reason}} </td>
+                </tr>
+                <tr>
+                    <td> Checked in </td><td>
+                    <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch"
+                           class="onoffswitch-checkbox" id="onoffswitch">
+                        <label class="onoffswitch-label" for="onoffswitch">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                    <td> Check-in date </td><td> {{check_in_date}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 angular.module('Checkinapp.services', []).
-    service('Auth', function() {
+    service('OAuth', function() {
 
     var user = {};
     var oauth = OAuth(options);
@@ -102,10 +102,24 @@ angular.module('Checkinapp.services', []).
         console.log(data);
     }
 
+    function getRegistrant (registrant, callback) {
+        oauth.getJSON(options['baseUrl'] +
+                      '/export/registrant/' +
+                      registrant['id'] + '.json' +
+                      '?target=' + registrant['target'] +
+                      '&secret=' + registrant['secret'],
+            function (data) {
+                callback(data.results);
+            },
+            failure
+        );
+    }
+
     return {
         authenticate: authenticate,
         logout: logout,
         ifAuthenticated: ifAuthenticated,
+        getRegistrant: getRegistrant,
         getUser: function () {
             return user;
         }
