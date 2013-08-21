@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-12">
-        <h1 class="text-center">Participant</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
         <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">Personal Data</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <td> Name </td><td> {{name}} </td>
@@ -47,7 +47,9 @@
                     <td> Checked in </td><td>
                     <div class="onoffswitch">
                     <input type="checkbox" name="onoffswitch"
-                           class="onoffswitch-checkbox" id="onoffswitch">
+                           {{ checked_in && 'checked' || '' }}
+                           class="onoffswitch-checkbox" id="onoffswitch"
+                           ng-model="checkedIn">
                         <label class="onoffswitch-label" for="onoffswitch">
                             <div class="onoffswitch-inner"></div>
                             <div class="onoffswitch-switch"></div>

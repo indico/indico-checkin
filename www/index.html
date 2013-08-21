@@ -10,14 +10,53 @@
         <title>Check in</title>
     </head>
     <body>
-        <ng-view></ng-view>
-
+        <header class="navbar navbar-fixed-top checkin-nav" role="navigation"
+                ng-controller="NavigationController">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse"
+                            data-target=".ci-navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand title">INDICO Check-in</span>
+                </div>
+                <nav class="collapse navbar-collapse ci-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a ng-click="allEvents()">
+                                <span class="glyphicon glyphicon-list"></span>
+                                All events
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="scan()">
+                                <span class="glyphicon glyphicon-qrcode"></span>
+                                Scan QR Code
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="logout()">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="container">
+            <ng-view></ng-view>
+        </div>
         <script src="http://pcituds01.cern.ch:8081/target/target-script-min.js#anonymous"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="barcodescanner.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-2.0.3.js"></script>
         <script type="text/javascript" src="js/lib/jsOAuth-1.3.7.js"></script>
         <script type="text/javascript" src="js/lib/angular.js"></script>
-        <!-- <script type="text/javascript" src="js/lib/bootstrap.js"></script> -->
+        <script type="text/javascript" src="js/lib/bootstrap.js"></script>
         <script type="text/javascript" src="js/controllers.js"></script>
         <script type="text/javascript" src="js/services.js"></script>
         <script type="text/javascript" src="js/router.js"></script>

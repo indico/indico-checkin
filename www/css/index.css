@@ -1,5 +1,43 @@
+body {
+    padding-top: 70px;
+}
+
 .absolute-center {
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.checkin-nav {
+    text-shadow: 0 -1px 0 rgba(0,0,0,.15);
+    background-color: #563d7c;
+    border-color: #463265;
+    box-shadow: 0 1px 0 rgba(255,255,255,.1);
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.checkin-nav .navbar-toggle {
+    border-color: #563d7c;
+}
+
+.checkin-nav .navbar-nav > li > a {
+    color: #cdbfe3;
+}
+
+.checkin-nav .navbar-nav > .active > a {
+    color: #fff;
+    background-color: #463265;
+}
+
+.title {
+    color: #ffffff;
+}
+
+.logo {
+    height: 30px;
+    float: left;
+    margin: 15px 5px;
 }

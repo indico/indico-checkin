@@ -115,11 +115,26 @@ angular.module('Checkinapp.services', []).
         );
     }
 
+    function checkIn (registrant, newValue, callback) {
+        oauth.getJSON(options['baseUrl'] +
+                      '/export/checkin/' +
+                      registrant['id'] + '.json' +
+                      '?target=' + registrant['target'] +
+                      '&secret=' + registrant['secret'] +
+                      '&checked_in=' + newValue,
+            function (data) {
+                callback(data.results);
+            },
+            failure
+        );
+    }
+
     return {
         authenticate: authenticate,
         logout: logout,
         ifAuthenticated: ifAuthenticated,
         getRegistrant: getRegistrant,
+        checkIn: checkIn,
         getUser: function () {
             return user;
         }

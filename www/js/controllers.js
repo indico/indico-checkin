@@ -1,4 +1,45 @@
 
+function NavigationController ($scope, $location, OAuth) {
+
+    // We are not refreshing the page, so we need to manually
+    // toggle the dropdown with a click event.
+    function toggleNavigation () {
+        if (jQuery('.navbar-toggle').is(":visible")) {
+            jQuery('.navbar-toggle').click();
+        }
+    }
+
+    $scope.allEvents = function () {
+        toggleNavigation();
+        $location.path('events');
+    };
+
+    $scope.scan = function () {
+        toggleNavigation();
+        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+        scanner.scan(
+            function (result) {
+                if (!result.cancelled) {
+                    var registrant = JSON.parse(result.text);
+                    $location.path('registrant')
+                             .search(registrant);
+                    $scope.$apply();
+                }
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    };
+
+    $scope.logout = function () {
+        toggleNavigation();
+        OAuth.logout();
+        $location.path('login');
+    };
+}
+
+
 function LoadingController ($scope, $location, OAuth) {
     OAuth.ifAuthenticated(
         // True
@@ -24,27 +65,7 @@ function LoginController ($scope, $location, OAuth) {
 }
 
 function EventsController ($scope, $location, OAuth) {
-    $scope.logout = function () {
-        OAuth.logout();
-        $location.path('login');
-    };
 
-    $scope.scan = function () {
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-        scanner.scan(
-            function (result) {
-                if (!result.cancelled) {
-                    var registrant = JSON.parse(result.text);
-                    $location.path('registrant')
-                             .search(registrant);
-                    $scope.$apply();
-                }
-            },
-            function (error) {
-                console.log(error);
-            }
-        );
-    };
 }
 
 function RegistrantController ($scope, $location, OAuth) {
@@ -67,4 +88,14 @@ function RegistrantController ($scope, $location, OAuth) {
         $scope.participation_reason = result.participation_reason;
         $scope.$apply();
     });
+
+    $scope.$watch('checkedIn', function(newValue) {
+        if (newValue !== undefined) {
+            OAuth.checkIn(registrant, newValue, function (result) {
+                if (result['success']) {
+
+                }
+            });
+        }
+    }, true);
 }
