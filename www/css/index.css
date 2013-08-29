@@ -36,8 +36,14 @@ body {
     color: #ffffff;
 }
 
-.logo {
-    height: 30px;
-    float: left;
-    margin: 15px 5px;
+.events td {
+    text-align: left;
+}
+
+.events .right {
+    text-align: right;
+}
+
+.purple {
+    color: #563D7C;
 }

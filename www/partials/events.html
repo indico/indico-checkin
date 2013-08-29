@@ -1,5 +1,23 @@
 <div class="row">
-    <div class="col-md-12 text-center">
-        <span>No events found :(</span>
+    <div class="col-md-12 text-center" >
+        <table class="table events">
+            <thead>
+                <tr>
+                    <th colspan="2">Events</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-hide="events">
+                    <td>No events found :(</td>
+                </tr>
+                <tr ng-repeat="event in events | orderBy: '-date.date'" ng-show="events">
+                    <td>{{event.title}} </td>
+                    <td class="right">
+                        {{event.registrants}}
+                        <span class="glyphicon glyphicon-user purple"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

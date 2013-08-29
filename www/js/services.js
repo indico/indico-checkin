@@ -102,6 +102,17 @@ angular.module('Checkinapp.services', []).
         console.log(data);
     }
 
+    function getEvents (callback) {
+        oauth.getJSON(options['baseUrl'] +
+                      '/export/events/' +
+                      user['id'] + '.json',
+            function (data) {
+                callback(data.results);
+            },
+            failure
+        );
+    }
+
     function getRegistrant (registrant, callback) {
         oauth.getJSON(options['baseUrl'] +
                       '/export/registrant/' +
@@ -133,6 +144,7 @@ angular.module('Checkinapp.services', []).
         authenticate: authenticate,
         logout: logout,
         ifAuthenticated: ifAuthenticated,
+        getEvents: getEvents,
         getRegistrant: getRegistrant,
         checkIn: checkIn,
         getUser: function () {

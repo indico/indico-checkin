@@ -4,9 +4,9 @@
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0">
 
-    <name>CheckIn</name>
+    <name>Indico check-in</name>
     <description>
-        Conference check-in application for the Indico software.
+        Check-in application for Indico conferences.
     </description>
     <author email="indico-team@cern.ch" href="http://indico-software.org">
         Indico Team

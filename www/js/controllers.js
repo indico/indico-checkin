@@ -2,7 +2,7 @@
 function NavigationController ($scope, $location, OAuth) {
 
     // We are not refreshing the page, so we need to manually
-    // toggle the dropdown with a click event.
+    // toggle the dropdown menu with a click event.
     function toggleNavigation () {
         if (jQuery('.navbar-toggle').is(":visible")) {
             jQuery('.navbar-toggle').click();
@@ -65,7 +65,12 @@ function LoginController ($scope, $location, OAuth) {
 }
 
 function EventsController ($scope, $location, OAuth) {
-
+    // Set events to true to hide the no events message until the get finishes
+    $scope.events = true;
+    OAuth.getEvents(function (result) {
+        $scope.events = result.events;
+        $scope.$apply();
+    });
 }
 
 function RegistrantController ($scope, $location, OAuth) {
@@ -89,7 +94,7 @@ function RegistrantController ($scope, $location, OAuth) {
         $scope.$apply();
     });
 
-    $scope.$watch('checkedIn', function(newValue) {
+    $scope.$watch('checked_in', function(newValue) {
         if (newValue !== undefined) {
             OAuth.checkIn(registrant, newValue, function (result) {
                 if (result['success']) {
