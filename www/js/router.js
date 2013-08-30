@@ -1,6 +1,6 @@
 
 angular.module('Checkinapp', ['Checkinapp.services']).
-    config(function($routeProvider) {
+    config(function ($routeProvider) {
 
     $routeProvider.
         when('/', {
@@ -14,6 +14,10 @@ angular.module('Checkinapp', ['Checkinapp.services']).
         when('/events', {
             templateUrl: 'partials/events.html',
             controller: 'EventsController'
+        }).
+        when('/registrants/:event', {
+            templateUrl: 'partials/registrants.html',
+            controller: 'RegistrantsController'
         }).
         when('/registrant', {
             templateUrl: 'partials/registrant.html',

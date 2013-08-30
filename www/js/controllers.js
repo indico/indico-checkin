@@ -1,9 +1,8 @@
 
-function NavigationController ($scope, $location, OAuth) {
-
+function NavigationController($scope, $location, OAuth) {
     // We are not refreshing the page, so we need to manually
     // toggle the dropdown menu with a click event.
-    function toggleNavigation () {
+    function toggleNavigation() {
         if (jQuery('.navbar-toggle').is(":visible")) {
             jQuery('.navbar-toggle').click();
         }
@@ -37,10 +36,15 @@ function NavigationController ($scope, $location, OAuth) {
         OAuth.logout();
         $location.path('login');
     };
+
+    // If user changes, change username in menu.
+    $scope.$watch(OAuth.getUser, function (user) {
+        $scope.user = user;
+    });
 }
 
 
-function LoadingController ($scope, $location, OAuth) {
+function LoadingController($scope, $location, OAuth) {
     OAuth.ifAuthenticated(
         // True
         function () {
@@ -55,7 +59,7 @@ function LoadingController ($scope, $location, OAuth) {
     );
 }
 
-function LoginController ($scope, $location, OAuth) {
+function LoginController($scope, $location, OAuth) {
     $scope.authenticate = function () {
         OAuth.authenticate(function () {
             $location.path('events');
@@ -64,16 +68,34 @@ function LoginController ($scope, $location, OAuth) {
     };
 }
 
-function EventsController ($scope, $location, OAuth) {
+function EventsController($scope, $location, OAuth) {
     // Set events to true to hide the no events message until the get finishes
     $scope.events = true;
     OAuth.getEvents(function (result) {
         $scope.events = result.events;
         $scope.$apply();
     });
+
+    $scope.go_to_registrants = function (event_id) {
+        $location.path('registrants/' + event_id);
+    };
 }
 
-function RegistrantController ($scope, $location, OAuth) {
+function RegistrantsController($routeParams, $scope, $location, OAuth) {
+    $scope.event_id = $routeParams.event;
+    OAuth.getRegistrantsForEvent($scope.event_id, function (result) {
+        $scope.registrants = result.registrants;
+        $scope.$apply();
+    });
+
+    $scope.go_to_registrant = function (registrant_id, secret) {
+        $location.path('registrant').search({"id": registrant_id,
+                                             "target": $scope.event_id,
+                                             "secret": secret});
+    };
+}
+
+function RegistrantController($scope, $location, OAuth) {
     registrant = $location.search();
     OAuth.getRegistrant(registrant, function (result) {
         console.log(result);
@@ -94,7 +116,7 @@ function RegistrantController ($scope, $location, OAuth) {
         $scope.$apply();
     });
 
-    $scope.$watch('checked_in', function(newValue) {
+    $scope.$watch('checked_in', function (newValue) {
         if (newValue !== undefined) {
             OAuth.checkIn(registrant, newValue, function (result) {
                 if (result['success']) {

@@ -1,16 +1,16 @@
 angular.module('Checkinapp.services', []).
-    service('OAuth', function() {
+    service('OAuth', function () {
 
     var user = {};
     var oauth = OAuth(options);
     var oauthWindow;
 
-    function authenticate (onSuccess) {
+    function authenticate(onSuccess) {
         oauth.fetchRequestToken(
         // Success
         function (url) {
             oauthWindow = window.open(url, '_blank', 'location=no');
-            oauthWindow.addEventListener('loadstart', function(event) {
+            oauthWindow.addEventListener('loadstart', function (event) {
                 oauthLocationChanged(event.url, onSuccess);
             });
         },
@@ -18,9 +18,15 @@ angular.module('Checkinapp.services', []).
         );
     }
 
-    function logout () {
-        localStorage.removeItem('userId');
+    function logout() {
+        localStorage.removeItem('user');
         localStorage.removeItem('oAuthData');
+        // Logout the user from inAppBrowser window used by OAuth
+        logoutWindow = window.open(options['baseUrl'] + '/user/logout',
+                                   '_blank', 'location=no');
+        logoutWindow.addEventListener('loadstop', function (event) {
+                logoutWindow.close();
+        });
     }
 
     // This function is triggered when the oauth window changes location.
@@ -35,30 +41,31 @@ angular.module('Checkinapp.services', []).
             oauth.fetchAccessToken(
                 // Success
                 function (data) {
+                    setAccessToken(data.text);
                     // Extract user id from the received data
                     userId = (/[?|&]user_id=([^&;]+?)(&|#|;|$)/g).exec(data.text)[1];
-                    setUser(userId);
-                    setAccessToken(data.text);
-                    onSuccess();
+                    // Call onSuccess after user data is retrieved
+                    setUser(userId, onSuccess);
                 },
                 failure
             );
         }
     }
 
-    function setUser (userId) {
+    function setUser(userId, callback) {
         oauth.getJSON(options['baseUrl'] + '/export/user/' + userId + '.json',
             function (data) {
                 user = data.results[0];
-                localStorage.setItem('userId', user['id']);
+                localStorage.setItem('user', JSON.stringify(user));
+                callback();
             },
             failure
         );
     }
 
-    function setAccessToken (params) {
+    function setAccessToken(response) {
         // Extract access token/key from response
-        var qvars = params.split('&');
+        var qvars = response.split('&');
         var accessParams = {};
         for (var i = 0; i < qvars.length; i++) {
             var y = qvars[i].split('=');
@@ -71,7 +78,7 @@ angular.module('Checkinapp.services', []).
         localStorage.setItem('oAuthData', JSON.stringify(accessData));
     }
 
-    function ifAuthenticated (ifTrue, ifFalse) {
+    function ifAuthenticated(ifTrue, ifFalse) {
         if (!loadLocalStoredData()) {
             ifFalse();
             return;
@@ -82,11 +89,10 @@ angular.module('Checkinapp.services', []).
         );
     }
 
-    function loadLocalStoredData () {
-        var userId = localStorage.getItem('userId');
+    function loadLocalStoredData() {
+        user = JSON.parse(localStorage.getItem('user'));
         var oauthDataRaw = localStorage.getItem('oAuthData');
-        if (userId && oauthDataRaw) {
-            user['id'] = userId;
+        if (user && oauthDataRaw) {
             oauthData = JSON.parse(oauthDataRaw);
             options.accessTokenKey = oauthData.accessTokenKey;
             options.accessTokenSecret = oauthData.accessTokenSecret;
@@ -97,12 +103,7 @@ angular.module('Checkinapp.services', []).
         }
     }
 
-    // In case of failure print error message
-    function failure (data) {
-        console.log(data);
-    }
-
-    function getEvents (callback) {
+    function getEvents(callback) {
         oauth.getJSON(options['baseUrl'] +
                       '/export/events/' +
                       user['id'] + '.json',
@@ -113,7 +114,18 @@ angular.module('Checkinapp.services', []).
         );
     }
 
-    function getRegistrant (registrant, callback) {
+    function getRegistrantsForEvent(event_id, callback) {
+        oauth.getJSON(options['baseUrl'] +
+                      '/export/registrants/' +
+                      event_id + '.json',
+            function (data) {
+                callback(data.results);
+            },
+            failure
+        );
+    }
+
+    function getRegistrant(registrant, callback) {
         oauth.getJSON(options['baseUrl'] +
                       '/export/registrant/' +
                       registrant['id'] + '.json' +
@@ -126,7 +138,7 @@ angular.module('Checkinapp.services', []).
         );
     }
 
-    function checkIn (registrant, newValue, callback) {
+    function checkIn(registrant, newValue, callback) {
         oauth.getJSON(options['baseUrl'] +
                       '/export/checkin/' +
                       registrant['id'] + '.json' +
@@ -140,11 +152,17 @@ angular.module('Checkinapp.services', []).
         );
     }
 
+    // In case of failure print error message
+    function failure(data) {
+        console.log(data);
+    }
+
     return {
         authenticate: authenticate,
         logout: logout,
         ifAuthenticated: ifAuthenticated,
         getEvents: getEvents,
+        getRegistrantsForEvent: getRegistrantsForEvent,
         getRegistrant: getRegistrant,
         checkIn: checkIn,
         getUser: function () {
