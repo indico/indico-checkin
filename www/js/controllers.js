@@ -43,7 +43,6 @@ function NavigationController($scope, $location, OAuth) {
     });
 }
 
-
 function LoadingController($scope, $location, OAuth) {
     OAuth.ifAuthenticated(
         // True

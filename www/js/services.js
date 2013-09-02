@@ -155,6 +155,8 @@ angular.module('Checkinapp.services', []).
     // In case of failure print error message
     function failure(data) {
         console.log(data);
+        parsedData = JSON.parse(data.text);
+        alert(parsedData.message);
     }
 
     return {
