@@ -8,43 +8,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td> Name </td><td> {{name}} </td>
-                </tr>
-                <tr>
-                    <td> Registration date </td><td> {{registration_date}} </td>
-                </tr>
-                <tr>
-                    <td> Position </td><td> {{position}} </td>
-                </tr>
-                <tr>
-                    <td> Institution </td><td> {{institution}} </td>
-                </tr>
-                <tr>
-                    <td> Adress </td><td> {{adress}} </td>
-                </tr>
-                <tr>
-                    <td> City </td><td> {{city}} </td>
-                </tr>
-                <tr>
-                    <td> Country </td><td> {{country}} </td>
-                </tr>
-                <tr>
-                    <td> Phone </td><td> {{phone}} </td>
-                </tr>
-                <tr>
-                    <td> Fax </td><td> {{fax}} </td>
-                </tr>
-                <tr>
-                    <td> Personal homepage   </td><td> {{home_page}} </td>
-                </tr>
-                <tr>
-                    <td> Payed </td><td> {{ payed && 'Yes' || 'No' }} </td>
-                </tr>
-                <tr>
-                    <td> Participation reason </td><td> {{participation_reason}} </td>
-                </tr>
-                <tr>
-                    <td> Checked in </td><td>
+                    <td> Checked in </td>
+                    <td>
                     <div class="onoffswitch">
                     <input type="checkbox" name="onoffswitch"
                            class="onoffswitch-checkbox" id="onoffswitch"
@@ -54,10 +19,45 @@
                             <div class="onoffswitch-switch"></div>
                         </label>
                     </div>
-                </td>
-            </tr>
-            <tr>
+                    </td>
+                </tr>
+                <tr>
                     <td> Check-in date </td><td> {{check_in_date}} </td>
+                </tr>
+                <tr>
+                    <td> Name </td><td> {{name}} </td>
+                </tr>
+                <tr>
+                    <td> Registration date </td><td> {{registration_date}} </td>
+                </tr>
+                <!-- If fields are disabled on the server side they will be
+                     undefined and we want to hide them. -->
+                <tr ng-hide="position == undefined">
+                    <td> Position </td><td> {{position}} </td>
+                </tr>
+                <tr ng-hide="institution == undefined">
+                    <td> Institution </td><td> {{institution}} </td>
+                </tr>
+                <tr ng-hide="adress == undefined">
+                    <td> Adress </td><td> {{adress}} </td>
+                </tr>
+                <tr ng-hide="city == undefined">
+                    <td> City </td><td> {{city}} </td>
+                </tr>
+                <tr ng-hide="country == undefined">
+                    <td> Country </td><td> {{country}} </td>
+                </tr>
+                <tr ng-hide="phone == undefined">
+                    <td> Phone </td><td> {{phone}} </td>
+                </tr>
+                <tr>
+                    <td> Email </td><td> {{email}} </td>
+                </tr>
+                <tr ng-hide="home_page == undefined">
+                    <td> Personal homepage   </td><td> {{home_page}} </td>
+                </tr>
+                <tr ng-hide="payed == undefined">
+                    <td> Paid </td><td> {{ payed && 'Yes' || 'No' }} </td>
                 </tr>
             </tbody>
         </table>

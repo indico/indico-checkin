@@ -98,20 +98,20 @@ function RegistrantController($scope, $location, OAuth) {
     registrant = $location.search();
     OAuth.getRegistrant(registrant, function (result) {
         console.log(result);
-        $scope.name = result.registrant_full_name;
-        $scope.position = result.registrant_position;
-        $scope.institution = result.registrant_institution;
-        $scope.adress = result.registrant_adress;
-        $scope.city = result.registrant_city;
-        $scope.country = result.registrant_country;
-        $scope.phone = result.registrant_phone;
-        $scope.fax = result.registrant_fax;
-        $scope.home_page = result.registrant_home_page;
-        $scope.payed = result.registrant_payed;
-        $scope.checked_in = result.registrant_checked_in;
-        $scope.check_in_date = result.registrant_check_in_date;
-        $scope.registration_date = result.registration_date;
-        $scope.participation_reason = result.participation_reason;
+        $scope.name = result.fullName;
+        $scope.checked_in = result.checkedIn;
+        $scope.check_in_date = result.checkInDate;
+        $scope.registration_date = result.registrationDate;
+        $scope.position = result.position;
+        $scope.institution = result.institution;
+        $scope.adress = result.adress;
+        $scope.city = result.city;
+        $scope.country = result.country;
+        $scope.phone = result.phone;
+        $scope.email = result.email;
+        $scope.home_page = result.personalHomepage;
+        $scope.payed = result.payed;
+
         $scope.$apply();
     });
 
@@ -119,7 +119,8 @@ function RegistrantController($scope, $location, OAuth) {
         if (newValue !== undefined) {
             OAuth.checkIn(registrant, newValue, function (result) {
                 if (result['success']) {
-
+                    $scope.check_in_date = result['checkin_date'];
+                    $scope.$apply();
                 }
             });
         }
