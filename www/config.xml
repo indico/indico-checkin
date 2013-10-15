@@ -33,4 +33,5 @@
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <access origin="*" />
     <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+    <content src="index.html" />
 </widget>
