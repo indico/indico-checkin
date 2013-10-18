@@ -10,8 +10,8 @@ body {
 
 .checkin-nav {
     text-shadow: 0 -1px 0 rgba(0,0,0,.15);
-    background-color: #563d7c;
-    border-color: #463265;
+    background-color: #0B63A5;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 0 rgba(255,255,255,.1);
 }
 
@@ -20,11 +20,25 @@ body {
 }
 
 .checkin-nav .navbar-toggle {
-    border-color: #563d7c;
+    border-color: transparent;
+}
+
+.checkin-nav .navbar-toggle .active {
+    border-color: transparent !important;
 }
 
 .checkin-nav .navbar-nav > li > a {
-    color: #cdbfe3;
+    color: #EDEDFD;
+}
+
+.checkin-nav .navbar-nav > li > a:focus,
+.checkin-nav .navbar-nav > li > a:hover {
+    background-color: #0E80D8;
+    color: #F4F4F4;
+}
+
+.checkin-nav > .container > .navbar-collapse {
+    box-shadow: none;
 }
 
 .checkin-nav .navbar-nav > .active > a {

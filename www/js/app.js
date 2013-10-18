@@ -13,6 +13,6 @@ var app = {
     },
 
     receivedEvent: function (id) {
-        angular.bootstrap(document, ['Checkinapp']);
+        //angular.bootstrap(document, ['Checkinapp']);
     }
 };

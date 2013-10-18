@@ -1,7 +1,7 @@
 angular.module('Checkinapp.services', []).
     service('OAuth', function () {
 
-    var user = {};
+    var user = null;
     var oauth = OAuth(options);
     var oauthWindow;
 
@@ -21,6 +21,7 @@ angular.module('Checkinapp.services', []).
     function logout() {
         localStorage.removeItem('user');
         localStorage.removeItem('oAuthData');
+        user = null;
         // Logout the user from inAppBrowser window used by OAuth
         logoutWindow = window.open(options['baseUrl'] + '/user/logout',
                                    '_blank', 'location=no');
