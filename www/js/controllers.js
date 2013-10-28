@@ -15,7 +15,7 @@ function NavigationController($scope, $location, OAuth) {
 
     $scope.scan = function () {
         toggleNavigation();
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+        var scanner = cordova.require("com.phonegap.plugins.barcodescanner.barcodescanner");
         scanner.scan(
             function (result) {
                 if (!result.cancelled) {
@@ -96,24 +96,25 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
 
 function RegistrantController($scope, $location, OAuth) {
     registrant = $location.search();
-    OAuth.getRegistrant(registrant, function (result) {
-        console.log(result);
-        $scope.name = result.fullName;
-        $scope.checked_in = result.checkedIn;
-        $scope.check_in_date = result.checkInDate;
-        $scope.registration_date = result.registrationDate;
-        $scope.position = result.position;
-        $scope.institution = result.institution;
-        $scope.adress = result.adress;
-        $scope.city = result.city;
-        $scope.country = result.country;
-        $scope.phone = result.phone;
-        $scope.email = result.email;
-        $scope.home_page = result.personalHomepage;
-        $scope.payed = result.payed;
+    alert(registrant.id);
+    //OAuth.getRegistrant(registrant, function (result) {
+        //console.log(result);
+        $scope.name = registrant.id;
+        $scope.checked_in = registrant.checkedIn;
+        $scope.check_in_date = registrant.checkInDate;
+        $scope.registration_date = registrant.registrationDate;
+        $scope.position = registrant.position;
+        $scope.institution = registrant.institution;
+        $scope.adress = registrant.adress;
+        $scope.city = registrant.city;
+        $scope.country = registrant.country;
+        $scope.phone = registrant.phone;
+        $scope.email = registrant.email;
+        $scope.home_page = registrant.personalHomepage;
+        $scope.payed = registrant.payed;
 
         $scope.$apply();
-    });
+   // });
 
     $scope.$watch('checked_in', function (newValue) {
         if (newValue !== undefined) {
