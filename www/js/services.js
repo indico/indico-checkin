@@ -2,69 +2,67 @@ angular.module('Checkinapp.services', []).
     service('OAuth', function () {
 
     var user = null;
-    var oauth = OAuth(options);
+    var OAuthClients = {};
     var oauthWindow;
 
-    function authenticate(onSuccess) {
-        oauth.fetchRequestToken(
+    String.prototype.hashCode = function(){
+        var hash = 0;
+        if (this.length == 0) return hash;
+            for (i = 0; i < this.length; i++) {
+                char = this.charCodeAt(i);
+                hash = ((hash<<5)-hash)+char;
+                hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash;
+    }
+
+    function getOAuthClient(server_id) {
+        return OAuthClients[server_id];
+    }
+
+    function addOAuthClient(server) {
+        OAuthClients[server.baseUrl.hashCode()] = OAuth(server);
+    }
+
+    function addOAuthToken(server_url, tokenData) {
+        OAuthClients[server_url.hashCode()].accessTokenKey = tokenData.oauth_token;
+        OAuthClients[server_url.hashCode()].accessTokenSecret = tokenData.oauth_token_secret;
+    }
+
+    function authenticate(server_url, onSuccess) {
+        getOAuthClient(server_url.hashCode()).fetchRequestToken(
         // Success
         function (url) {
             oauthWindow = window.open(url, '_blank', 'location=no');
             oauthWindow.addEventListener('loadstart', function (event) {
-                oauthLocationChanged(event.url, onSuccess);
+                oauthLocationChanged(event.url, getOAuthClient(server_url.hashCode()), server_url, onSuccess);
             });
         },
         failure
         );
     }
 
-    function logout() {
-        localStorage.removeItem('user');
-        localStorage.removeItem('oAuthData');
-        user = null;
-        // Logout the user from inAppBrowser window used by OAuth
-        logoutWindow = window.open(options['baseUrl'] + '/user/logout',
-                                   '_blank', 'location=no');
-        logoutWindow.addEventListener('loadstop', function (event) {
-                logoutWindow.close();
-        });
-    }
-
     // This function is triggered when the oauth window changes location.
     // If the new location is the callback url extract verifier from it and
     // get the access token.
-    function oauthLocationChanged(url, onSuccess) {
-        if (url.indexOf(options['callbackUrl'] + '/?') >= 0) {
+    function oauthLocationChanged(url, oauthClient, server_url, onSuccess) {
+        if (url.indexOf(getServer(server_url.hashCode())['callbackUrl'] + '/?') >= 0) {
             oauthWindow.close();
             // Extract oauth_verifier from the callback call
             verifier = (/[?|&]oauth_verifier=([^&;]+?)(&|#|;|$)/g).exec(url)[1];
-            oauth.setVerifier(verifier);
-            oauth.fetchAccessToken(
+            oauthClient.setVerifier(verifier);
+            oauthClient.fetchAccessToken(
                 // Success
                 function (data) {
-                    setAccessToken(data.text);
-                    // Extract user id from the received data
-                    userId = (/[?|&]user_id=([^&;]+?)(&|#|;|$)/g).exec(data.text)[1];
-                    // Call onSuccess after user data is retrieved
-                    setUser(userId, onSuccess);
+                    setAccessToken(server_url, data.text);
+                    onSuccess();
                 },
                 failure
             );
         }
     }
 
-    function setUser(userId, callback) {
-        oauth.getJSON(options['baseUrl'] + '/export/user/' + userId + '.json',
-            function (data) {
-                user = data.results[0];
-                localStorage.setItem('user', JSON.stringify(user));
-                callback();
-            },
-            failure
-        );
-    }
-
-    function setAccessToken(response) {
+    function setAccessToken(server_url, response) {
         // Extract access token/key from response
         var qvars = response.split('&');
         var accessParams = {};
@@ -72,42 +70,63 @@ angular.module('Checkinapp.services', []).
             var y = qvars[i].split('=');
             accessParams[y[0]] = decodeURIComponent(y[1]);
         }
-        // Save access token/key in localStorage
-        var accessData = {};
-        accessData.accessTokenKey = accessParams.oauth_token;
-        accessData.accessTokenSecret = accessParams.oauth_token_secret;
-        localStorage.setItem('oAuthData', JSON.stringify(accessData));
+        addOAuthToken(server_url, accessParams);
     }
 
-    function ifAuthenticated(ifTrue, ifFalse) {
-        if (!loadLocalStoredData()) {
-            ifFalse();
-            return;
+    function getEvents() {
+        return JSON.parse(localStorage.getItem('events'));
+    }
+
+    function addServer(server_data, callback) {
+        var servers = JSON.parse(localStorage.getItem('servers'));
+        if(servers===null) servers = {};
+        var server = {};
+        server.baseUrl = server_data.baseUrl;
+        server.callbackUrl = 'http://callback.check';
+        server.requestTokenUrl = server_data.baseUrl + '/oauth/request_token';
+        server.authorizationUrl = server_data.baseUrl + '/oauth/authorize';
+        server.accessTokenUrl = server_data.baseUrl + '/oauth/access_token';
+        server.consumerKey = server_data.consumerKey;
+        server.consumerSecret = server_data.consumerSecret;
+        servers[server.baseUrl.hashCode()] = server;
+        localStorage.setItem('servers', JSON.stringify(servers));
+
+        if(getOAuthClient(server.baseUrl.hashCode())===undefined) {
+            addOAuthClient(server);
         }
-        oauth.getJSON(options['baseUrl'] + '/export/user/' + user['id'] + '.json',
-            ifTrue,
-            ifFalse
-        );
+        authenticate(server.baseUrl, callback);
     }
 
-    function loadLocalStoredData() {
-        user = JSON.parse(localStorage.getItem('user'));
-        var oauthDataRaw = localStorage.getItem('oAuthData');
-        if (user && oauthDataRaw) {
-            oauthData = JSON.parse(oauthDataRaw);
-            options.accessTokenKey = oauthData.accessTokenKey;
-            options.accessTokenSecret = oauthData.accessTokenSecret;
-            oauth = OAuth(options);
-            return true;
+    function getServer(server_id) {
+        return JSON.parse(localStorage.getItem('servers') || "{}")[server_id];
+    }
+
+    function getEventKey(event) {
+        return event.server + "_" + event.id;
+    }
+
+    function addEvent(event, callback) {
+        var events = JSON.parse(localStorage.getItem('events'));
+        if(events===null) events = [];
+        var event_to_store = {};
+        event_to_store.id = event.id;
+        event_to_store.title = event.title;
+        event_to_store.date = event.date;
+        event_to_store.server = event.server;
+        events.push(event_to_store);
+        localStorage.setItem('events', JSON.stringify(events));
+        if(getServer(event.server.baseUrl.hashCode()) === undefined) {
+            addServer(event.server, callback);
         } else {
-            return false;
+            callback();
         }
+
     }
 
-    function getEvents(callback) {
-        oauth.getJSON(options['baseUrl'] +
-                      '/export/events/' +
-                      user['id'] + '.json',
+    function getRegistrantsForEvent(server_id, event_id, callback) {
+        getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
+                      '/export/event/' +
+                      event_id + '/registrants.json',
             function (data) {
                 callback(data.results);
             },
@@ -115,37 +134,14 @@ angular.module('Checkinapp.services', []).
         );
     }
 
-    function getRegistrantsForEvent(event_id, callback) {
-        oauth.getJSON(options['baseUrl'] +
-                      '/export/registrants/' +
-                      event_id + '.json',
-            function (data) {
-                callback(data.results);
-            },
-            failure
-        );
-    }
 
-    function getRegistrant(registrant, callback) {
-        oauth.getJSON(options['baseUrl'] +
-                      '/export/registrant/' +
-                      registrant['id'] + '.json' +
-                      '?target=' + registrant['target'] +
-                      '&secret=' + registrant['secret'],
-            function (data) {
-                callback(data.results);
-            },
-            failure
-        );
-    }
-
-    function checkIn(registrant, newValue, callback) {
-        oauth.getJSON(options['baseUrl'] +
-                      '/export/checkin/' +
-                      registrant['id'] + '.json' +
-                      '?target=' + registrant['target'] +
-                      '&secret=' + registrant['secret'] +
-                      '&checked_in=' + newValue,
+    function checkIn(server_id, event_id, registrant, newValue, callback) {
+        console.log(server_id);
+        getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
+                      '/export/event/' + event_id +
+                      '/registrant/' + registrant['id'] + '/checkin.json' +
+                      '?secret=' + registrant['secret'] +
+                      '&checked_in=' + newValue? "yes": "no",
             function (data) {
                 callback(data.results);
             },
@@ -161,12 +157,12 @@ angular.module('Checkinapp.services', []).
     }
 
     return {
+        addOAuthClient: addOAuthClient,
         authenticate: authenticate,
-        logout: logout,
-        ifAuthenticated: ifAuthenticated,
+        addEvent: addEvent,
+        addServer: addServer,
         getEvents: getEvents,
         getRegistrantsForEvent: getRegistrantsForEvent,
-        getRegistrant: getRegistrant,
         checkIn: checkIn,
         getUser: function () {
             return user;

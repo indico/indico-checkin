@@ -13,7 +13,7 @@
                     <div class="onoffswitch">
                     <input type="checkbox" name="onoffswitch"
                            class="onoffswitch-checkbox" id="onoffswitch"
-                           ng-model="checked_in">
+                           ng-model="registrant.checked_in">
                         <label class="onoffswitch-label" for="onoffswitch">
                             <div class="onoffswitch-inner"></div>
                             <div class="onoffswitch-switch"></div>
@@ -21,43 +21,46 @@
                     </div>
                     </td>
                 </tr>
-                <tr>
-                    <td> Check-in date </td><td> {{check_in_date}} </td>
+                <tr ng-show="registrant.checked_in">
+                    <td> Check-in date </td><td> {{registrant.checkin_date}} </td>
                 </tr>
                 <tr>
-                    <td> Name </td><td> {{name}} </td>
+                    <td> Name </td><td> {{registrant.full_name}} </td>
                 </tr>
                 <tr>
-                    <td> Registration date </td><td> {{registration_date}} </td>
+                    <td> Registration date </td><td> {{registrant.registration_date}} </td>
                 </tr>
                 <!-- If fields are disabled on the server side they will be
                      undefined and we want to hide them. -->
-                <tr ng-hide="position == undefined">
-                    <td> Position </td><td> {{position}} </td>
+                <tr ng-show="registrant.position">
+                    <td> Position </td><td> {{registrant.position}} </td>
                 </tr>
-                <tr ng-hide="institution == undefined">
-                    <td> Institution </td><td> {{institution}} </td>
+                <tr ng-show="registrant.institution">
+                    <td> Institution </td><td> {{registrant.institution}} </td>
                 </tr>
-                <tr ng-hide="adress == undefined">
-                    <td> Adress </td><td> {{adress}} </td>
+                <tr ng-show="registrant.address">
+                    <td> Address </td><td> {{registrant.address}} </td>
                 </tr>
-                <tr ng-hide="city == undefined">
-                    <td> City </td><td> {{city}} </td>
+                <tr ng-show="registrant.city">
+                    <td> City </td><td> {{registrant.city}} </td>
                 </tr>
-                <tr ng-hide="country == undefined">
-                    <td> Country </td><td> {{country}} </td>
+                <tr ng-show="registrant.country">
+                    <td> Country </td><td> {{registrant.country}} </td>
                 </tr>
-                <tr ng-hide="phone == undefined">
-                    <td> Phone </td><td> {{phone}} </td>
+                <tr ng-show="registrant.phone">
+                    <td> Phone </td><td> {{registrant.phone}} </td>
                 </tr>
                 <tr>
-                    <td> Email </td><td> {{email}} </td>
+                    <td> Email </td><td> {{registrant.email}} </td>
                 </tr>
-                <tr ng-hide="home_page == undefined">
-                    <td> Personal homepage   </td><td> {{home_page}} </td>
+                <tr ng-show="registrant.personalHomepage">
+                    <td> Personal homepage   </td><td> {{registrant.personalHomepage}} </td>
                 </tr>
-                <tr ng-hide="payed == undefined">
-                    <td> Paid </td><td> {{ payed && 'Yes' || 'No' }} </td>
+                <tr ng-show="registrant.payed_amount">
+                    <td> Amount to pay </td><td> {{registrant.pay_amount}} </td>
+                </tr>
+                <tr ng-show="registrant.payed">
+                    <td> Paid </td><td> {{registrant.payed && 'Yes' || 'No' }} </td>
                 </tr>
             </tbody>
         </table>

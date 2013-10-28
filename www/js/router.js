@@ -4,18 +4,14 @@ angular.module('Checkinapp', ['Checkinapp.services']).
 
     $routeProvider.
         when('/', {
-            templateUrl: 'partials/loading.html',
-            controller: 'LoadingController'
-        }).
-        when('/login', {
-            templateUrl: 'partials/login.html',
-            controller: 'LoginController'
+            templateUrl: 'partials/events.html',
+            controller: 'EventsController'
         }).
         when('/events', {
             templateUrl: 'partials/events.html',
             controller: 'EventsController'
         }).
-        when('/registrants/:event', {
+        when('/server/:server/event/:event', {
             templateUrl: 'partials/registrants.html',
             controller: 'RegistrantsController'
         }).

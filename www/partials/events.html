@@ -11,7 +11,7 @@
                     <td>No events found :(</td>
                 </tr>
                 <tr ng-repeat="event in events | orderBy: '-date'"
-                    ng-click="go_to_registrants(event.id)" ng-show="events">
+                    ng-click="go_to_registrants(event.id, event.server.baseUrl)" ng-show="events">
 
                     <td>{{event.title}} </td>
                     <td class="right">
