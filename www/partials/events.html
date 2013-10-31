@@ -10,13 +10,12 @@
                 <tr ng-hide="events">
                     <td>No events found :(</td>
                 </tr>
-                <tr ng-repeat="event in events | orderBy: '-date.date'"
+                <tr ng-repeat="event in events | orderBy: '-date'"
                     ng-click="go_to_registrants(event.id)" ng-show="events">
 
                     <td>{{event.title}} </td>
                     <td class="right">
-                        {{event.registrants}}
-                        <span class="glyphicon glyphicon-user purple"></span>
+                        {{event.date}}</span>
                     </td>
                 </tr>
             </tbody>
