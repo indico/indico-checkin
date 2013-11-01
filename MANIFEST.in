@@ -1,0 +1,9 @@
+include AUTHORS
+include COPYING
+include NEWS
+include README.md
+include THANKS
+
+include setup.sh
+
+recursive-include www *
