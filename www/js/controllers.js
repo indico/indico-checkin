@@ -16,13 +16,6 @@
  */
 
 function NavigationController($scope, $location, OAuth) {
-    // We are not refreshing the page, so we need to manually
-    // toggle the dropdown menu with a click event.
-    function toggleNavigation() {
-        if (jQuery('.navbar-toggle').is(":visible")) {
-            jQuery('.navbar-toggle').click();
-        }
-    }
 
     function scanQRCode(callback) {
         var scanner = cordova.require("com.phonegap.plugins.barcodescanner.BarcodeScanner");
@@ -42,12 +35,12 @@ function NavigationController($scope, $location, OAuth) {
     }
 
     $scope.allEvents = function () {
-        toggleNavigation();
+        $scope.navCollapsed = true;
         $location.path('events');
     };
 
     $scope.scan = function () {
-        toggleNavigation();
+        $scope.navCollapsed = true;
         scanQRCode(function(registrant){
             $location.path('registrant').search(registrant);
             $scope.$apply();
@@ -55,7 +48,7 @@ function NavigationController($scope, $location, OAuth) {
     };
 
     $scope.addEvent = function () {
-        toggleNavigation();
+        $scope.navCollapsed = true;
         scanQRCode(function(event) {
             OAuth.addEvent(event, function () {
                 $location.path('events');

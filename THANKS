@@ -1,11 +1,6 @@
 Indico check-in THANKS
 ======================
 
-jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing,
-event handling, animating, and Ajax interactions for rapid web development.
-Dual licensed under the MIT or GPL Version 2 licenses.
-<http://jquery.org/>
-
 AngularJS fits the definition of a framework the best, even though it's much more
 lightweight than a typical framework and that's why many confuse it with a library.
 Code licensed under the The MIT License. Documentation licensed under CC BY 3.0.
@@ -15,6 +10,9 @@ Bootstrap is a sleek, intuitive, and powerful front-end framework for faster
 and easier web development.
 Code licensed under Apache License v2.0, documentation under CC BY 3.0.
 <http://getbootstrap.com/>
+
+ui-bootstrap are the native AngularJS (Angular) directives for Twitter's Bootstrap.
+<http://angular-ui.github.io/bootstrap/>
 
 jsOAuth is a Javascript implimentation of the OAuth protocol.
 <http://bytespider.github.io/jsOAuth/>

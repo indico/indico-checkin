@@ -15,7 +15,7 @@
  * along with Indico check-in; if not, see <http://www.gnu.org/licenses/>.
  */
 
-angular.module('Checkinapp', ['Checkinapp.services']).
+angular.module('Checkinapp', ['ui.bootstrap', 'Checkinapp.services']).
     config(function ($routeProvider) {
 
     $routeProvider.
