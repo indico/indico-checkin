@@ -10,45 +10,29 @@
         <title>Check in</title>
     </head>
     <body ng-controller="NavigationController">
-        <header class="navbar navbar-fixed-top checkin-nav" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" ng-init="navCollapsed = true"
-                            ng-click="navCollapsed = !navCollapsed">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span class="navbar-brand title">INDICO Check-in</span>
-                </div>
-                <div class="collapse navbar-collapse ci-navbar-collapse" ng-class="!navCollapsed && 'in'">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a ng-click="allEvents()">
-                                <span class="glyphicon glyphicon-list"></span>
-                                All events
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-click="scan()">
-                                <span class="glyphicon glyphicon-qrcode"></span>
-                                Scan QR Code
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-click="addEvent()">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                Add Event
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <header class="navbar-fixed-top checkin-nav" >
+                <span class="title centered">INDICO Check-in</span>
         </header>
         <div class="container">
             <ng-view></ng-view>
         </div>
+        <footer class="navbar navbar-fixed-bottom checkin-nav" role="navigation">
+            <nav class="nav navbar-nav">
+                <a ng-click="allEvents()">
+                    <span class="glyphicon glyphicon-list"></span>
+                    All events
+                </a>
+                <a ng-click="addEvent()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Add event
+                </a>
+                <a ng-click="scan()">
+                    <span class="glyphicon glyphicon-qrcode"></span>
+                    Check atendee
+                </a>
+            </nav>
+        </footer>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/lib/jsOAuth.js"></script>
         <script type="text/javascript" src="js/lib/angular.js"></script>

@@ -2,53 +2,80 @@ body {
     padding-top: 70px;
 }
 
-.absolute-center {
-    margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-}
-
 .checkin-nav {
     text-shadow: 0 -1px 0 rgba(0,0,0,.15);
-    background-color: #0B63A5;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 0 rgba(255,255,255,.1);
 }
 
-.navbar-toggle .icon-bar {
-    background-color: #fff;
+header.checkin-nav {
+    background-color: #0B63A5;
+    height: 46px;
 }
 
-.checkin-nav .navbar-toggle {
-    border-color: transparent;
-}
-
-.checkin-nav .navbar-toggle .active {
-    border-color: transparent !important;
-}
-
-.checkin-nav .navbar-nav > li > a {
-    color: #EDEDFD;
-}
-
-.checkin-nav .navbar-nav > li > a:focus,
-.checkin-nav .navbar-nav > li > a:hover {
-    background-color: #0E80D8;
-    color: #F4F4F4;
-}
-
-.checkin-nav > .container > .navbar-collapse {
-    box-shadow: none;
-}
-
-.checkin-nav .navbar-nav > .active > a {
-    color: #fff;
-    background-color: #463265;
-}
-
-.title {
+header.checkin-nav  > .title {
     color: #ffffff;
+    font-size: 1.2em;
+    position: absolute;
+    left: 1.6em;
+    right: 1.6em;
+    text-align: center;
+    display: inline-block;
+    line-height: 46px;
 }
+
+footer.checkin-nav {
+    min-height: 50px;
+    line-height: 50px;
+    border-bottom: none;
+    border-top: 1px solid #0E80D8;
+    background-color: #EEE;
+
+}
+footer.checkin-nav nav {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: -o-box;
+    display: box;
+    -webkit-box-pack: justify;
+    -moz-box-pack: justify;
+    -ms-box-pack: justify;
+    -o-box-pack: justify;
+    box-pack: justify;
+    width: 100%;
+    font-size: 11px;
+    margin:0;
+}
+
+footer.checkin-nav nav a {
+    display: block;
+    padding: 0;
+    height: 50px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+footer.checkin-nav nav .glyphicon {
+    font-size: 1.8em;
+    display: block;
+}
+
+footer.checkin-nav.checkin-nav nav > a {
+    color: #AAA;
+}
+
+footer.checkin-nav nav > a:focus,
+footer.checkin-nav nav > a:hover {
+    color: #0E80D8;
+}
+
+footer.checkin-nav nav > .active > a {
+    color: #0E80D8;
+}
+
 
 .events td {
     text-align: left;
@@ -58,6 +85,6 @@ body {
     text-align: right;
 }
 
-.purple {
-    color: #563D7C;
+.blue {
+    color: #0B63A5;
 }

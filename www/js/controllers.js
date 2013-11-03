@@ -35,12 +35,10 @@ function NavigationController($scope, $location, OAuth) {
     }
 
     $scope.allEvents = function () {
-        $scope.navCollapsed = true;
         $location.path('events');
     };
 
     $scope.scan = function () {
-        $scope.navCollapsed = true;
         scanQRCode(function(registrant){
             $location.path('registrant').search(registrant);
             $scope.$apply();
@@ -48,7 +46,6 @@ function NavigationController($scope, $location, OAuth) {
     };
 
     $scope.addEvent = function () {
-        $scope.navCollapsed = true;
         scanQRCode(function(event) {
             OAuth.addEvent(event, function () {
                 $location.path('events');
@@ -62,6 +59,7 @@ function EventsController($scope, $location, OAuth) {
     // Set events to true to hide the no events message until the get finishes
 
     $scope.events = OAuth.getEvents();
+
 
     $scope.go_to_registrants = function (event_id, server_id) {
         $location.path('server/'+ server_id.hashCode() + "/event/" + event_id);
