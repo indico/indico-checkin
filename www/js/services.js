@@ -170,7 +170,7 @@ angular.module('Checkinapp.services', []).
     function failure(data) {
         console.log(data);
         parsedData = JSON.parse(data.text);
-        alert(parsedData.message);
+        navigator.notification.alert(parsedData.message, function() {}, "Warning");
     }
 
     return {

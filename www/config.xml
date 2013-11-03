@@ -36,5 +36,7 @@
     <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+
     <content src="index.html" />
 </widget>
