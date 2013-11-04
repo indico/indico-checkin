@@ -7,13 +7,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-hide="events">
-                    <td>No events found :(</td>
+                <tr ng-show="isEmpty(events)">
+                    <td>No events found</td>
                 </tr>
                 <tr ng-repeat="event in events | orderBy: '-date'"
-                    ng-click="go_to_registrants(event.id, event.server.baseUrl)" ng-show="events">
-
-                    <td>{{event.title}} </td>
+                    ng-click="go_to_registrants(event.event_id, event.server.baseUrl)" ng-show="events">
+                    <td>{{event.title}}</td>
                     <td class="right">
                         {{event.date}}
                     </td>

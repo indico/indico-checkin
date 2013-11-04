@@ -15,27 +15,17 @@
  * along with Indico check-in; if not, see <http://www.gnu.org/licenses/>.
  */
 
-var app = {
-    initialize: function () {
-        this.bindEvents();
-    },
+function showAlert(title, text, callback) {
+    navigator.notification.alert(title, callback, text);
+};
 
-    bindEvents: function () {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('offline', this.checkConnection, false);
-        document.addEventListener('online', this.checkConnection, false);
-    },
-
-    onDeviceReady: function () {
-        app.receivedEvent('deviceready');
-    },
-
-    receivedEvent: function (id) {
-    },
-
-    checkConnection: function () {
-        if (navigator.connection.type === Connection.NONE) {
-            showAlert('No connection', 'No network connection detected. Check settings', function() {});
-        }
+String.prototype.hashCode = function(){
+    var hash = 0;
+    if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            char = this.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash; // Convert to 32bit integer
     }
+    return hash;
 };

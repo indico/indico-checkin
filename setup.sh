@@ -11,8 +11,8 @@ mkdir platforms
 
 message_info "Adding plugins..."
 # If using cordova, change to: cordova plugin add
-phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
-phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+phonegap local plugin add org.apache.cordova.splashscreen
+phonegap local plugin add org.apache.cordova.inappbrowser
 phonegap local plugin add org.apache.cordova.dialogs
 phonegap local plugin add org.apache.cordova.network-information
 phonegap local plugin add https://github.com/jonathannaguin/BarcodeScanner.git

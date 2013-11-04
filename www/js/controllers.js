@@ -25,7 +25,9 @@ function NavigationController($scope, $location, OAuth) {
         scanner.scan(
             function (result) {
                 if (!result.cancelled) {
-                    callback(JSON.parse(result.text));
+                    //setTimeout(function() {
+                        callback(JSON.parse(result.text));
+                    //}, 500);
                 }
             },
             function (error) {
@@ -39,30 +41,46 @@ function NavigationController($scope, $location, OAuth) {
     };
 
     $scope.scan = function () {
-        scanQRCode(function(registrant){
-            $location.path('registrant').search(registrant);
+        scanQRCode(function (data) {
+            if(!OAuth.getEvent(data.event_id, data.server_url)) {
+                showAlert('No event', "There is no event in the list for this registrant", function (){});
+                $location.path('events');
+            } else {
+                $location.path('registrant').search({"registrant_id": data.registrant_id,
+                                                 "event_id": data.event_id,
+                                                 "server_id": data.server_url.hashCode(),
+                                                 "secret": data.secret
+                                             });
+            }
             $scope.$apply();
         });
     };
 
     $scope.addEvent = function () {
-        scanQRCode(function(event) {
-            OAuth.addEvent(event, function () {
+        scanQRCode(function (data) {
+            if(OAuth.getEvent(data.event_id, data.server.baseUrl)) {
+                showAlert('Already added', "This event has been already added to the system", function (){});
                 $location.path('events');
                 $scope.$apply();
-            });
+            } else {
+                OAuth.addEvent(data, function () {
+                    $location.path('events');
+                    $scope.$apply();
+                });
+            }
         });
     };
 }
 
 function EventsController($scope, $location, OAuth) {
-    // Set events to true to hide the no events message until the get finishes
-
     $scope.events = OAuth.getEvents();
 
-
     $scope.go_to_registrants = function (event_id, server_id) {
-        $location.path('server/'+ server_id.hashCode() + "/event/" + event_id);
+        $location.path('server/' + server_id.hashCode() + "/event/" + event_id);
+    };
+
+    $scope.isEmpty = function (obj) {
+       return angular.equals({}, obj);
     };
 }
 
@@ -77,23 +95,27 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
     });
 
     $scope.go_to_registrant = function (registrant) {
-        $location.path('registrant').search({"registrant": registrant,
+        $location.path('registrant').search({"registrant_id": registrant.registrant_id,
                                              "event_id": $scope.event_id,
                                              "server_id": $scope.server_id,
+                                             "secret": registrant.secret
                                             });
     };
 }
 
 function RegistrantController($scope, $location, OAuth) {
     var data = $location.search();
-    $scope.registrant = data.registrant;
+
+    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function(result) {
+        $scope.registrant = result;
+        $scope.$apply();
+    });
 
     $scope.$watch('registrant.checked_in', function (newValue) {
         if (newValue !== undefined) {
-            OAuth.checkIn(data.server_id, data.event_id, data.registrant, newValue, function (result) {
-                console.log(JSON.stringify(result));
-                if (result['success']) {
-                    $scope.registrant.checkin_date = result['checkin_date'];
+            OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.secret, newValue, function (result) {
+                if (result.success) {
+                    $scope.registrant.checkin_date = result.checkin_date;
                     $scope.$apply();
                 }
             });
