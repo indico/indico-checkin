@@ -22,6 +22,8 @@ var app = {
 
     bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('offline', this.checkConnection, false);
+        document.addEventListener('online', this.checkConnection, false);
     },
 
     onDeviceReady: function () {
@@ -29,5 +31,12 @@ var app = {
     },
 
     receivedEvent: function (id) {
+    },
+
+    checkConnection: function () {
+        if (navigator.connection.type === Connection.NONE) {
+            navigator.notification.alert('No network connection detected. Check settings',
+                                          function() {}, "Warning");
+        }
     }
 };
