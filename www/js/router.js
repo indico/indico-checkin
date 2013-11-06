@@ -23,10 +23,6 @@ angular.module('Checkinapp', ['ui.bootstrap', 'Checkinapp.services']).
             templateUrl: 'partials/events.html',
             controller: 'EventsController'
         }).
-        when('/events', {
-            templateUrl: 'partials/events.html',
-            controller: 'EventsController'
-        }).
         when('/server/:server/event/:event', {
             templateUrl: 'partials/registrants.html',
             controller: 'RegistrantsController'
