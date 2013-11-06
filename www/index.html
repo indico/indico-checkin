@@ -11,7 +11,10 @@
     </head>
     <body ng-controller="NavigationController">
         <header class="navbar-fixed-top checkin-nav" >
-                <span class="title centered">INDICO Check-in</span>
+            <a ng-hide="isCurrentLocation('/')" ng-click="back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <span class="title centered">{{title}}</span>
         </header>
         <div class="container">
             <ng-view></ng-view>
@@ -28,7 +31,7 @@
                 </a>
                 <a ng-click="scan()">
                     <span class="glyphicon glyphicon-qrcode"></span>
-                    Check atendee
+                    Check-in
                 </a>
             </nav>
         </footer>

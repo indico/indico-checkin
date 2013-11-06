@@ -69,6 +69,16 @@ function NavigationController($scope, $location, OAuth) {
             }
         });
     };
+
+    $scope.isCurrentLocation = function(location) {
+        return location == $location.path()
+    };
+
+    $scope.back = function() {
+        window.history.back();
+    };
+
+    $scope.title = "Indico check-in";
 }
 
 function EventsController($scope, $location, OAuth) {

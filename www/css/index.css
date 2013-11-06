@@ -11,6 +11,7 @@ body {
 header.checkin-nav {
     background-color: #0B63A5;
     height: 46px;
+    color: #ffffff;
 }
 
 header.checkin-nav  > .title {
@@ -24,6 +25,16 @@ header.checkin-nav  > .title {
     line-height: 46px;
 }
 
+header.checkin-nav  > a {
+    color: #ffffff;
+    font-size: 1.2em;
+    text-align: center;
+    float: left;
+    line-height: 46px;
+    min-width: 46px;
+}
+
+
 footer.checkin-nav {
     min-height: 50px;
     line-height: 50px;
@@ -32,6 +43,7 @@ footer.checkin-nav {
     background-color: #EEE;
 
 }
+
 footer.checkin-nav nav {
     display: -webkit-box;
     display: -moz-box;
@@ -48,7 +60,7 @@ footer.checkin-nav nav {
     margin:0;
 }
 
-footer.checkin-nav nav a {
+footer.checkin-nav > nav  a {
     display: block;
     padding: 0;
     height: 50px;
@@ -64,18 +76,8 @@ footer.checkin-nav nav .glyphicon {
 }
 
 footer.checkin-nav.checkin-nav nav > a {
-    color: #AAA;
+    color: #0B63A5;
 }
-
-footer.checkin-nav nav > a:focus,
-footer.checkin-nav nav > a:hover {
-    color: #0E80D8;
-}
-
-footer.checkin-nav nav > .active > a {
-    color: #0E80D8;
-}
-
 
 .events td {
     text-align: left;
