@@ -25,13 +25,12 @@ function NavigationController($scope, $location, OAuth) {
         scanner.scan(
             function (result) {
                 if (!result.cancelled) {
-                    //setTimeout(function() {
-                        callback(JSON.parse(result.text));
-                    //}, 500);
+                    // The timeout has to be set for IOS because will not work properly
+                    callback(JSON.parse(result.text));
                 }
             },
             function (error) {
-                console.log(error);
+                showAlert("Error scanning", error, function () {});
             }
         );
     }
@@ -43,7 +42,7 @@ function NavigationController($scope, $location, OAuth) {
     $scope.scan = function () {
         scanQRCode(function (data) {
             if(!OAuth.getEvent(data.event_id, data.server_url)) {
-                showAlert('No event', "There is no event in the list for this registrant", function (){});
+                showAlert('No event', "There is no event in the list for this registrant", function () {});
                 $location.path('events');
             } else {
                 $location.path('registrant').search({"registrant_id": data.registrant_id,
@@ -59,7 +58,7 @@ function NavigationController($scope, $location, OAuth) {
     $scope.addEvent = function () {
         scanQRCode(function (data) {
             if(OAuth.getEvent(data.event_id, data.server.baseUrl)) {
-                showAlert('Already added', "This event has been already added to the system", function (){});
+                showAlert('Already added', "This event has been already added to the system", function () {});
                 $location.path('events');
                 $scope.$apply();
             } else {
@@ -106,7 +105,7 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
 function RegistrantController($scope, $location, OAuth) {
     var data = $location.search();
 
-    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function(result) {
+    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (result) {
         $scope.registrant = result;
         $scope.$apply();
     });

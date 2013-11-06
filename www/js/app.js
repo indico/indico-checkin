@@ -35,7 +35,7 @@ var app = {
 
     checkConnection: function () {
         if (navigator.connection.type === Connection.NONE) {
-            showAlert('No connection', 'No network connection detected. Check settings', function() {});
+            showAlert('No connection', 'No network connection detected. Check settings', function () {});
         }
     }
 };

@@ -51,10 +51,13 @@ angular.module('Checkinapp.services', []).
         oauthClient.fetchRequestToken(
         // Success
         function (url) {
-            oauthWindow = window.open(url, '_blank', 'location=no');
-            oauthWindow.addEventListener('loadstart', function (event) {
-                oauthLocationChanged(event.url, oauthClient, server_url, onSuccess);
-            });
+            // The timeout has to be set for IOS because will not work properly
+            setTimeout(function () {
+                oauthWindow = window.open(url, '_blank', 'location=no');
+                oauthWindow.addEventListener('loadstart', function (event) {
+                    oauthLocationChanged(event.url, oauthClient, server_url, onSuccess);
+                });
+            }, 500);
         },
         failure
         );
@@ -214,7 +217,6 @@ angular.module('Checkinapp.services', []).
 
     // In case of failure print error message
     function failure(data) {
-        console.log(data);
         parsedData = JSON.parse(data.text);
         showAlert("Error", parsedData.message, function() {});
     }
