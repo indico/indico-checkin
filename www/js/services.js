@@ -155,7 +155,13 @@ angular.module('Checkinapp.services', []).
             function (data) {
                 callback(data.results);
             },
-            failure
+            function (data) {
+                checkOAuthError(data, function () {
+                    authenticate(getServer(server_id).baseUrl, function () {
+                        getRegistrantsForEvent(server_id, event_id, callback);
+                    });
+                });
+            }
         );
     }
 
@@ -168,7 +174,13 @@ angular.module('Checkinapp.services', []).
             function (data) {
                 callback(data.results);
             },
-            failure
+            function (data) {
+                checkOAuthError(data, function () {
+                    authenticate(getServer(server_id).baseUrl, function () {
+                        getRegistrant(server_id, event_id, registrant_id, secret, callback);
+                    });
+                });
+            }
         );
     }
 
@@ -181,8 +193,23 @@ angular.module('Checkinapp.services', []).
             function (data) {
                 callback(data.results);
             },
-            failure
+            function (data) {
+                checkOAuthError(data, function () {
+                    authenticate(getServer(server_id).baseUrl, function () {
+                        checkIn(server_id, event_id, registrant_id, secret, newValue, callback);
+                    });
+                });
+            }
         );
+    }
+
+    function checkOAuthError(data, callback) {
+        var parsedData = JSON.parse(data.text);
+        if(parsedData._type == "OAuthError" && parsedData.code == 401) {
+            callback();
+        } else {
+            showAlert("Error", parsedData.message, function() {});
+        }
     }
 
     // In case of failure print error message
