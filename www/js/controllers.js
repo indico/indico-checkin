@@ -78,11 +78,14 @@ function NavigationController($scope, $location, OAuth) {
         window.history.back();
     };
 
-    $scope.title = "Indico check-in";
+    $scope.$on('changeTitle', function (event, title) {
+        $scope.title = title;
+    });
 }
 
 function EventsController($scope, $location, OAuth) {
     $scope.events = OAuth.getEvents();
+    $scope.$emit('changeTitle', "Indico check-in");
 
     $scope.go_to_registrants = function (event_id, server_id) {
         $location.path('server/' + server_id.hashCode() + "/event/" + event_id);
@@ -115,8 +118,9 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
 function RegistrantController($scope, $location, OAuth) {
     var data = $location.search();
 
-    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (result) {
-        $scope.registrant = result;
+    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (registrant) {
+        $scope.$emit('changeTitle', registrant.full_name);
+        $scope.registrant = registrant;
         $scope.$apply();
     });
 

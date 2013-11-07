@@ -34,6 +34,9 @@ header.checkin-nav  > a {
     min-width: 46px;
 }
 
+header.checkin-nav > a:hover {
+    color: #0E80D8;
+}
 
 footer.checkin-nav {
     min-height: 50px;
@@ -75,8 +78,12 @@ footer.checkin-nav nav .glyphicon {
     display: block;
 }
 
-footer.checkin-nav.checkin-nav nav > a {
+footer.checkin-nav nav > a {
     color: #0B63A5;
+}
+
+footer.checkin-nav nav > a:hover {
+    color: #0E80D8;
 }
 
 .events td {
@@ -89,4 +96,8 @@ footer.checkin-nav.checkin-nav nav > a {
 
 .blue {
     color: #0B63A5;
+}
+
+.bg-blue {
+    background-color: #0B63A5;
 }
