@@ -76,6 +76,7 @@ footer.checkin-nav > nav  a {
 footer.checkin-nav nav .glyphicon {
     font-size: 1.8em;
     display: block;
+    width: inherit;
 }
 
 footer.checkin-nav nav > a {
