@@ -19,6 +19,10 @@ function showAlert(title, text, callback) {
     navigator.notification.alert(title, callback, text);
 };
 
+function showConfirm(title, text, buttonLabels, callback) {
+    navigator.notification.confirm(text, callback, title, buttonLabels);
+};
+
 String.prototype.hashCode = function () {
     var hash = 0;
     if (this.length === 0) {

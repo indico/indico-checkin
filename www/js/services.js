@@ -150,7 +150,13 @@ angular.module('Checkinapp.services', []).
             _saveEvent(event);
             callback();
         }
+    }
 
+    function deleteEvent(server_id, event_id) {
+        var events = getEvents();
+        delete events[getEventKey(server_id, event_id)];
+        localStorage.setItem('events', JSON.stringify(events));
+        return true;
     }
 
     function getRegistrantsForEvent(server_id, event_id, callback) {
@@ -227,6 +233,7 @@ angular.module('Checkinapp.services', []).
         authenticate: authenticate,
         addEvent: addEvent,
         addServer: addServer,
+        deleteEvent: deleteEvent,
         getEvents: getEvents,
         getEvent: getEvent,
         getRegistrantsForEvent: getRegistrantsForEvent,

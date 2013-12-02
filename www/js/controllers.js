@@ -88,8 +88,22 @@ function EventsController($scope, $location, OAuth) {
     $scope.$emit('changeTitle', "Indico check-in");
 
     $scope.go_to_registrants = function (event_id, server_id) {
-        console.log(server_id, event_id);
         $location.path('server/' + server_id + "/event/" + event_id);
+    };
+
+    $scope.delete_event = function ($event, event_id, server_id) {
+        $event.stopPropagation();
+        showConfirm("Delete event", "Are you sure to delete the selected event?", ["Delete", "Cancel"],
+                    function(buttonIndex) {
+                        if(buttonIndex==1) {
+                            if(OAuth.deleteEvent(server_id, event_id)) {
+                                showAlert("Deleted", "The event has been deleted");
+                                $scope.events = OAuth.getEvents();
+                            }
+                            $scope.editMode = false;
+                        }
+                    }
+        );
     };
 
     $scope.isEmpty = function (obj) {
@@ -114,6 +128,10 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
                                              "server_id": $scope.server_id,
                                              "secret": registrant.secret
                                             });
+    };
+
+    $scope.isEmpty = function (obj) {
+       return angular.equals({}, obj);
     };
 }
 

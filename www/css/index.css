@@ -89,6 +89,7 @@ footer.checkin-nav nav > a:hover {
 
 .events td {
     text-align: left;
+    vertical-align: middle;
 }
 
 .events .right {

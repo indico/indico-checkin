@@ -3,7 +3,21 @@
         <table class="table table-hover events">
             <thead>
                 <tr>
-                    <th colspan="2">Events</th>
+                    <th>Events</th>
+                    <th class="right">
+                        <button type="button" class="btn btn-primary btn-sm"
+                                ng-click="editMode=true"
+                                ng-show="!isEmpty(events) && !editMode">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm"
+                                ng-click="editMode=false"
+                                ng-show="editMode">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Cancel
+                        </button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -11,10 +25,20 @@
                     <td>No events found</td>
                 </tr>
                 <tr ng-repeat="event in events | orderBy: '-date'"
-                    ng-click="go_to_registrants(event.event_id, event.server_id)" ng-show="events">
+                    ng-click="go_to_registrants(event.event_id, event.server_id)"
+                    ng-disabled="event.showActions"
+                    ng-swipe-left="event.showActions=true"
+                    ng-swipe-right="event.showActions=false"
+                    ng-show="events">
                     <td>{{event.title}}</td>
-                    <td class="right">
+                    <td class="right" ng-show="!editMode">
                         {{event.date}}
+                    </td>
+                    <td class="right" ng-show="editMode" style="z-index: 1000">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                ng-click="delete_event($event, event.event_id, event.server_id)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
                     </td>
                 </tr>
             </tbody>

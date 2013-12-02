@@ -8,10 +8,12 @@
                 </tr>
             </thead>
             <tbody>
+                <tr ng-if="isEmpty(registrant)">
+                    <td>No atendees in this event</td>
+                </tr>
                 <tr ng-repeat="registrant in registrants | orderBy: '-id'"
                     ng-click="go_to_registrant(registrant)">
-
-                    <td>{{registrant.full_name}} </td>
+                    <td>{{registrant.full_name}} {{registrant.checked_in}} </td>
                     <td class="right">
                         <span ng-show="registrant.checked_in"
                               class="glyphicon glyphicon-ok-circle blue">
