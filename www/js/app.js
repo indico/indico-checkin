@@ -40,7 +40,7 @@ var app = {
     }
 };
 
-angular.module('Checkinapp', ['ui.bootstrap', 'Checkinapp.services']).
+angular.module('Checkinapp', ['ngTouch', 'ngRoute', 'ui.bootstrap', 'Checkinapp.services']).
     config(function ($routeProvider) {
 
     $routeProvider.
