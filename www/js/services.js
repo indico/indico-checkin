@@ -36,9 +36,9 @@ angular.module('Checkinapp.services', []).
         return OAuthClients[server_id];
     }
 
-    function addOAuthToken(server_url, tokenData) {
+    function addOAuthToken(server_id, tokenData) {
         var servers = getServers();
-        var server = servers[server_url.hashCode()];
+        var server = servers[server_id];
         server.accessTokenKey = tokenData.oauth_token;
         server.accessTokenSecret = tokenData.oauth_token_secret;
         servers[server.baseUrl.hashCode()] = server;
@@ -46,8 +46,8 @@ angular.module('Checkinapp.services', []).
         _generateOAuthClient(server);
     }
 
-    function authenticate(server_url, onSuccess) {
-        var oauthClient = getOAuthClient(server_url.hashCode());
+    function authenticate(server_id, onSuccess) {
+        var oauthClient = getOAuthClient(server_id);
         oauthClient.fetchRequestToken(
         // Success
         function (url) {
@@ -55,7 +55,7 @@ angular.module('Checkinapp.services', []).
             setTimeout(function () {
                 oauthWindow = window.open(url, '_blank', 'location=no');
                 oauthWindow.addEventListener('loadstart', function (event) {
-                    oauthLocationChanged(event.url, oauthClient, server_url, onSuccess);
+                    oauthLocationChanged(event.url, oauthClient, server_id, onSuccess);
                 });
             }, 500);
         },
@@ -66,8 +66,8 @@ angular.module('Checkinapp.services', []).
     // This function is triggered when the oauth window changes location.
     // If the new location is the callback url extract verifier from it and
     // get the access token.
-    function oauthLocationChanged(url, oauthClient, server_url, onSuccess) {
-        if (url.indexOf(getServer(server_url.hashCode())['callbackUrl'] + '/?') >= 0) {
+    function oauthLocationChanged(url, oauthClient, server_id, onSuccess) {
+        if (url.indexOf(getServer(server_id)['callbackUrl'] + '/?') >= 0) {
             oauthWindow.close();
             // Extract oauth_verifier from the callback call
             verifier = (/[?|&]oauth_verifier=([^&;]+?)(&|#|;|$)/g).exec(url)[1];
@@ -75,7 +75,7 @@ angular.module('Checkinapp.services', []).
             oauthClient.fetchAccessToken(
                 // Success
                 function (data) {
-                    setAccessToken(server_url, data.text);
+                    setAccessToken(server_id, data.text);
                     onSuccess();
                 },
                 failure
@@ -83,7 +83,7 @@ angular.module('Checkinapp.services', []).
         }
     }
 
-    function setAccessToken(server_url, response) {
+    function setAccessToken(server_id, response) {
         // Extract access token/key from response
         var qvars = response.split('&');
         var accessParams = {};
@@ -91,7 +91,7 @@ angular.module('Checkinapp.services', []).
             var y = qvars[i].split('=');
             accessParams[y[0]] = decodeURIComponent(y[1]);
         }
-        addOAuthToken(server_url, accessParams);
+        addOAuthToken(server_id, accessParams);
     }
 
     function getEvents() {
@@ -102,13 +102,14 @@ angular.module('Checkinapp.services', []).
     function addServer(server_data, callback) {
         var servers = getServers();
         var server = server_data;
+        var server_id = server.baseUrl.hashCode();
         server.callbackUrl = 'http://callback.check';
         server.requestTokenUrl = server.baseUrl + '/oauth/request_token';
         server.authorizationUrl = server.baseUrl + '/oauth/authorize';
         server.accessTokenUrl = server.baseUrl + '/oauth/access_token';
-        servers[server.baseUrl.hashCode()] = server;
+        servers[server_id] = server;
         localStorage.setItem('servers', JSON.stringify(servers));
-        authenticate(server.baseUrl, callback);
+        authenticate(server_id, callback);
     }
 
     function getServers() {
@@ -119,22 +120,23 @@ angular.module('Checkinapp.services', []).
         return getServers()[server_id];
     }
 
-    function getEventKey(server_url, event_id) {
-        return server_url + "_" + event_id;
+    function getEventKey(server_id, event_id) {
+        return server_id + "_" + event_id;
     }
 
-    function getEvent(server_url, event_id) {
-        return getEvents()[getEventKey(server_url, event_id)];
+    function getEvent(server_id, event_id) {
+        return getEvents()[getEventKey(server_id, event_id)];
     }
 
     function _saveEvent(event) {
         var events = getEvents();
         var event_to_store = {};
+        var server_id = event.server.baseUrl.hashCode();
         event_to_store.event_id = event.event_id;
         event_to_store.title = event.title;
         event_to_store.date = event.date;
-        event_to_store.server = event.server;
-        events[getEventKey(event.event_id, event.server.baseUrl)] = event_to_store;
+        event_to_store.server_id = server_id;
+        events[getEventKey(server_id, event.event_id)] = event_to_store;
         localStorage.setItem('events', JSON.stringify(events));
     }
 

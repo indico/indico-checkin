@@ -41,7 +41,7 @@ function NavigationController($scope, $location, OAuth) {
 
     $scope.scan = function () {
         scanQRCode(function (data) {
-            if(!OAuth.getEvent(data.event_id, data.server_url)) {
+            if(!OAuth.getEvent(data.event_id, data.server_url.hashCode())) {
                 showAlert('No event', "There is no event in the list for this registrant", function () {});
                 $location.path('events');
             } else {
@@ -57,7 +57,7 @@ function NavigationController($scope, $location, OAuth) {
 
     $scope.addEvent = function () {
         scanQRCode(function (data) {
-            if(OAuth.getEvent(data.event_id, data.server.baseUrl)) {
+            if(OAuth.getEvent(data.event_id, data.server.baseUrl.hashCode())) {
                 showAlert('Already added', "This event has been already added to the system", function () {});
                 $location.path('events');
                 $scope.$apply();
@@ -71,7 +71,7 @@ function NavigationController($scope, $location, OAuth) {
     };
 
     $scope.isCurrentLocation = function(location) {
-        return location == $location.path()
+        return location == $location.path();
     };
 
     $scope.back = function() {
@@ -88,7 +88,8 @@ function EventsController($scope, $location, OAuth) {
     $scope.$emit('changeTitle', "Indico check-in");
 
     $scope.go_to_registrants = function (event_id, server_id) {
-        $location.path('server/' + server_id.hashCode() + "/event/" + event_id);
+        console.log(server_id, event_id);
+        $location.path('server/' + server_id + "/event/" + event_id);
     };
 
     $scope.isEmpty = function (obj) {
