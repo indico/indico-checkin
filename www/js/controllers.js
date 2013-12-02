@@ -104,6 +104,7 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
 
     OAuth.getRegistrantsForEvent($scope.server_id, $scope.event_id, function (result) {
         $scope.registrants = result.registrants;
+        $scope.$emit("changeTitle", OAuth.getEvent($scope.server_id, $scope.event_id).title);
         $scope.$apply();
     });
 
