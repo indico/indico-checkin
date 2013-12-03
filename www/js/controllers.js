@@ -95,12 +95,11 @@ function EventsController($scope, $location, OAuth) {
         $event.stopPropagation();
         showConfirm("Delete event", "Are you sure to delete the selected event?", ["Delete", "Cancel"],
                     function(buttonIndex) {
-                        if(buttonIndex==1) {
-                            if(OAuth.deleteEvent(server_id, event_id)) {
-                                showAlert("Deleted", "The event has been deleted");
-                                $scope.events = OAuth.getEvents();
-                            }
+                        if(buttonIndex == 1) {
                             $scope.editMode = false;
+                            if(OAuth.deleteEvent(server_id, event_id)) {
+                                $location.path('events');
+                            }
                         }
                     }
         );

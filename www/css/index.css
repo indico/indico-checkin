@@ -87,13 +87,19 @@ footer.checkin-nav nav > a:hover {
     color: #0E80D8;
 }
 
-.events td {
+table.events > tbody > tr > td,
+table.registrants > tbody > tr > td {
     text-align: left;
-    vertical-align: middle;
+    vertical-align: middle !important;
 }
 
-.events .right {
+table.events .right,
+table.registrants .right {
     text-align: right;
+}
+
+table .btn{
+  padding: 0px 5px;
 }
 
 .blue {
