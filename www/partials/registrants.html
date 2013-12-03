@@ -1,6 +1,12 @@
 <div class="row">
     <div class="col-md-12 text-center" >
-        <table class="table table-hover registrants">
+        <div ng-show="isRegistrantListEmpty()" class="empty-list blue">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <h3>
+                <div>Nobody register to this event yet</div>
+            </h3>
+        </div>
+        <table ng-hide="isRegistrantListEmpty()" class="table table-hover registrants">
             <thead>
                 <tr>
                     <th>Atendees</th>
@@ -13,10 +19,10 @@
                 </tr>
                 <tr ng-repeat="registrant in registrants | orderBy: '-id'"
                     ng-click="go_to_registrant(registrant)">
-                    <td>{{registrant.full_name}} {{registrant.checked_in}} </td>
+                    <td>{{registrant.full_name}}</td>
                     <td class="right">
                         <span ng-show="registrant.checked_in"
-                              class="glyphicon glyphicon-ok-circle blue">
+                              class="glyphicon glyphicon-ok blue">
                         </span>
                     </td>
                 </tr>

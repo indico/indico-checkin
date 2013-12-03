@@ -109,3 +109,8 @@ table .btn{
 .bg-blue {
     background-color: #0B63A5;
 }
+
+.empty-list {
+    font-size: 4em;
+    margin: 20px;
+}

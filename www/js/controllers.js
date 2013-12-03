@@ -105,8 +105,8 @@ function EventsController($scope, $location, OAuth) {
         );
     };
 
-    $scope.isEmpty = function (obj) {
-       return angular.equals({}, obj);
+    $scope.isEventListEmpty = function () {
+       return angular.equals({}, $scope.events);
     };
 }
 
@@ -129,8 +129,8 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
                                             });
     };
 
-    $scope.isEmpty = function (obj) {
-       return angular.equals({}, obj);
+    $scope.isRegistrantListEmpty = function () {
+       return angular.equals([], $scope.registrants);
     };
 }
 
@@ -138,7 +138,7 @@ function RegistrantController($scope, $location, OAuth) {
     var data = $location.search();
 
     OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (registrant) {
-        $scope.$emit('changeTitle', registrant.full_name);
+        //$scope.$emit('changeTitle', registrant.full_name);
         $scope.registrant = registrant;
         $scope.$apply();
     });
@@ -146,10 +146,9 @@ function RegistrantController($scope, $location, OAuth) {
     $scope.$watch('registrant.checked_in', function (newValue) {
         if (newValue !== undefined) {
             OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.secret, newValue, function (result) {
-                if (result.success) {
-                    $scope.registrant.checkin_date = result.checkin_date;
-                    $scope.$apply();
-                }
+                $scope.registrant.checkin_date = result.checkin_date;
+                $scope.registrant.checkin_in = result.checkin_in;
+                $scope.$apply();
             });
         }
     }, true);

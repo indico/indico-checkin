@@ -1,13 +1,20 @@
 <div class="row">
     <div class="col-md-12 text-center" >
-        <table class="table table-hover events">
+        <div ng-show="isEventListEmpty()" class="empty-list blue">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <h3>
+                <div>No events added</div>
+                <small>Please click in 'Add event' if you want to start the check-in process</small>
+            </h3>
+        </div>
+        <table ng-hide="isEventListEmpty()" class="table table-hover events">
             <thead>
                 <tr>
                     <th>Events</th>
                     <th class="right">
                         <button type="button" class="btn btn-primary btn-sm"
                                 ng-click="editMode=true"
-                                ng-show="!isEmpty(events) && !editMode">
+                                ng-show="!editMode">
                             <span class="glyphicon glyphicon-edit"></span>
                             Edit
                         </button>
@@ -21,9 +28,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-show="isEmpty(events)">
-                    <td>No events found</td>
-                </tr>
                 <tr ng-repeat="event in events | orderBy: '-date'"
                     ng-click="go_to_registrants(event.event_id, event.server_id)"
                     ng-disabled="event.showActions"

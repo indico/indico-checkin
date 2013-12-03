@@ -3,7 +3,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th colspan="2">Personal Data</th>
+                    <th colspan="2">{{registrant.full_name}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,10 +25,10 @@
                     <td> Check-in date </td><td> {{registrant.checkin_date}} </td>
                 </tr>
                 <tr>
-                    <td> Name </td><td> {{registrant.full_name}} </td>
+                    <td> Registration date </td><td> {{registrant.registration_date}} </td>
                 </tr>
                 <tr>
-                    <td> Registration date </td><td> {{registrant.registration_date}} </td>
+                    <td> Email </td><td> {{registrant.email}} </td>
                 </tr>
                 <!-- If fields are disabled on the server side they will be
                      undefined and we want to hide them. -->
@@ -49,9 +49,6 @@
                 </tr>
                 <tr ng-show="registrant.phone">
                     <td> Phone </td><td> {{registrant.phone}} </td>
-                </tr>
-                <tr>
-                    <td> Email </td><td> {{registrant.email}} </td>
                 </tr>
                 <tr ng-show="registrant.personalHomepage">
                     <td> Personal homepage   </td><td> {{registrant.personalHomepage}} </td>
