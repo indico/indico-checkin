@@ -3,58 +3,62 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                  {{registrant.full_name}}
-                  <small>{{registrant.email}}</small>
+                    <div>{{registrant.full_name}}</div>
+                    <small>
+                        <a href="mailto:{{registrant.email}}">
+                            {{registrant.email}}
+                        </a>
+                     </small>
                 </h3>
             </div>
-            <table class="table">
+            <table class="table table-condensed">
                 <tbody>
                     <tr>
-                        <td> Checked in </td>
+                        <th>Checked in</th>
                         <td>
-                        <label class="switch">
-                            <input type="checkbox" class="switch-input" id="onoffswitch"
-                                   ng-model="registrant.checked_in"
-                                   ng-click="checkin_registrant($event)">
-                            <span class="switch-label" data-on="Yes" data-off="No"></span>
-                            <span class="switch-handle"></span>
-                        </label>
-                        </td>
+                            <label class="switch">
+                                <input type="checkbox" class="switch-input" id="onoffswitch"
+                                       ng-model="registrant.checked_in"
+                                       ng-click="checkin_registrant($event)">
+                                <span class="switch-label" data-on="Yes" data-off="No"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                       </td>
                     </tr>
                     <tr ng-show="registrant.checked_in">
-                        <td> Check-in date </td><td> {{registrant.checkin_date}} </td>
+                        <th>Check-in date</th><td>{{registrant.checkin_date}}</td>
                     </tr>
                     <tr>
-                        <td> Registration date </td><td> {{registrant.registration_date}} </td>
+                        <th>Registration date</th><td>{{registrant.registration_date}}</td>
                     </tr>
                     <!-- If fields are disabled on the server side they will be
                          undefined and we want to hide them. -->
                     <tr ng-show="registrant.position">
-                        <td> Position </td><td> {{registrant.position}} </td>
+                        <th>Position</th><td>{{registrant.position}}</td>
                     </tr>
                     <tr ng-show="registrant.institution">
-                        <td> Institution </td><td> {{registrant.institution}} </td>
+                        <th>Institution</th><td>{{registrant.institution}}</td>
                     </tr>
                     <tr ng-show="registrant.address">
-                        <td> Address </td><td> {{registrant.address}} </td>
+                        <th>Address</th><td>{{registrant.address}}</td>
                     </tr>
                     <tr ng-show="registrant.city">
-                        <td> City </td><td> {{registrant.city}} </td>
+                        <th>City</th><td>{{registrant.city}}</td>
                     </tr>
                     <tr ng-show="registrant.country">
-                        <td> Country </td><td> {{registrant.country}} </td>
+                        <th>Country</th><td>{{registrant.country}}</td>
                     </tr>
                     <tr ng-show="registrant.phone">
-                        <td> Phone </td><td> {{registrant.phone}} </td>
+                        <th>Phone</th><td>{{registrant.phone}}</td>
                     </tr>
                     <tr ng-show="registrant.personalHomepage">
-                        <td> Personal homepage   </td><td> {{registrant.personalHomepage}} </td>
+                        <th>Personal homepage</th><td>{{registrant.personalHomepage}}</td>
                     </tr>
                     <tr ng-show="registrant.payed_amount">
-                        <td> Amount to pay </td><td> {{registrant.pay_amount}} </td>
+                        <th>Amount to pay</td><td>{{registrant.pay_amount}}</td>
                     </tr>
                     <tr ng-show="registrant.payed">
-                        <td> Paid </td><td> {{registrant.payed && 'Yes' || 'No' }} </td>
+                        <th>Paid</th><td>{{registrant.payed && 'Yes' || 'No' }}</td>
                     </tr>
                 </tbody>
             </table>
