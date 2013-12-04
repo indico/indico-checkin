@@ -94,7 +94,7 @@ function EventsController($scope, $location, OAuth) {
 
     $scope.delete_event = function ($event, event_id, server_id) {
         $event.stopPropagation();
-        showConfirm("Delete event", "Are you sure to delete the selected event?", ["Delete", "Cancel"],
+        showConfirm("Delete event", "Are you sure you want to delete the selected event?", ["Delete", "Cancel"],
                     function(buttonIndex) {
                         if(buttonIndex == 1) {
                             if(OAuth.deleteEvent(server_id, event_id)) {
@@ -118,8 +118,13 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
     $scope.server_id = $routeParams.server.toString();
 
     OAuth.getRegistrantsForEvent($scope.server_id, $scope.event_id, function (result) {
-        $scope.registrants = result.registrants;
-        $scope.$emit("changeTitle", OAuth.getEvent($scope.server_id, $scope.event_id).title);
+        if(result === undefined || result.registrants === undefined){
+            showAlert('Error', "It seems there has been a problem retrieving the attendee list", function () {});
+            $location.path('events');
+        } else {
+            $scope.registrants = result.registrants;
+            $scope.$emit("changeTitle", OAuth.getEvent($scope.server_id, $scope.event_id).title);
+        }
         $scope.$apply();
     });
 
@@ -141,7 +146,12 @@ function RegistrantController($scope, $location, OAuth) {
     var data = $location.search();
 
     OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (registrant) {
-        $scope.registrant = registrant;
+        if(registrant === undefined){
+            showAlert('Error', "It seems there has been a problem retrieving the attendee data", function () {});
+            $location.path('events');
+        } else {
+            $scope.registrant = registrant;
+        }
         $scope.$apply();
     });
 
@@ -152,5 +162,5 @@ function RegistrantController($scope, $location, OAuth) {
             $scope.registrant.checkin_in = result.checkin_in;
             $scope.$apply();
         });
-    }
+    };
 }
