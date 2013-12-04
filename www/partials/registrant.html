@@ -12,15 +12,13 @@
                     <tr>
                         <td> Checked in </td>
                         <td>
-                        <div class="onoffswitch">
-                        <input type="checkbox" name="onoffswitch"
-                               class="onoffswitch-checkbox" id="onoffswitch"
-                               ng-model="registrant.checked_in"></input>
-                            <label class="onoffswitch-label" for="onoffswitch">
-                                <div class="onoffswitch-inner"></div>
-                                <div class="onoffswitch-switch"></div>
-                            </label>
-                        </div>
+                        <label class="switch">
+                            <input type="checkbox" class="switch-input" id="onoffswitch"
+                                   ng-model="registrant.checked_in"
+                                   ng-click="checkin_registrant($event)">
+                            <span class="switch-label" data-on="Yes" data-off="No"></span>
+                            <span class="switch-handle"></span>
+                        </label>
                         </td>
                     </tr>
                     <tr ng-show="registrant.checked_in">

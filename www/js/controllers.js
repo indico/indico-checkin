@@ -145,13 +145,12 @@ function RegistrantController($scope, $location, OAuth) {
         $scope.$apply();
     });
 
-    $scope.$watch('registrant.checked_in', function (newValue) {
-        if (newValue !== undefined) {
-            OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.secret, newValue, function (result) {
-                $scope.registrant.checkin_date = result.checkin_date;
-                $scope.registrant.checkin_in = result.checkin_in;
-                $scope.$apply();
-            });
-        }
-    }, true);
+    $scope.checkin_registrant = function($event) {
+        var checkbox = $event.target;
+        OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.secret, checkbox.checked, function (result) {
+            $scope.registrant.checkin_date = result.checkin_date;
+            $scope.registrant.checkin_in = result.checkin_in;
+            $scope.$apply();
+        });
+    }
 }
