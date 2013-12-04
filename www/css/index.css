@@ -114,3 +114,24 @@ table .btn{
     font-size: 4em;
     margin: 20px;
 }
+
+
+/* Override Bootstrap style*/
+h3.panel-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h4.list-group-item-heading {
+    white-space: pre;
+    word-wrap: break-word;
+}
+
+.badge {
+    font-size: 20px;
+}
+
+div.registrants .glyphicon  {
+    font-size: 18px;
+}
+

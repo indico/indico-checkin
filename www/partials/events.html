@@ -1,51 +1,43 @@
 <div class="row">
-    <div class="col-md-12 text-center" >
-        <div ng-show="isEventListEmpty()" class="empty-list blue">
+    <div class="col-md-12" >
+        <div ng-show="isEventListEmpty()" class="empty-list blue text-center">
             <span class="glyphicon glyphicon-warning-sign"></span>
             <h3>
                 <div>No events</div>
                 <small>Please click in 'Add event' if you want to start the check-in process</small>
             </h3>
         </div>
-        <table ng-hide="isEventListEmpty()" class="table table-hover events">
-            <thead>
-                <tr>
-                    <th>Events</th>
-                    <th class="right">
-                        <button type="button" class="btn btn-primary btn-sm"
-                                ng-click="editMode=true"
-                                ng-show="!editMode">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Edit
-                        </button>
-                        <button type="button" class="btn btn-danger btn-sm"
-                                ng-click="editMode=false"
-                                ng-show="editMode">
-                            <span class="glyphicon glyphicon-remove"></span>
-                            Cancel
-                        </button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="event in events | orderBy: '-date'"
-                    ng-click="go_to_registrants(event.event_id, event.server_id)"
-                    ng-disabled="event.showActions"
-                    ng-swipe-left="event.showActions=true"
-                    ng-swipe-right="event.showActions=false"
-                    ng-show="events">
-                    <td>{{event.title}}</td>
-                    <td class="right" ng-show="!editMode">
-                        {{event.date}}
-                    </td>
-                    <td class="right" ng-show="editMode" style="z-index: 1000">
-                        <button type="button" class="btn btn-danger btn-sm"
+        <div ng-hide="isEventListEmpty()" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-sm"
+                            ng-click="editMode=true"
+                            ng-show="!editMode">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm"
+                            ng-click="editMode=false"
+                            ng-show="editMode">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        Cancel
+                    </button>
+                </div>
+                <h3 class="panel-title">Events</h3>
+            </div>
+            <div class="list-group">
+                <a ng-repeat="event in events | orderBy: '-date'" class="list-group-item"
+                   ng-click="go_to_registrants(event.event_id, event.server_id)">
+                    <div ng-show="editMode" class="pull-right">
+                        <button style= type="button" class="btn btn-lg btn-danger"
                                 ng-click="delete_event($event, event.event_id, event.server_id)">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                <span class="glyphicon glyphicon-trash"></span>
+                         </button>
+                    </div>
+                    <h4 class="list-group-item-heading">{{event.title}}</h4>
+                    <p class="list-group-item-text">{{event.date}}</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
