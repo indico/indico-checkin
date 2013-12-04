@@ -41,7 +41,7 @@ function NavigationController($scope, $location, OAuth) {
 
     $scope.scan = function () {
         scanQRCode(function (data) {
-            if(!OAuth.getEvent(data.event_id, data.server_url.hashCode())) {
+            if(!OAuth.getEvent(data.server_url.hashCode(), data.event_id)) {
                 showAlert('No event', "There is no event in the list for this registrant", function () {});
                 $location.path('events');
             } else {
@@ -57,7 +57,7 @@ function NavigationController($scope, $location, OAuth) {
 
     $scope.addEvent = function () {
         scanQRCode(function (data) {
-            if(OAuth.getEvent(data.event_id, data.server.baseUrl.hashCode())) {
+            if(OAuth.getEvent(data.server.baseUrl.hashCode(), data.event_id)) {
                 showAlert('Already added', "This event has been already added to the system", function () {});
                 $location.path('events');
                 $scope.$apply();
