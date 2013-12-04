@@ -14,8 +14,8 @@
             <div class="list-group registrants">
                 <a ng-repeat="registrant in registrants | orderBy: '-id'" class="list-group-item"
                    ng-click="go_to_registrant(registrant)">
-                    <div ng-show="registrant.checked_in" class="pull-right">
-                        <span class="glyphicon glyphicon-ok blue"></span>
+                    <div ng-show="registrant.checked_in" class="pull-right checked">
+                        <span class="glyphicon glyphicon-ok green"></span>
                     </div>
                     <h4 class="list-group-item-heading">{{registrant.full_name}}</h4>
                 </a>

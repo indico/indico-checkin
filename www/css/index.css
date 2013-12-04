@@ -44,6 +44,10 @@ header.checkin-nav  > .title {
     text-align: center;
     display: inline-block;
     line-height: 46px;
+    height: 46px;
+    margin: 0px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 header.checkin-nav  > a {
@@ -112,6 +116,10 @@ footer.checkin-nav nav > a:hover {
     color: #0B63A5;
 }
 
+.green {
+    color: #5cb85c;
+}
+
 .bg-blue {
     background-color: #0B63A5;
 }
@@ -138,7 +146,8 @@ h4.list-group-item-heading {
     font-size: 20px;
 }
 
-div.registrants .glyphicon  {
+div.registrants .checked  {
     font-size: 18px;
+    margin-left: 10px;
 }
 
