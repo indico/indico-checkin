@@ -84,6 +84,7 @@ function NavigationController($scope, $location, OAuth) {
 }
 
 function EventsController($scope, $location, OAuth) {
+
     $scope.events = OAuth.getEvents();
     $scope.$emit('changeTitle', "Indico check-in");
 
@@ -96,10 +97,11 @@ function EventsController($scope, $location, OAuth) {
         showConfirm("Delete event", "Are you sure to delete the selected event?", ["Delete", "Cancel"],
                     function(buttonIndex) {
                         if(buttonIndex == 1) {
-                            $scope.editMode = false;
                             if(OAuth.deleteEvent(server_id, event_id)) {
                                 $location.path('events');
                             }
+                            $scope.editMode = false;
+                            $scope.$apply();
                         }
                     }
         );
@@ -135,10 +137,10 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
 }
 
 function RegistrantController($scope, $location, OAuth) {
+
     var data = $location.search();
 
     OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (registrant) {
-        //$scope.$emit('changeTitle', registrant.full_name);
         $scope.registrant = registrant;
         $scope.$apply();
     });
