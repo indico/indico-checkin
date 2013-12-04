@@ -57,6 +57,13 @@ angular.module('Checkinapp.services', []).
                 oauthWindow.addEventListener('loadstart', function (event) {
                     oauthLocationChanged(event.url, oauthClient, server_id, onSuccess);
                 });
+                oauthWindow.addEventListener('loaderror', function(event) {
+                    showAlert('Error', event.message, function () {
+                        _deleteServer(server_id);
+                        oauthWindow.close();
+                        oauthWindow = null;
+                    });
+                });
             }, 500);
         },
         failure
@@ -112,6 +119,22 @@ angular.module('Checkinapp.services', []).
         authenticate(server_id, callback);
     }
 
+    function _deleteServer(server_id) {
+        var servers = getServers();
+        delete servers[server_id];
+        localStorage.setItem('servers', JSON.stringify(servers));
+        return true;
+    }
+
+    function _updateServer(server_data) {
+        var servers = getServers();
+        var server_id = server_data.baseUrl.hashCode();
+        servers[server_id].consumerKey =  server_data.consumerKey;
+        servers[server_id].consumerSecret = server_data.consumerSecret;
+        localStorage.setItem('servers', JSON.stringify(servers));
+        return true;
+    }
+
     function getServers() {
         return JSON.parse(localStorage.getItem('servers') || "{}");
     }
@@ -147,6 +170,7 @@ angular.module('Checkinapp.services', []).
                 callback();
             });
         } else {
+            _updateServer(event.server);
             _saveEvent(event);
             callback();
         }
