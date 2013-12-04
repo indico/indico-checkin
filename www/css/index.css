@@ -87,21 +87,6 @@ footer.checkin-nav nav > a:hover {
     color: #0E80D8;
 }
 
-table.events > tbody > tr > td,
-table.registrants > tbody > tr > td {
-    text-align: left;
-    vertical-align: middle !important;
-}
-
-table.events .right,
-table.registrants .right {
-    text-align: right;
-}
-
-table .btn{
-  padding: 0px 5px;
-}
-
 .blue {
     color: #0B63A5;
 }
@@ -117,6 +102,7 @@ table .btn{
 
 
 /* Override Bootstrap style*/
+
 h3.panel-title {
     font-size: 24px;
     font-weight: bold;
