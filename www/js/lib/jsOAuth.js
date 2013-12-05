@@ -521,7 +521,7 @@ exports.OAuth = (function (global) {
          */
         getJSON: function (url, success, failure) {
             this.get(url, function (data) {
-                success(JSON.parse(data.text));
+                success(JSON.parse(data.text || "{}"));
             }, failure);
         },
 
