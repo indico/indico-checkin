@@ -192,7 +192,7 @@ angular.module('Checkinapp.services', []).
             },
             function (data) {
                 checkOAuthError(data, function () {
-                    authenticate(getServer(server_id).baseUrl, function () {
+                    authenticate(server_id, function () {
                         getRegistrantsForEvent(server_id, event_id, callback);
                     });
                 });
@@ -211,7 +211,7 @@ angular.module('Checkinapp.services', []).
             },
             function (data) {
                 checkOAuthError(data, function () {
-                    authenticate(getServer(server_id).baseUrl, function () {
+                    authenticate(server_id, function () {
                         getRegistrant(server_id, event_id, registrant_id, secret, callback);
                     });
                 });
@@ -230,7 +230,7 @@ angular.module('Checkinapp.services', []).
             },
             function (data) {
                 checkOAuthError(data, function () {
-                    authenticate(getServer(server_id).baseUrl, function () {
+                    authenticate(server_id, function () {
                         checkIn(server_id, event_id, registrant_id, secret, newValue, callback);
                     });
                 });
