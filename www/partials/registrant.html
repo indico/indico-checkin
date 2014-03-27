@@ -5,8 +5,8 @@
                 <h3 class="panel-title">
                     <div>{{registrant.full_name}}</div>
                     <small>
-                        <a href="mailto:{{registrant.email}}">
-                            {{registrant.email}}
+                        <a href="mailto:{{registrant.personal_data.email}}">
+                            {{registrant.personal_data.email}}
                         </a>
                      </small>
                 </h3>
@@ -33,32 +33,32 @@
                     </tr>
                     <!-- If fields are disabled on the server side they will be
                          undefined and we want to hide them. -->
-                    <tr ng-show="registrant.position">
-                        <th>Position</th><td>{{registrant.position}}</td>
+                    <tr ng-show="registrant.personal_data.position">
+                        <th>Position</th><td>{{registrant.personal_data.position}}</td>
                     </tr>
-                    <tr ng-show="registrant.institution">
-                        <th>Institution</th><td>{{registrant.institution}}</td>
+                    <tr ng-show="registrant.personal_data.institution">
+                        <th>Institution</th><td>{{registrant.personal_data.institution}}</td>
                     </tr>
-                    <tr ng-show="registrant.address">
-                        <th>Address</th><td>{{registrant.address}}</td>
+                    <tr ng-show="registrant.personal_data.address">
+                        <th>Address</th><td>{{registrant.personal_data.address}}</td>
                     </tr>
-                    <tr ng-show="registrant.city">
-                        <th>City</th><td>{{registrant.city}}</td>
+                    <tr ng-show="registrant.personal_data.city">
+                        <th>City</th><td>{{registrant.personal_data.city}}</td>
                     </tr>
-                    <tr ng-show="registrant.country">
-                        <th>Country</th><td>{{registrant.country}}</td>
+                    <tr ng-show="registrant.personal_data.country">
+                        <th>Country</th><td>{{registrant.personal_data.country}}</td>
                     </tr>
-                    <tr ng-show="registrant.phone">
-                        <th>Phone</th><td>{{registrant.phone}}</td>
+                    <tr ng-show="registrant.personal_data.phone">
+                        <th>Phone</th><td>{{registrant.personal_data.phone}}</td>
                     </tr>
-                    <tr ng-show="registrant.personalHomepage">
-                        <th>Personal homepage</th><td>{{registrant.personalHomepage}}</td>
+                    <tr ng-show="registrant.personal_data.personalHomepage">
+                        <th>Personal homepage</th><td>{{registrant.personal_data.personalHomepage}}</td>
                     </tr>
-                    <tr ng-show="registrant.payed_amount">
-                        <th>Amount to pay</td><td>{{registrant.pay_amount}}</td>
+                    <tr ng-show="registrant.amount_paid">
+                        <th>Amount to pay</td><td>{{registrant.amount_paid}}</td>
                     </tr>
-                    <tr ng-show="registrant.payed">
-                        <th>Paid</th><td>{{registrant.payed && 'Yes' || 'No' }}</td>
+                    <tr ng-show="registrant.paid">
+                        <th>Paid</th><td>{{registrant.paid && 'Yes' || 'No' }}</td>
                     </tr>
                 </tbody>
             </table>

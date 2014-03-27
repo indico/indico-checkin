@@ -201,30 +201,32 @@ angular.module('Checkinapp.services', []).
     }
 
 
-    function getRegistrant(server_id, event_id, registrant_id, secret, callback) {
+    function getRegistrant(server_id, event_id, registrant_id, auth_key, callback) {
         getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
                       '/export/event/' + event_id +
                       '/registrant/' + registrant_id + '.json' +
-                      '?secret=' + secret,
+                      '?auth_key=' + auth_key,
             function (data) {
                 callback(data.results);
             },
             function (data) {
                 checkOAuthError(data, function () {
                     authenticate(server_id, function () {
-                        getRegistrant(server_id, event_id, registrant_id, secret, callback);
+                        getRegistrant(server_id, event_id, registrant_id, auth_key, callback);
                     });
                 });
             }
         );
     }
 
-    function checkIn(server_id, event_id, registrant_id, secret, newValue, callback) {
-        getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
-                      '/export/event/' + event_id +
-                      '/registrant/' + registrant_id + '/checkin.json' +
-                      '?secret=' + secret +
-                      '&checked_in=' + (newValue? "yes": "no"),
+    function checkIn(server_id, event_id, registrant_id, checkin_secret, newValue, callback) {
+        getOAuthClient(server_id).post(getServer(server_id).baseUrl +
+                      '/api/event/' + event_id +
+                      '/registrant/' + registrant_id + '/checkin.json',
+            {
+                "secret": checkin_secret,
+                "checked_in": (newValue? "yes": "no"),
+            },
             function (data) {
                 callback(data.results);
             },

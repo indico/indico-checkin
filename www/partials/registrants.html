@@ -12,7 +12,7 @@
                 <h3 class="panel-title">Attendees</h3>
             </div>
             <div class="list-group registrants">
-                <a ng-repeat="registrant in registrants | orderBy: '-id'" class="list-group-item"
+                <a ng-repeat="registrant in registrants | orderBy: 'registrant_id'" class="list-group-item"
                    ng-click="go_to_registrant(registrant)">
                     <div ng-show="registrant.checked_in" class="pull-right checked">
                         <span class="glyphicon glyphicon-ok green"></span>

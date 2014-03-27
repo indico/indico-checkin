@@ -132,7 +132,8 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
         $location.path('registrant').search({"registrant_id": registrant.registrant_id,
                                              "event_id": $scope.event_id,
                                              "server_id": $scope.server_id,
-                                             "secret": registrant.secret
+                                             "auth_key": registrant.auth_key,
+                                             "checkin_secret": registrant.checkin_secret
                                             });
     };
 
@@ -145,7 +146,7 @@ function RegistrantController($scope, $location, OAuth) {
 
     var data = $location.search();
 
-    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.secret, function (registrant) {
+    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.auth_key, function (registrant) {
         if(registrant === undefined){
             showAlert('Error', "It seems there has been a problem retrieving the attendee data", function () {});
             $location.path('events');
@@ -157,9 +158,9 @@ function RegistrantController($scope, $location, OAuth) {
 
     $scope.checkin_registrant = function($event) {
         var checkbox = $event.target;
-        OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.secret, checkbox.checked, function (result) {
+        OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.checkin_secret, checkbox.checked, function (result) {
             $scope.registrant.checkin_date = result.checkin_date;
-            $scope.registrant.checkin_in = result.checkin_in;
+            $scope.registrant.checked_in = result.checked_in;
             $scope.$apply();
         });
     };
