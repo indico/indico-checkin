@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ch.cern.indico.checkin"
-        version="1.2.0"
-        versionCode="31"
+        version="1.2.1"
+        versionCode="32"
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Indico check-in</name>
@@ -27,7 +27,7 @@
     <preference name="android-installLocation" value="auto" />
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" /> <!-- 36 pixels -->
-    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png.png" /> <!-- 48 pixels -->
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" /> <!-- 48 pixels -->
     <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" /> <!-- 72 pixels -->
     <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" /> <!-- 96 pixels -->
     <icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" /> <!-- iPhone & iPod Touch non retina iOS6 -->
