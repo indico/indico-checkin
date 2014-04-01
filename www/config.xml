@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ch.cern.indico.checkin"
-        version="1.2.1"
-        versionCode="32"
+        version="1.2.2"
+        versionCode="33"
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Indico check-in</name>
