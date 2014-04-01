@@ -228,6 +228,7 @@ angular.module('Checkinapp.services', []).
                 "checked_in": (newValue? "yes": "no"),
             },
             function (data) {
+                var data = JSON.parse(data.text || "{}");
                 callback(data.results);
             },
             function (data) {
