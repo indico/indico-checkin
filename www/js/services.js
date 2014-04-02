@@ -201,18 +201,17 @@ angular.module('Checkinapp.services', []).
     }
 
 
-    function getRegistrant(server_id, event_id, registrant_id, auth_key, callback) {
+    function getRegistrant(server_id, event_id, registrant_id, callback) {
         getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
                       '/export/event/' + event_id +
-                      '/registrant/' + registrant_id + '.json' +
-                      '?auth_key=' + auth_key,
+                      '/registrant/' + registrant_id + '.json',
             function (data) {
                 callback(data.results);
             },
             function (data) {
                 checkOAuthError(data, function () {
                     authenticate(server_id, function () {
-                        getRegistrant(server_id, event_id, registrant_id, auth_key, callback);
+                        getRegistrant(server_id, event_id, registrant_id, callback);
                     });
                 });
             }

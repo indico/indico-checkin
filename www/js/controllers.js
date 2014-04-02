@@ -48,7 +48,7 @@ function NavigationController($scope, $location, OAuth) {
                 $location.path('registrant').search({"registrant_id": data.registrant_id,
                                                  "event_id": data.event_id,
                                                  "server_id": data.server_url.hashCode(),
-                                                 "secret": data.secret
+                                                 "checkin_secret": data.checkin_secret
                                              });
             }
             $scope.$apply();
@@ -132,7 +132,6 @@ function RegistrantsController($routeParams, $scope, $location, OAuth) {
         $location.path('registrant').search({"registrant_id": registrant.registrant_id,
                                              "event_id": $scope.event_id,
                                              "server_id": $scope.server_id,
-                                             "auth_key": registrant.auth_key,
                                              "checkin_secret": registrant.checkin_secret
                                             });
     };
@@ -146,7 +145,7 @@ function RegistrantController($scope, $location, OAuth) {
 
     var data = $location.search();
 
-    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.auth_key, function (registrant) {
+    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, function (registrant) {
         if(registrant === undefined){
             showAlert('Error', "It seems there has been a problem retrieving the attendee data", function () {});
             $location.path('events');
