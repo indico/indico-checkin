@@ -156,8 +156,8 @@ function RegistrantController($scope, $location, OAuth) {
     });
 
     $scope.checkin_registrant = function($event) {
-        var checkbox = $event.target;
-        OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.checkin_secret, checkbox.checked, function (result) {
+        var toggled =  angular.element(event.target).hasClass("toggled");
+        OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.checkin_secret, !toggled, function (result) {
             $scope.registrant.checkin_date = result.checkin_date;
             $scope.registrant.checked_in = result.checked_in;
             $scope.$apply();

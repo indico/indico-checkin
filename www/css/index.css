@@ -151,3 +151,51 @@ div.registrants .checked  {
     margin-left: 10px;
 }
 
+
+
+.toggle-button {
+    -webkit-box-sizing: border-box;
+    border: 1px solid #999;
+    box-shadow: 0 0 5px rgba(100,100,100,0.3) inset;
+    width: 6em;
+    display: block;
+    background: #ddd;
+    height: 2em;
+    cursor: pointer;
+    position: relative;
+}
+
+.toggle-button .toggle {
+    -webkit-box-sizing: border-box;
+    position: absolute;
+    left: 0px;
+    -webkit-transition: left background-color border-color;
+    -webkit-transition-duration: .25s;
+    width: 50%;
+    height: 100%;
+    background: #aaa;
+    text-align: center;
+    border: 1px solid #888
+}
+
+.toggle-button.toggled .toggle {
+    box-shadow: 0 0 0px rgba(255,255,255,0.8) inset;
+    background-color: #0B63A5;
+    border-color: #0E80D8;
+    left: 3em;
+}
+
+.toggle-button .toggle::before {
+    color: #666;
+    display: inline-block;
+    font-size: 0.9em;
+    content: "NO";
+    line-height: 2em;
+    font-weight: bold;
+}
+
+.toggle-button.toggled .toggle::before {
+    content: "YES";
+    color: #eee !important;
+}
+
