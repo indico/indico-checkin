@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     app: {
-      name: 'ch.cern.indico.checkin'
+      name: 'Indico check-in'
     },
     clean: {
       plugins: ['plugins'],
@@ -28,6 +28,9 @@ module.exports = function(grunt) {
           {src: ['www/res/icon/ios/icon-57-2x.png'], dest: 'platforms/ios/<%= app.name %>/Resources/icons/icon@2x.png'},
           {src: ['www/res/icon/ios/icon-72.png'], dest: 'platforms/ios/<%= app.name %>/Resources/icons/icon-72.png'},
           {src: ['www/res/icon/ios/icon-72-2x.png'], dest: 'platforms/ios/<%= app.name %>/Resources/icons/icon-72@2x.png'},
+          {src: ['www/res/icon/ios/icon-60-2x.png'], dest: 'platforms/ios/<%= app.name %>/Resources/icons/icon-60@2x.png'},
+          {src: ['www/res/icon/ios/icon-76.png'], dest: 'platforms/ios/<%= app.name %>/Resources/icons/icon-76.png'},
+          {src: ['www/res/icon/ios/icon-76-2x.png'], dest: 'platforms/ios/<%= app.name %>/Resources/icons/icon-76@2x.png'},
           {src: ['www/res/screen/ios/screen-iphone-portrait.png'], dest: 'platforms/ios/<%= app.name %>/Resources/splash/Default~iphone.png'},
           {src: ['www/res/screen/ios/screen-iphone-portrait-2x.png'], dest: 'platforms/ios/<%= app.name %>/Resources/splash/Default@2x~iphone.png'},
           {src: ['www/res/screen/ios/screen-iphone-portrait-568h-2x.png'], dest: 'platforms/ios/<%= app.name %>/Resources/splash/Default-568h@2x~iphone.png'},
@@ -60,7 +63,7 @@ module.exports = function(grunt) {
         options: {
           command: 'platform',
           action: 'add',
-          platforms: ['ios', 'android']
+          platforms: ['ios']
         }
       },
       add_plugins: {
@@ -140,14 +143,11 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('update', 'Update platforms.', [
-    'cordovacli:prepare_ios',
-    'cordovacli:prepare_android',
     'copy'
   ]);
 
   grunt.registerTask('build', 'Build Platforms.', [
     'cordovacli:build_ios',
-    'cordovacli:build_android',
   ]);
 
   grunt.registerTask('server', ['connect:server']);
