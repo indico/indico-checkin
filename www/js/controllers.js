@@ -18,11 +18,7 @@
 function NavigationController($scope, $location, OAuth) {
 
     function scanQRCode(callback) {
-        var scanner = cordova.require("com.phonegap.plugins.barcodescanner.BarcodeScanner");
-
-        // This has to be used when debugging in local
-        //var scanner = cordova.require("com.phonegap.plugins.barcodescanner.barcodescanner");
-        scanner.scan(
+        cordova.plugins.barcodeScanner.scan(
             function (result) {
                 if (!result.cancelled) {
                     // The timeout has to be set for IOS because will not work properly
