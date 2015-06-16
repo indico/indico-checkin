@@ -35,3 +35,10 @@ String.prototype.hashCode = function () {
     }
     return hash;
 };
+
+function formatDate(date) {
+    if(date) {
+        return moment(date).format('DD/MM/YYYY HH:mm');
+    }
+    return null;
+}
