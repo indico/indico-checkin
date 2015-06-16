@@ -29,9 +29,38 @@ angular.module('Checkinapp.services', []).
         OAuthClients[server.baseUrl.hashCode()] = oauthClient;
     }
 
+    function _generateOAuth2Client(server) {
+        // Initate the library
+        hello.init({
+            indico: {
+                id: server.consumerKey,
+                oauth: {
+                    version: 2,
+                    auth: server.auth_url,
+                    grant: server.token_url
+                },
+                base: server.baseUrl + '/'
+            }
+        }, {
+            redirect_uri : server.callbackUrl
+        });
+    }
+
+    function _checkHelloJSInitialization(server_id) {
+        if(hello.settings.redirect_uri != 'http://localhost/') {
+            _generateOAuth2Client(getServer(server_id));
+        }
+    }
+
     function getOAuthClient(server_id) {
         if(OAuthClients[server_id] === undefined) {
-            _generateOAuthClient(getServer(server_id));
+            if(getServer(server_id).is_oauth2) {
+                _generateOAuth2Client(getServer(server_id));
+            }
+            else {
+                _generateOAuthClient(getServer(server_id));
+                return;
+            }
         }
         return OAuthClients[server_id];
     }
@@ -48,26 +77,33 @@ angular.module('Checkinapp.services', []).
 
     function authenticate(server_id, onSuccess) {
         var oauthClient = getOAuthClient(server_id);
-        oauthClient.fetchRequestToken(
-        // Success
-        function (url) {
-            // The timeout has to be set for IOS because will not work properly
-            setTimeout(function () {
-                oauthWindow = window.open(url, '_blank', 'location=no');
-                oauthWindow.addEventListener('loadstart', function (event) {
-                    oauthLocationChanged(event.url, oauthClient, server_id, onSuccess);
-                });
-                oauthWindow.addEventListener('loaderror', function(event) {
-                    showAlert('Error', event.message, function () {
-                        _deleteServer(server_id);
-                        oauthWindow.close();
-                        oauthWindow = null;
+        if(getServer(server_id).is_oauth2) {
+            hello('indico').login().then(onSuccess, function(e) {
+                _deleteServer(server_id);
+            });
+        }
+        else {
+            oauthClient.fetchRequestToken(
+            // Success
+            function (url) {
+                // The timeout has to be set for IOS because will not work properly
+                setTimeout(function () {
+                    oauthWindow = window.open(url, '_blank', 'location=no');
+                    oauthWindow.addEventListener('loadstart', function (event) {
+                        oauthLocationChanged(event.url, oauthClient, server_id, onSuccess);
                     });
-                });
-            }, 500);
-        },
-        failure
-        );
+                    oauthWindow.addEventListener('loaderror', function(event) {
+                        showAlert('Error', event.message, function () {
+                            _deleteServer(server_id);
+                            oauthWindow.close();
+                            oauthWindow = null;
+                        });
+                    });
+                }, 500);
+            },
+            failure
+            );
+        }
     }
 
     // This function is triggered when the oauth window changes location.
@@ -110,7 +146,8 @@ angular.module('Checkinapp.services', []).
         var servers = getServers();
         var server = server_data;
         var server_id = server.baseUrl.hashCode();
-        server.callbackUrl = 'http://callback.check';
+        server.is_oauth2 = server.hasOwnProperty('auth_url');
+        server.callbackUrl = 'http://localhost/';
         server.requestTokenUrl = server.baseUrl + '/oauth/request_token';
         server.authorizationUrl = server.baseUrl + '/oauth/authorize';
         server.accessTokenUrl = server.baseUrl + '/oauth/access_token';
@@ -126,12 +163,13 @@ angular.module('Checkinapp.services', []).
         return true;
     }
 
-    function _updateServer(server_data) {
+    function _updateServer(server_data, callback) {
         var servers = getServers();
         var server_id = server_data.baseUrl.hashCode();
         servers[server_id].consumerKey =  server_data.consumerKey;
         servers[server_id].consumerSecret = server_data.consumerSecret;
         localStorage.setItem('servers', JSON.stringify(servers));
+        authenticate(server_id, callback);
         return true;
     }
 
@@ -170,9 +208,10 @@ angular.module('Checkinapp.services', []).
                 callback();
             });
         } else {
-            _updateServer(event.server);
-            _saveEvent(event);
-            callback();
+            _updateServer(event.server, function() {
+                _saveEvent(event);
+                callback();
+            });
         }
     }
 
@@ -184,60 +223,116 @@ angular.module('Checkinapp.services', []).
     }
 
     function getRegistrantsForEvent(server_id, event_id, callback) {
-        getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
-                      '/export/event/' +
-                      event_id + '/registrants.json',
-            function (data) {
-                callback(data.results);
-            },
-            function (data) {
-                checkOAuthError(data, function () {
-                    authenticate(server_id, function () {
-                        getRegistrantsForEvent(server_id, event_id, callback);
+        if(getServer(server_id).is_oauth2) {
+            _checkHelloJSInitialization(server_id);
+            hello('indico').api('/api/events/' + event_id + '/registrants')
+                .then(function (data) {
+                    callback(data);
+                }, function (data) {
+                    checkOAuthError(data, function () {
+                        authenticate(server_id, function () {
+                            getRegistrantsForEvent(server_id, event_id, callback);
+                        });
                     });
-                });
-            }
-        );
+                }
+            );
+        }
+        else {
+            getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
+                          '/export/event/' +
+                          event_id + '/registrants.json',
+                function (data) {
+                    callback(data.results);
+                },
+                function (data) {
+                    checkOAuthError(data, function () {
+                        authenticate(server_id, function () {
+                            getRegistrantsForEvent(server_id, event_id, callback);
+                        });
+                    });
+                }
+            );
+        }
     }
 
 
-    function getRegistrant(server_id, event_id, registrant_id, callback) {
-        getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
-                      '/export/event/' + event_id +
-                      '/registrant/' + registrant_id + '.json',
-            function (data) {
-                callback(data.results);
-            },
-            function (data) {
+    function getRegistrant(server_id, event_id, registrant_id, checkin_secret, callback) {
+        if(getServer(server_id).is_oauth2) {
+            _checkHelloJSInitialization(server_id);
+            hello('indico').api('/api/events/' + event_id + '/registrants/' + registrant_id)
+            .then(function (data) {
+                // Check if checkin_secret (from QR code) is the same as the one you just received.
+                if(checkin_secret == data.checkin_secret) {
+                    callback(data);
+                }
+                else {
+                    showAlert("Error", "The secret key of the QR code does not match the key of the registrant.",
+                        function() {
+                            window.history.back();
+                        });
+                }
+            }, function (data) {
                 checkOAuthError(data, function () {
                     authenticate(server_id, function () {
                         getRegistrant(server_id, event_id, registrant_id, callback);
                     });
                 });
-            }
-        );
+            });
+        }
+        else {
+            getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
+                          '/export/event/' + event_id +
+                          '/registrant/' + registrant_id + '.json',
+                function (data) {
+                    callback(data.results);
+                },
+                function (data) {
+                    checkOAuthError(data, function () {
+                        authenticate(server_id, function () {
+                            getRegistrant(server_id, event_id, registrant_id, callback);
+                        });
+                    });
+                }
+            );
+        }
     }
 
     function checkIn(server_id, event_id, registrant_id, checkin_secret, newValue, callback) {
-        getOAuthClient(server_id).post(getServer(server_id).baseUrl +
-                      '/api/event/' + event_id +
-                      '/registrant/' + registrant_id + '/checkin.json',
-            {
-                "secret": checkin_secret,
-                "checked_in": (newValue? "yes": "no"),
-            },
-            function (data) {
-                var data = JSON.parse(data.text || "{}");
-                callback(data.results);
-            },
-            function (data) {
+        if(getServer(server_id).is_oauth2) {
+            _checkHelloJSInitialization(server_id);
+            hello('indico').api('/api/events/' + event_id + '/registrants/' + registrant_id, 'PATCH',
+                    {checked_in: newValue})
+            .then(function (data) {
+                callback(data);
+            }, function (data) {
                 checkOAuthError(data, function () {
                     authenticate(server_id, function () {
                         checkIn(server_id, event_id, registrant_id, secret, newValue, callback);
                     });
                 });
-            }
-        );
+            });
+        }
+        else {
+            getOAuthClient(server_id).post(getServer(server_id).baseUrl +
+                          '/api/event/' + event_id +
+                          '/registrant/' + registrant_id + '/checkin.json',
+                {
+                    "secret": checkin_secret,
+                    "checked_in": (newValue? "yes": "no"),
+                },
+                function (data) {
+                    var data = JSON.parse(data.text || "{}");
+                    callback(data.results);
+                },
+                function (data) {
+                    checkOAuthError(data, function () {
+                        authenticate(server_id, function () {
+                            checkIn(server_id, event_id, registrant_id, secret, newValue, callback);
+                        });
+                    });
+                }
+            );
+        }
     }
 
     function checkOAuthError(data, callback) {

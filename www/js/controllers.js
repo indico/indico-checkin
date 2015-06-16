@@ -141,12 +141,16 @@ function RegistrantController($scope, $location, OAuth) {
 
     var data = $location.search();
 
-    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, function (registrant) {
+    OAuth.getRegistrant(data.server_id, data.event_id, data.registrant_id, data.checkin_secret, function (registrant) {
         if(registrant === undefined){
             showAlert('Error', "It seems there has been a problem retrieving the attendee data", function () {});
             $location.path('events');
         } else {
             $scope.registrant = registrant;
+            $scope.registrant.registration_date = formatDate(registrant.registration_date);
+            if(registrant.checkin_date) {
+                $scope.registrant.checkin_date = formatDate(registrant.checkin_date);
+            }
         }
         $scope.$apply();
     });
@@ -154,7 +158,7 @@ function RegistrantController($scope, $location, OAuth) {
     $scope.checkin_registrant = function($event) {
         var toggled =  angular.element($event.currentTarget).hasClass("toggled");
         OAuth.checkIn(data.server_id, data.event_id, data.registrant_id, data.checkin_secret, !toggled, function (result) {
-            $scope.registrant.checkin_date = result.checkin_date;
+            $scope.registrant.checkin_date = formatDate(result.checkin_date);
             $scope.registrant.checked_in = result.checked_in;
             $scope.$apply();
         });
