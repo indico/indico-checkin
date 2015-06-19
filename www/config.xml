@@ -11,7 +11,7 @@
     <author email="indico-team@cern.ch" href="http://indico-software.org">
         Indico Team
     </author>
-    <preference name="phonegap-version" value="3.6.3" />
+    <preference name="phonegap-version" value="cli-5.1.1" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
     <preference name="permissions" value="none" />
