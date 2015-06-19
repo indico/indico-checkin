@@ -47,7 +47,10 @@
                         <th>Country</th><td>{{registrant.personal_data.country}}</td>
                     </tr>
                     <tr ng-show="registrant.personal_data.phone">
-                        <th>Phone</th><td>{{registrant.personal_data.phone}}</td>
+                        <th>Phone</th>
+                        <td>
+                            <a href="tel:{{registrant.personal_data.phone}}">{{registrant.personal_data.phone}}</a>
+                        </td>
                     </tr>
                     <tr ng-show="registrant.personal_data.personalHomepage">
                         <th>Personal homepage</th><td>{{registrant.personal_data.personalHomepage}}</td>
