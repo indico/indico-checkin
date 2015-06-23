@@ -51,7 +51,7 @@
         <splash height="2208" src="www/res/screen/ios/screen-iphone-portrait-736h-3x.png" width="1242" />
     </platform>
     <preference name="SplashScreenDelay" value="4000" />
-    <access origin="*" />
+
     <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
@@ -59,4 +59,9 @@
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <content src="index.html" />
+
+    <allow-navigation href="*" />
+    <allow-intent href="tel:*" />
+    <access origin="*" />
+
 </widget>
