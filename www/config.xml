@@ -50,16 +50,18 @@
         <splash height="2048" src="www/res/screen/ios/screen-ipad-portrait-2x.png" width="1536" />
         <splash height="2208" src="www/res/screen/ios/screen-iphone-portrait-736h-3x.png" width="1242" />
     </platform>
+
+    <gap:plugin name="cordova-plugin-barcodescanner" spec="2.2.0" source="npm" />
+    <gap:plugin name="cordova-plugin-splashscreen" spec="0.3.4" source="npm"/>
+    <gap:plugin name="cordova-plugin-inappbrowser" spec="0.5.2" source="npm"/>
+    <gap:plugin name="cordova-plugin-dialogs" spec="0.2.10" source="npm"/>
+    <gap:plugin name="cordova-plugin-console" spec="0.2.11" source="npm"/>
+    <gap:plugin name="cordova-plugin-network-information" spec="0.2.12" source="npm"/>
+    <gap:plugin name="cordova-plugin-whitelist" spec="1.1.0" source="npm"/>
+
     <preference name="SplashScreenDelay" value="4000" />
 
-    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.2.0" />
-    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
-    <gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
-    <gap:plugin name="org.apache.cordova.console" version="0.2.11" />
-    <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
     <content src="index.html" />
-
     <allow-navigation href="*" />
     <allow-intent href="tel:*" />
     <access origin="*" />
