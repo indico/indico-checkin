@@ -52,12 +52,12 @@
     </platform>
     <preference name="SplashScreenDelay" value="4000" />
 
-    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
-    <gap:plugin name="org.apache.cordova.splashscreen" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" />
-    <gap:plugin name="org.apache.cordova.dialogs" />
-    <gap:plugin name="org.apache.cordova.console" />
-    <gap:plugin name="org.apache.cordova.network-information" />
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.2.0" />
+    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
+    <gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
+    <gap:plugin name="org.apache.cordova.console" version="0.2.11" />
+    <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
     <content src="index.html" />
 
     <allow-navigation href="*" />
