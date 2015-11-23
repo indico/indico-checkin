@@ -59,7 +59,6 @@ angular.module('Checkinapp.services', []).
             }
             else {
                 _generateOAuthClient(getServer(server_id));
-                return;
             }
         }
         return OAuthClients[server_id];
@@ -110,7 +109,7 @@ angular.module('Checkinapp.services', []).
     // If the new location is the callback url extract verifier from it and
     // get the access token.
     function oauthLocationChanged(url, oauthClient, server_id, onSuccess) {
-        if (url.indexOf(getServer(server_id)['callbackUrl'] + '/?') >= 0) {
+        if (url.indexOf(getServer(server_id)['callbackUrl'] + '?') >= 0) {
             oauthWindow.close();
             // Extract oauth_verifier from the callback call
             verifier = (/[?|&]oauth_verifier=([^&;]+?)(&|#|;|$)/g).exec(url)[1];
