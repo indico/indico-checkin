@@ -21,34 +21,34 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-installLocation" value="auto" />
-    <icon src="icon.png" />
+    <icon src="icon.png" density="mdpi" />
     <platform name="android">
-        <icon gap:density="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
-        <icon gap:density="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
-        <icon gap:density="hdpi" src="www/res/icon/android/icon-72-hdpi.png" />
-        <icon gap:density="xhdpi" src="www/res/icon/android/icon-96-xhdpi.png" />
-        <splash density="port-ldpi" src="www/res/screen/android/screen-ldpi-portrait.png" />
-        <splash density="port-mdpi" src="www/res/screen/android/screen-mdpi-portrait.png" />
-        <splash density="port-hdpi" src="www/res/screen/android/screen-hdpi-portrait.png" />
-        <splash density="port-xhdpi" src="www/res/screen/android/screen-xhdpi-portrait.png" />
-        <splash density="port-xxhdpi" src="www/res/screen/android/screen-xxhdpi-portrait.png" />
-        <splash density="port-xxxhdpi" src="www/res/screen/android/screen-xxxhdpi-portrait.png" />
+        <icon gap:density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
+        <icon gap:density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
+        <icon gap:density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
+        <icon gap:density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
+        <splash density="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
+        <splash density="port-mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
+        <splash density="port-hdpi" src="res/screen/android/screen-hdpi-portrait.png" />
+        <splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
+        <splash density="port-xxhdpi" src="res/screen/android/screen-xxhdpi-portrait.png" />
+        <splash density="port-xxxhdpi" src="res/screen/android/screen-xxxhdpi-portrait.png" />
     </platform>
     <platform name="ios">
-        <icon height="57" src="www/res/icon/ios/icon-57.png" width="57" />
-        <icon height="72" src="www/res/icon/ios/icon-72.png" width="72" />
-        <icon height="76" src="www/res/icon/ios/icon-76.png" width="76" />
-        <icon height="114" src="www/res/icon/ios/icon-57-2x.png" width="114" />
-        <icon height="120" src="www/res/icon/ios/icon-60-2x.png" width="120" />
-        <icon height="144" src="www/res/icon/ios/icon-72-2x.png" width="144" />
-        <icon height="152" src="www/res/icon/ios/icon-76-2x.png" width="152" />
-        <splash height="480" src="www/res/screen/ios/screen-iphone-portrait.png" width="320" />
-        <splash height="960" src="www/res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
-        <splash height="1024" src="www/res/screen/ios/screen-ipad-portrait.png" width="768" />
-        <splash height="1136" src="www/res/screen/ios/screen-iphone-portrait-568h-2x.png" width="640" />
-        <splash height="1334" src="www/res/screen/ios/screen-iphone-portrait-667h-2x.png" width="750" />
-        <splash height="2048" src="www/res/screen/ios/screen-ipad-portrait-2x.png" width="1536" />
-        <splash height="2208" src="www/res/screen/ios/screen-iphone-portrait-736h-3x.png" width="1242" />
+        <icon height="57" src="res/icon/ios/icon-57.png" width="57" />
+        <icon height="72" src="res/icon/ios/icon-72.png" width="72" />
+        <icon height="76" src="res/icon/ios/icon-76.png" width="76" />
+        <icon height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
+        <icon height="120" src="res/icon/ios/icon-60-2x.png" width="120" />
+        <icon height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
+        <icon height="152" src="res/icon/ios/icon-76-2x.png" width="152" />
+        <splash height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
+        <splash height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
+        <splash height="1024" src="res/screen/ios/screen-ipad-portrait.png" width="768" />
+        <splash height="1136" src="res/screen/ios/screen-iphone-portrait-568h-2x.png" width="640" />
+        <splash height="1334" src="res/screen/ios/screen-iphone-portrait-667h-2x.png" width="750" />
+        <splash height="2048" src="res/screen/ios/screen-ipad-portrait-2x.png" width="1536" />
+        <splash height="2208" src="res/screen/ios/screen-iphone-portrait-736h-3x.png" width="1242" />
     </platform>
 
     <gap:plugin name="phonegap-plugin-barcodescanner" spec="5.0.0" source="npm" />
