@@ -15,6 +15,10 @@
         {
             "name": "Pedro Ferreira",
             "email": "pedro.ferreira@cern.ch"
+        },
+        {
+            "name": "Ilias Trichopoulos",
+            "email": "ilias.trichopoulos@cern.ch"
         }
     ],
     "repository": {
