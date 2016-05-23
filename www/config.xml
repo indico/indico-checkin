@@ -51,13 +51,13 @@
         <splash height="2208" src="res/screen/ios/screen-iphone-portrait-736h-3x.png" width="1242" />
     </platform>
 
-    <gap:plugin name="phonegap-plugin-barcodescanner" spec="5.0.0" source="npm" />
-    <gap:plugin name="cordova-plugin-splashscreen" spec="0.3.4" source="npm"/>
-    <gap:plugin name="cordova-plugin-inappbrowser" spec="1.4.0" source="npm"/>
-    <gap:plugin name="cordova-plugin-dialogs" spec="0.2.10" source="npm"/>
-    <gap:plugin name="cordova-plugin-console" spec="0.2.11" source="npm"/>
-    <gap:plugin name="cordova-plugin-network-information" spec="0.2.12" source="npm"/>
-    <gap:plugin name="cordova-plugin-whitelist" spec="1.1.0" source="npm"/>
+    <plugin name="phonegap-plugin-barcodescanner" spec="5.0.0" source="npm" />
+    <plugin name="cordova-plugin-console" spec="1.0.3" source="npm" />
+    <plugin name="cordova-plugin-dialogs" spec="1.2.1" source="npm" />
+    <plugin name="cordova-plugin-inappbrowser" spec="1.4.0" source="npm" />
+    <plugin name="cordova-plugin-network-information" spec="1.2.1" source="npm" />
+    <plugin name="cordova-plugin-splashscreen" spec="3.2.2" source="npm" />
+    <plugin name="cordova-plugin-whitelist" spec="1.2.2" source="npm" />
 
     <preference name="SplashScreenDelay" value="4000" />
 
