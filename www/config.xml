@@ -57,6 +57,7 @@
     <allow-intent href="tel:*" />
     <access origin="*" />
     <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-console" spec="1.0.7" />
     <plugin name="cordova-plugin-dialogs" spec="1.3.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="1.7.1" />
