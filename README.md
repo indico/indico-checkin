@@ -1,47 +1,55 @@
 # Indico check in mobile application
 
-This application was developed during the CERN openlab Summer Student
-Programme. It is intended to be used with the extensions added to
-Indico during this project ([link]).
-More information about the project can be found [here].
+This application was initially developed during the CERN OpenLab Summer Student Programme.
+An early description of the project (for historical purposes) can be found [here].
 
-[link]: https://github.com/bkolobara/indico/tree/1345-e-ticket-module
 [here]: http://indico-software.org/wiki/User/Dev/ETicket
 
 ## Build
 
-You need to have [PhoneGap] installed to build the application. There are
-two main ways to build it:
+We leverage [Apache Cordova](https://cordova.apache.org/)'s multi-platform capabilities to create a simple yet useful
+web application.
+First of all, you'll have to install Cordova:
 
-### Remote build
+```sh
+$ npm install -g cordova
+```
 
-This is the recommended way. First an account needs to be created on
-[build.phonegap.com] and the application can be built with:
+### For Android development
 
-    $ phonegap remote build [android|ios]
+You'll need to have the [Android SDK Tools](https://developer.android.com/studio/releases/sdk-tools.html) installed.
+[Android Studio](https://developer.android.com/studio/index.html) may also be of help if you intend to use an emulator
+instead of a physical phone.
 
-### Local build
+Please note that the `ANDROID_HOME` environment variable needs to be properly set, otherwise Cordova won't be able to
+find the SDK.
 
-> ***Note:*** For the local build you need to have the Android or iOS SDK
-> already installed. And because of a [bug] the icon and splash screens
-> need to be manually copied to the corresponding platform folders to work.
+```sh
+$ cordova platform add android
+```
 
-To build the application locally first the setup.sh script needs to be called:
-    
-    $ ./setup.sh
+If you intend to use the emulator you may need to [create an AVD](https://developer.android.com/studio/run/managing-avds.html)
+if you don't yet have one. If you want to use a physical device, just make sure you connect it via USB.
 
-It will create the necessary directories and install the required plugins.
-After this the application can be built and installed with:
+Regardless of what you choose, you'll only need to run:
 
-    $ phonegap local build [android|ios]
-    $ phonegap local install [android|ios]
+```sh
+$ cordova run android
+```
 
-[PhoneGap]: http://phonegap.com
-[build.phonegap.com]: https://build.phonegap.com
-[bug]: https://github.com/phonegap/phonegap-cli/issues/58
 
-## License
+### iOS Development
 
-Indico check in mobile application is free software licenced under terms
-of GNU General Public Licence(GPL).  It is provided on an "as is" basis.
+You will need to have XCode installed. You will also need to install `ios-deploy`:
 
+```sh
+$ npm install -g ios-deploy
+```
+
+Similarly to what happens with Android, you may choose to use an emulator or actual phone.
+
+```sh
+$ cordova run ios
+```
+
+You may be required to associate the XCode project [with a development team](https://stackoverflow.com/a/41217410/682095).
