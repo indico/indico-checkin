@@ -35,7 +35,7 @@
                          </button>
                     </div>
                     <h4 class="list-group-item-heading">{{event.title}}</h4>
-                    <p class="list-group-item-text">{{event.date}}</p>
+                    <p class="list-group-item-text">{{event.date | date:'dd-MM-yyyy HH:mm' }}</p>
                 </a>
             </div>
         </div>

@@ -53,7 +53,14 @@ function NavigationController($scope, $location, OAuth) {
 
     $scope.addEvent = function () {
         scanQRCode(function (data) {
-            if(OAuth.getEvent(data.server.baseUrl.hashCode(), data.event_id)) {
+            if (!data.version){
+                // This is to support old version of QR data
+                data.server.base_url = data.server.baseUrl;
+                data.server.consumer_key = data.server.consumerKey;
+                delete data.server.baseUrl;
+                delete data.server.consumerKey;
+            }
+            if(OAuth.getEvent(data.server.base_url.hashCode(), data.event_id)) {
                 showAlert('Already added', "This event has been already added to the system", function () {});
                 $location.path('events');
                 $scope.$apply();

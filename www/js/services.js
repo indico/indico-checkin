@@ -33,13 +33,13 @@ angular.module('Checkinapp.services', []).
         // Initate the library
         hello.init({
             indico: {
-                id: server.consumerKey,
+                id: server.consumer_key,
                 oauth: {
                     version: 2,
                     auth: server.auth_url,
                     grant: server.token_url
                 },
-                base: server.baseUrl + '/'
+                base: server.base_url + '/'
             }
         }, {
             redirect_uri : server.callbackUrl
@@ -69,7 +69,7 @@ angular.module('Checkinapp.services', []).
         var server = servers[server_id];
         server.accessTokenKey = tokenData.oauth_token;
         server.accessTokenSecret = tokenData.oauth_token_secret;
-        servers[server.baseUrl.hashCode()] = server;
+        servers[server.base_url.hashCode()] = server;
         localStorage.setItem('servers', JSON.stringify(servers));
         _generateOAuthClient(server);
     }
@@ -144,12 +144,12 @@ angular.module('Checkinapp.services', []).
     function addServer(server_data, callback) {
         var servers = getServers();
         var server = server_data;
-        var server_id = server.baseUrl.hashCode();
+        var server_id = server.base_url.hashCode();
         server.is_oauth2 = server.hasOwnProperty('auth_url');
         server.callbackUrl = 'http://localhost/';
-        server.requestTokenUrl = server.baseUrl + '/oauth/request_token';
-        server.authorizationUrl = server.baseUrl + '/oauth/authorize';
-        server.accessTokenUrl = server.baseUrl + '/oauth/access_token';
+        server.requestTokenUrl = server.base_url + '/oauth/request_token';
+        server.authorizationUrl = server.base_url + '/oauth/authorize';
+        server.accessTokenUrl = server.base_url + '/oauth/access_token';
         servers[server_id] = server;
         localStorage.setItem('servers', JSON.stringify(servers));
         authenticate(server_id, callback);
@@ -164,8 +164,8 @@ angular.module('Checkinapp.services', []).
 
     function _updateServer(server_data, callback) {
         var servers = getServers();
-        var server_id = server_data.baseUrl.hashCode();
-        servers[server_id].consumerKey =  server_data.consumerKey;
+        var server_id = server_data.base_url.hashCode();
+        servers[server_id].consumer_key =  server_data.consumer_key;
         servers[server_id].consumerSecret = server_data.consumerSecret;
         localStorage.setItem('servers', JSON.stringify(servers));
         authenticate(server_id, callback);
@@ -191,7 +191,7 @@ angular.module('Checkinapp.services', []).
     function _saveEvent(event) {
         var events = getEvents();
         var event_to_store = {};
-        var server_id = event.server.baseUrl.hashCode();
+        var server_id = event.server.base_url.hashCode();
         event_to_store.event_id = event.event_id;
         event_to_store.title = event.title;
         event_to_store.date = event.date;
@@ -201,7 +201,7 @@ angular.module('Checkinapp.services', []).
     }
 
     function addEvent(event, callback) {
-        if(getServer(event.server.baseUrl.hashCode()) === undefined) {
+        if(getServer(event.server.base_url.hashCode()) === undefined) {
             addServer(event.server, function() {
                 _saveEvent(event);
                 callback();
@@ -237,7 +237,7 @@ angular.module('Checkinapp.services', []).
             );
         }
         else {
-            getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
+            getOAuthClient(server_id).getJSON(getServer(server_id).base_url +
                           '/export/event/' +
                           event_id + '/registrants.json',
                 function (data) {
@@ -279,7 +279,7 @@ angular.module('Checkinapp.services', []).
             });
         }
         else {
-            getOAuthClient(server_id).getJSON(getServer(server_id).baseUrl +
+            getOAuthClient(server_id).getJSON(getServer(server_id).base_url +
                           '/export/event/' + event_id +
                           '/registrant/' + registrant_id + '.json',
                 function (data) {
@@ -312,7 +312,7 @@ angular.module('Checkinapp.services', []).
             });
         }
         else {
-            getOAuthClient(server_id).post(getServer(server_id).baseUrl +
+            getOAuthClient(server_id).post(getServer(server_id).base_url +
                           '/api/event/' + event_id +
                           '/registrant/' + registrant_id + '/checkin.json',
                 {
