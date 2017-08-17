@@ -30,7 +30,9 @@
             "cordova-plugin-network-information": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-whitelist": {},
-            "phonegap-plugin-barcodescanner": {}
+            "phonegap-plugin-barcodescanner": {
+                "CAMERA_USAGE_DESCRIPTION": "To scan ticket QR codes"
+            }
         },
         "platforms": [
             "android",
