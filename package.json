@@ -1,6 +1,6 @@
 {
     "name": "indico-checkin",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "author": "Indico Team <indico-team@cern.ch>",
     "description": "Check-in application for Indico conferences",
     "contributors": [
