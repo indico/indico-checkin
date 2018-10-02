@@ -19,7 +19,7 @@
         "conference"
     ],
     "devDependencies": {
-        "cordova": "^8.0.0"
+        "cordova": "^8.1.0"
     },
     "license": "GPL-3.0",
     "scripts": {
