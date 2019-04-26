@@ -55,8 +55,11 @@
                     <tr ng-show="registrant.personal_data.personalHomepage">
                         <th>Personal homepage</th><td>{{registrant.personal_data.personalHomepage}}</td>
                     </tr>
+                    <tr ng-show="registrant.ticket_price">
+                        <th>Amount to pay</td><td>{{registrant.ticket_price}}</td>
+                    </tr>
                     <tr ng-show="registrant.amount_paid">
-                        <th>Amount to pay</td><td>{{registrant.amount_paid}}</td>
+                        <th>Amount paid</td><td>{{registrant.amount_paid}}</td>
                     </tr>
                     <tr ng-show="registrant.paid">
                         <th>Paid</th><td>{{registrant.paid && 'Yes' || 'No' }}</td>
