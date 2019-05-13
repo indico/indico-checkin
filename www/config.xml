@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ch.cern.indico.checkin" version="1.4.3" versionCode="420" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="ch.cern.indico.checkin" version="1.5.0" versionCode="421" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Indico check-in</name>
     <description>
         Check-in application for Indico conferences.
@@ -18,10 +18,13 @@
     <preference name="ios-statusbarstyle" value="default" />
     <preference name="detect-data-types" value="true" />
     <preference name="exit-on-suspend" value="false" />
-    <preference name="show-splash-screen-spinner" value="true" />
-    <preference name="auto-hide-splash-screen" value="true" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="ShowSplashScreenSpinner " value="true" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashScreenSpinnerColor" value="#03a4e4" />
+    <preference name="SplashScreenDelay" value="4000" />
     <platform name="android">
         <icon gap:density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
         <icon gap:density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
@@ -43,7 +46,6 @@
         <splash height="2048" src="res/screen/ios/screen-ipad-portrait-2x.png" width="1536" />
         <splash height="2208" src="res/screen/ios/screen-iphone-portrait-736h-3x.png" width="1242" />
     </platform>
-    <preference name="SplashScreenDelay" value="4000" />
     <content src="index.html" />
     <allow-navigation href="*" />
     <allow-intent href="tel:*" />
@@ -57,7 +59,7 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value="To scan ticket QR codes" />
     </plugin>
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-        <string>To scan barcodes</string>
+        <string>To scan QR tickets</string>
     </edit-config>
     <engine name="android" spec="^7.1.1" />
     <engine name="ios" spec="~4.5.5" />

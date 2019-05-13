@@ -40,13 +40,18 @@ var app = {
     }
 };
 
-angular.module('Checkinapp', ['ngTouch', 'ngRoute', 'ui.bootstrap', 'Checkinapp.services']).
+angular.module('Checkinapp', ['ngTouch', 'ngRoute', 'ui.bootstrap', 'infinite-scroll',
+        'Checkinapp.services', 'Checkinapp.controllers']).
     config(function ($routeProvider) {
 
     $routeProvider.
         when('/', {
             templateUrl: 'partials/events.html',
             controller: 'EventsController'
+        }).
+        when('/settings', {
+            templateUrl: 'partials/settings.html',
+            controller: 'SettingsController'
         }).
         when('/server/:server/event/:event', {
             templateUrl: 'partials/registrants.html',

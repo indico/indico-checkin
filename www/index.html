@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' * gap://ready; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="css/on-off-switch.css" />
+        <link rel="stylesheet" type="text/css" href="css/spin.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Check in</title>
     </head>
@@ -22,29 +22,32 @@
         </div>
         <footer class="navbar navbar-fixed-bottom checkin-nav" role="navigation">
             <nav class="nav navbar-nav">
-                <a ng-click="allEvents()">
+                <a ng-click="showEvents()">
                     <span class="glyphicon glyphicon-list"></span>
                     All events
                 </a>
-                <a ng-click="addEvent()">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Add event
+                <a ng-click="showSettings()">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    Settings
                 </a>
-                <a ng-click="scan()">
+                <a ng-click="scanTicket()">
                     <span class="glyphicon glyphicon-qrcode"></span>
-                    Check-in
+                    Scan ticket
                 </a>
             </nav>
         </footer>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
         <script type="text/javascript" src="js/lib/jsOAuth.js"></script>
         <script type="text/javascript" src="js/lib/hello.js"></script>
         <script type="text/javascript" src="js/lib/hello-modules/indico.js"></script>
         <script type="text/javascript" src="js/lib/angular.js"></script>
         <script type="text/javascript" src="js/lib/angular-route.js"></script>
         <script type="text/javascript" src="js/lib/angular-touch.js"></script>
+        <script type="text/javascript" src="js/lib/ng-infinite-scroll.min.js"></script>
         <script type="text/javascript" src="js/lib/ui-bootstrap.js"></script>
         <script type="text/javascript" src="js/lib/moment.min.js"></script>
+        <script type="text/javascript" src="js/lib/spin.js"></script>
         <script type="text/javascript" src="js/util.js"></script>
         <script type="text/javascript" src="js/controllers.js"></script>
         <script type="text/javascript" src="js/services.js"></script>
