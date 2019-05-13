@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">General settings</h3>
+            </div>
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <td>Auto Check-In</td>
+                    <td class="condensed">
+                        <div class="toggle-button pull-right"
+                             ng-class="{toggled: autoCheckIn}"
+                             ng-click="toggleAutoCheckIn($event)">
+                            <div class="toggle"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="description">
+                        When enabled, scanning the QR ticket of an attendee automatically
+                        marks the attendee as checked in.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

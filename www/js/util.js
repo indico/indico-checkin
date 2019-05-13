@@ -16,11 +16,32 @@
  */
 
 function showAlert(title, text, callback) {
-    navigator.notification.alert(title, callback, text);
+    navigator.notification.alert(text, callback, title);
 };
 
 function showConfirm(title, text, buttonLabels, callback) {
     navigator.notification.confirm(text, callback, title, buttonLabels);
+};
+
+function scanQRCode(callback) {
+    cordova.plugins.barcodeScanner.scan(
+        function (result) {
+            if (!result.cancelled) {
+                // The timeout has to be set for IOS because will not work properly
+                callback(JSON.parse(result.text));
+            }
+        },
+        function (error) {
+            showAlert("Error scanning", error, function () {});
+        },
+        {
+            showFlipCameraButton: false,
+            showTorchButton: true,
+            prompt: "Place the QR-Code inside the rectangle.",
+            formats: "QR_CODE",
+            resultDisplayDuration: 0
+        }
+    );
 };
 
 String.prototype.hashCode = function () {

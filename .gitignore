@@ -2,4 +2,7 @@ node_modules
 platforms/*
 plugins/*
 merges/*
+.idea/*
+.gradle/*
+indico-checkin.iml
 .DS_Store
