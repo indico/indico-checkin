@@ -1,43 +1,55 @@
 <div class="row">
-    <div class="col-md-12" >
-        <div ng-show="isEventListEmpty()" class="empty-list blue text-center">
-            <span class="glyphicon glyphicon-warning-sign"></span>
-            <h3>
-                <div>No events</div>
-                <small>Please click in 'Add event' if you want to start the check-in process</small>
-            </h3>
-        </div>
-        <div ng-hide="isEventListEmpty()" class="panel panel-default">
-            <div class="panel-heading">
-                <div class="pull-right">
-                    <button type="button" class="btn btn-primary btn-sm"
-                            ng-click="editMode=true"
-                            ng-show="!editMode">
-                        <span class="glyphicon glyphicon-edit"></span>
-                        Edit
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm"
-                            ng-click="editMode=false"
-                            ng-show="editMode">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        Cancel
-                    </button>
-                </div>
-                <h3 class="panel-title">Events</h3>
-            </div>
-            <div class="list-group">
-                <a ng-repeat="event in events | orderBy: '-date'" class="list-group-item"
-                   ng-click="go_to_registrants(event.event_id, event.server_id)">
-                    <div ng-show="editMode" class="pull-right">
-                        <button style= type="button" class="btn btn-lg btn-danger"
-                                ng-click="delete_event($event, event.event_id, event.server_id)">
-                                <span class="glyphicon glyphicon-trash"></span>
-                         </button>
-                    </div>
-                    <h4 class="list-group-item-heading">{{event.title}}</h4>
-                    <p class="list-group-item-text">{{event.date | date:'dd-MM-yyyy HH:mm' }}</p>
-                </a>
-            </div>
-        </div>
+  <div class="col-md-12">
+    <div ng-show="isEventListEmpty()" class="empty-list blue text-center">
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      <h3>
+        <div>No events</div>
+        <small>Please click in 'Add event' if you want to start the check-in process</small>
+      </h3>
     </div>
+    <div ng-hide="isEventListEmpty()" class="panel panel-default">
+      <div class="panel-heading">
+        <div class="pull-right">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            ng-click="editMode=true"
+            ng-show="!editMode"
+          >
+            <span class="glyphicon glyphicon-edit"></span>
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            ng-click="editMode=false"
+            ng-show="editMode"
+          >
+            <span class="glyphicon glyphicon-remove"></span>
+            Cancel
+          </button>
+        </div>
+        <h3 class="panel-title">Events</h3>
+      </div>
+      <div class="list-group">
+        <a
+          ng-repeat="event in events | orderBy: '-date'"
+          class="list-group-item"
+          ng-click="goToRegistrants(event.serverId, event.eventId)"
+        >
+          <div ng-show="editMode" class="pull-right">
+            <button
+              type="button"
+              class="btn btn-lg btn-danger"
+              ng-click="deleteEvent($event, event.serverId, event.eventId)"
+            >
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+          <h4 class="list-group-item-heading">{{event.title}}</h4>
+          <p class="list-group-item-text">{{event.date | date:'dd-MM-yyyy HH:mm' }}</p>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

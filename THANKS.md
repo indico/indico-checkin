@@ -11,11 +11,4 @@ and easier web development.
 Code licensed under Apache License v2.0, documentation under CC BY 3.0.
 <http://getbootstrap.com/>
 
-ui-bootstrap are the native AngularJS (Angular) directives for Twitter's Bootstrap.
-<http://angular-ui.github.io/bootstrap/>
-
-jsOAuth is a Javascript implimentation of the OAuth protocol.
-<http://bytespider.github.io/jsOAuth/>
-Licensed under MIT license
-
 See also the AUTHORS.

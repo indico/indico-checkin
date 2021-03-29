@@ -1,68 +1,87 @@
 <div class="row">
-    <div class="col-md-12" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <div>{{registrant.full_name}}</div>
-                    <small>
-                        <a href="mailto:{{registrant.personal_data.email}}">
-                            {{registrant.personal_data.email}}
-                        </a>
-                     </small>
-                </h3>
-            </div>
-            <table class="table table-condensed">
-                <tbody>
-                    <tr>
-                        <th>Checked in</th>
-                        <td>
-                            <div class="toggle-button"
-                                 ng-class="{toggled: registrant.checked_in}"
-                                 ng-click="checkin_registrant($event)">
-                                <div class="toggle"></div>
-                            </div>
-                       </td>
-                    </tr>
-                    <tr ng-show="registrant.checked_in">
-                        <th>Check-in date</th><td>{{registrant.checkin_date}}</td>
-                    </tr>
-                    <tr>
-                        <th>Registration date</th><td>{{registrant.registration_date}}</td>
-                    </tr>
-                    <!-- If fields are disabled on the server side they will be
-                         undefined and we want to hide them. -->
-                    <tr ng-show="registrant.personal_data.position">
-                        <th>Position</th><td>{{registrant.personal_data.position}}</td>
-                    </tr>
-                    <tr ng-show="registrant.personal_data.institution">
-                        <th>Institution</th><td>{{registrant.personal_data.institution}}</td>
-                    </tr>
-                    <tr ng-show="registrant.personal_data.address">
-                        <th>Address</th><td>{{registrant.personal_data.address}}</td>
-                    </tr>
-                    <tr ng-show="registrant.personal_data.city">
-                        <th>City</th><td>{{registrant.personal_data.city}}</td>
-                    </tr>
-                    <tr ng-show="registrant.personal_data.country">
-                        <th>Country</th><td>{{registrant.personal_data.country}}</td>
-                    </tr>
-                    <tr ng-show="registrant.personal_data.phone">
-                        <th>Phone</th>
-                        <td>
-                            <a href="tel:{{registrant.personal_data.phone}}">{{registrant.personal_data.phone}}</a>
-                        </td>
-                    </tr>
-                    <tr ng-show="registrant.personal_data.personalHomepage">
-                        <th>Personal homepage</th><td>{{registrant.personal_data.personalHomepage}}</td>
-                    </tr>
-                    <tr ng-show="registrant.amount_paid">
-                        <th>Amount to pay</td><td>{{registrant.amount_paid}}</td>
-                    </tr>
-                    <tr ng-show="registrant.paid">
-                        <th>Paid</th><td>{{registrant.paid && 'Yes' || 'No' }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <div>{{registrant.full_name}}</div>
+          <small>
+            <a href="mailto:{{registrant.personal_data.email}}">
+              {{registrant.personal_data.email}}
+            </a>
+          </small>
+        </h3>
+      </div>
+      <table class="table table-condensed">
+        <tbody>
+          <tr>
+            <th>Checked in</th>
+            <td>
+              <div
+                class="toggle-button"
+                ng-class="{toggled: registrant.checked_in}"
+                ng-click="checkinRegistrant($event)"
+              >
+                <div class="toggle"></div>
+              </div>
+            </td>
+          </tr>
+          <tr ng-show="registrant.checked_in">
+            <th>Check-in date</th>
+            <td>{{registrant.checkin_date}}</td>
+          </tr>
+          <tr>
+            <th>Registration date</th>
+            <td>{{registrant.registration_date}}</td>
+          </tr>
+          <!-- If fields are disabled on the server side they will be
+          undefined and we want to hide them. -->
+          <tr ng-show="registrant.personal_data.affiliation">
+            <th>Affiliation</th>
+            <td>{{registrant.personal_data.affiliation}}</td>
+          </tr>
+          <tr ng-show="registrant.personal_data.position">
+            <th>Position</th>
+            <td>{{registrant.personal_data.position}}</td>
+          </tr>
+          <tr ng-show="registrant.personal_data.address">
+            <th>Address</th>
+            <td>{{registrant.personal_data.address}}</td>
+          </tr>
+          <tr ng-show="registrant.personal_data.country">
+            <th>Country</th>
+            <td>{{registrant.personal_data.country}}</td>
+          </tr>
+          <tr ng-show="registrant.personal_data.email">
+            <th>Email</th>
+            <td>
+              <a href="mailto:{{registrant.personal_data.email}}"
+                >{{registrant.personal_data.email}}</a
+              >
+            </td>
+          </tr>
+          <tr ng-show="registrant.personal_data.phone">
+            <th>Phone</th>
+            <td>
+              <a href="tel:{{registrant.personal_data.phone}}"
+                >{{registrant.personal_data.phone}}</a
+              >
+            </td>
+          </tr>
+
+          <tr ng-show="registrant.ticket_price">
+            <th>Ticket price</th>
+            <td>{{registrant.ticket_price}}</td>
+          </tr>
+          <tr ng-show="registrant.ticket_price">
+            <th>Paid</th>
+            <td>{{registrant.paid && 'Yes' || 'No' }}</td>
+          </tr>
+          <tr ng-show="registrant.amount_paid">
+            <th>Amount paid</th>
+            <td>{{registrant.amount_paid}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

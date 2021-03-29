@@ -20,182 +20,222 @@
  */
 
 body {
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 .checkin-nav {
-    text-shadow: 0 -1px 0 rgba(0,0,0,.15);
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 0 rgba(255,255,255,.1);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 header.checkin-nav {
-    background-color: #0B63A5;
-    height: 46px;
-    color: #ffffff;
+  background-color: #0b63a5;
+  height: 46px;
+  color: #ffffff;
 }
 
-header.checkin-nav  > .title {
-    color: #ffffff;
-    font-size: 1.2em;
-    position: absolute;
-    left: 1.6em;
-    right: 1.6em;
-    text-align: center;
-    display: inline-block;
-    line-height: 46px;
-    height: 46px;
-    margin: 0px 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+header.checkin-nav > .title {
+  color: #ffffff;
+  font-size: 1.2em;
+  position: absolute;
+  left: 1.6em;
+  right: 1.6em;
+  text-align: center;
+  display: inline-block;
+  line-height: 46px;
+  height: 46px;
+  margin: 0px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-header.checkin-nav  > a {
-    color: #ffffff;
-    font-size: 1.2em;
-    text-align: center;
-    float: left;
-    line-height: 46px;
-    min-width: 46px;
+header.checkin-nav > a {
+  color: #ffffff;
+  font-size: 1.2em;
+  text-align: center;
+  float: left;
+  line-height: 46px;
+  min-width: 46px;
 }
 
 header.checkin-nav > a:hover {
-    color: #0E80D8;
+  color: #0e80d8;
 }
 
 footer.checkin-nav {
-    min-height: 50px;
-    line-height: 50px;
-    border-bottom: none;
-    border-top: 1px solid #0E80D8;
-    background-color: #EEE;
-
+  min-height: 50px;
+  line-height: 50px;
+  border-bottom: none;
+  border-top: 1px solid #0e80d8;
+  background-color: #eee;
 }
 
 footer.checkin-nav nav {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-box;
-    display: -o-box;
-    display: box;
-    -webkit-box-pack: justify;
-    -moz-box-pack: justify;
-    -ms-box-pack: justify;
-    -o-box-pack: justify;
-    box-pack: justify;
-    width: 100%;
-    font-size: 11px;
-    margin:0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -ms-box-pack: justify;
+  -o-box-pack: justify;
+  box-pack: justify;
+  width: 100%;
+  font-size: 11px;
+  margin: 0;
 }
 
-footer.checkin-nav > nav  a {
-    display: block;
-    padding: 0;
-    height: 50px;
-    line-height: 30px;
-    text-align: center;
-    text-decoration: none;
-    padding: 5px 0;
+footer.checkin-nav > nav a {
+  display: block;
+  padding: 0;
+  height: 50px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px 0;
 }
 
 footer.checkin-nav nav .glyphicon {
-    font-size: 1.8em;
-    display: block;
-    width: inherit;
+  font-size: 1.8em;
+  display: block;
+  width: inherit;
 }
 
 footer.checkin-nav nav > a {
-    color: #0B63A5;
+  color: #0b63a5;
 }
 
 footer.checkin-nav nav > a:hover {
-    color: #0E80D8;
+  color: #0e80d8;
 }
 
 .blue {
-    color: #0B63A5;
+  color: #0b63a5;
 }
 
 .green {
-    color: #5cb85c;
+  color: #5cb85c;
 }
 
 .bg-blue {
-    background-color: #0B63A5;
+  background-color: #0b63a5;
 }
 
 .empty-list {
-    font-size: 4em;
-    margin: 20px;
+  font-size: 4em;
+  margin: 20px;
 }
-
 
 /* Override Bootstrap style*/
 
 h3.panel-title {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 h4.list-group-item-heading {
-    white-space: pre;
-    word-wrap: break-word;
+  white-space: pre;
+  word-wrap: break-word;
 }
 
 .badge {
-    font-size: 20px;
+  font-size: 20px;
 }
 
-div.registrants .checked  {
-    font-size: 18px;
-    margin-left: 10px;
+div.registrants .checked {
+  font-size: 18px;
+  margin-left: 10px;
 }
-
-
 
 .toggle-button {
-    -webkit-box-sizing: border-box;
-    border: 1px solid #999;
-    box-shadow: 0 0 5px rgba(100,100,100,0.3) inset;
-    width: 6em;
-    display: block;
-    background: #ddd;
-    height: 2em;
-    cursor: pointer;
-    position: relative;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #999;
+  box-shadow: 0 0 5px rgba(100, 100, 100, 0.3) inset;
+  width: 6em;
+  display: block;
+  background: #ddd;
+  height: 2em;
+  cursor: pointer;
+  position: relative;
 }
 
 .toggle-button .toggle {
-    -webkit-box-sizing: border-box;
-    position: absolute;
-    left: 0px;
-    -webkit-transition: left background-color border-color;
-    -webkit-transition-duration: .25s;
-    width: 50%;
-    height: 100%;
-    background: #aaa;
-    text-align: center;
-    border: 1px solid #888
+  -webkit-box-sizing: border-box;
+  position: absolute;
+  left: 0px;
+  -webkit-transition: left background-color border-color;
+  -webkit-transition-duration: 0.25s;
+  width: 50%;
+  height: 100%;
+  background: #aaa;
+  text-align: center;
+  border: 1px solid #888;
 }
 
 .toggle-button.toggled .toggle {
-    box-shadow: 0 0 0px rgba(255,255,255,0.8) inset;
-    background-color: #0B63A5;
-    border-color: #0E80D8;
-    left: 3em;
+  box-shadow: 0 0 0px rgba(255, 255, 255, 0.8) inset;
+  background-color: #0b63a5;
+  border-color: #0e80d8;
+  left: 3em;
 }
 
 .toggle-button .toggle::before {
-    color: #666;
-    display: inline-block;
-    font-size: 0.9em;
-    content: "NO";
-    line-height: 2em;
-    font-weight: bold;
+  color: #666;
+  display: inline-block;
+  font-size: 0.9em;
+  content: 'NO';
+  line-height: 2em;
+  font-weight: bold;
 }
 
 .toggle-button.toggled .toggle::before {
-    content: "YES";
-    color: #eee !important;
+  content: 'YES';
+  color: #eee !important;
 }
 
+.spinner-center {
+  display: flex;
+  justify-content: center;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 5px solid #333;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #333 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.table > tbody > tr > th {
+  vertical-align: middle;
+}
