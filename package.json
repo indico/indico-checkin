@@ -19,7 +19,13 @@
         "conference"
     ],
     "devDependencies": {
-        "cordova": "^8.1.0"
+        "cordova": "^8.1.0",
+        "cordova-plugin-inappbrowser": "^4.1.0",
+        "cordova-remove-cookies": "github:bez4pieci/Phonegap-Cookies-Plugin#b175345",
+        "eslint-config-indico": "^1.2.1",
+        "eslint-config-prettier": "^8.1.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-prettier": "^3.3.1"
     },
     "license": "GPL-3.0",
     "scripts": {
@@ -28,13 +34,15 @@
     "cordova": {
         "plugins": {
             "cordova-plugin-dialogs": {},
-            "cordova-plugin-inappbrowser": {},
             "cordova-plugin-network-information": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-whitelist": {},
             "phonegap-plugin-barcodescanner": {
-                "CAMERA_USAGE_DESCRIPTION": "To scan ticket QR codes"
-            }
+                "CAMERA_USAGE_DESCRIPTION": "To scan ticket QR codes",
+                "ANDROID_SUPPORT_V4_VERSION": "27.+"
+            },
+            "com.bez4pieci.cookies": {},
+            "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
             "android",
@@ -46,7 +54,6 @@
         "cordova-icon": "^1.0.0",
         "cordova-ios": "^4.5.5",
         "cordova-plugin-dialogs": "2.0.1",
-        "cordova-plugin-inappbrowser": "3.0.0",
         "cordova-plugin-network-information": "2.0.1",
         "cordova-plugin-splashscreen": "5.0.2",
         "cordova-plugin-whitelist": "1.3.3",

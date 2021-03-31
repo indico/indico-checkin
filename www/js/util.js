@@ -1,44 +1,63 @@
-/* This file is part of Indico check-in.
- * Copyright (C) 2002 - 2013 European Organization for Nuclear Research (CERN).
- *
- * Indico is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.
- *
- * Indico is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Indico check-in; if not, see <http://www.gnu.org/licenses/>.
- */
+function showAlert(title, text = '', callback = () => {}) {
+  navigator.notification.alert(text, callback, title);
+}
 
-function showAlert(title, text, callback) {
-    navigator.notification.alert(title, callback, text);
-};
+function showConfirm(title, text = '', buttonLabels, callback = () => {}) {
+  navigator.notification.confirm(text, callback, title, buttonLabels);
+}
 
-function showConfirm(title, text, buttonLabels, callback) {
-    navigator.notification.confirm(text, callback, title, buttonLabels);
-};
+function generateRandomString(size) {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  const randomBytes = window.crypto.getRandomValues(new Uint8Array(size));
+  return Array.from(randomBytes, byte => alphabet[byte % alphabet.length]).join('');
+}
 
-String.prototype.hashCode = function () {
-    var hash = 0;
-    if (this.length === 0) {
-        return hash;
-    }
-    for (i = 0; i < this.length; i++) {
-        char = this.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-};
+function sha256(message) {
+  const msgUint8 = new TextEncoder().encode(message);
+  return crypto.subtle.digest('SHA-256', msgUint8);
+}
 
-function formatDate(date) {
-    if(date) {
-        return moment(date).format('DD/MM/YYYY HH:mm');
-    }
-    return null;
+function base64UrlEncode(arrayBuffer) {
+  const str = String.fromCharCode.apply(null, new Uint8Array(arrayBuffer));
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function buildUrl(baseUrl, params) {
+  const url = new URL(baseUrl);
+  Object.entries(params).forEach(([k, v]) => url.searchParams.append(k, v));
+  return url;
+}
+
+function urlEncodeForm(params) {
+  return Object.keys(params)
+    .map(key => `${key}=${params[key]}`)
+    .join('&');
+}
+
+function getSearchParams(url, searchDivider = '?') {
+  if (url === '' || !url || !url.includes(searchDivider)) return {};
+  const urlParts = url.split(searchDivider);
+
+  const searchParams = {};
+  urlParts[1].split('&').forEach(segment => {
+    const [k, v] = segment.split('=');
+    searchParams[k] = v;
+  });
+
+  return searchParams;
+}
+
+function getKey(str) {
+  if (!str || str === '') return undefined;
+
+  let hash = 0;
+  let chr;
+
+  for (let i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0;
+  }
+
+  return hash;
 }
