@@ -7,7 +7,7 @@
 
 function RegistrantController($scope, $location, Storage, IndicoApi) {
   $scope.$on('$viewContentLoaded', async function () {
-    const { serverId, eventId, registrantId, checkinSecret } = $location.search();
+    const {serverId, eventId, registrantId, checkinSecret} = $location.search();
     const server = Storage.getServer(serverId);
 
     try {
@@ -36,7 +36,7 @@ function RegistrantController($scope, $location, Storage, IndicoApi) {
 
   $scope.checkinRegistrant = async function ($event) {
     const currentValue = angular.element($event.currentTarget).hasClass('toggled');
-    const { serverId, eventId, registrantId } = $location.search();
+    const {serverId, eventId, registrantId} = $location.search();
     const server = Storage.getServer(serverId);
 
     let result = await IndicoApi.doCheckin(server, eventId, registrantId, !currentValue);

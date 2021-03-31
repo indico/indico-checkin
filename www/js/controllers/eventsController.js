@@ -19,14 +19,14 @@ function EventsController($scope, $location, Storage) {
       'Delete event',
       'Are you sure you want to delete the selected event?',
       ['Delete', 'Cancel'],
-      (buttonIndex) => {
+      buttonIndex => {
         if (buttonIndex === 1) {
           Storage.deleteEvent(serverId, eventId);
           $location.path('events');
           $scope.editMode = false;
           $scope.$apply();
         }
-      },
+      }
     );
   };
 

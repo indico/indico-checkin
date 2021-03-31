@@ -20,7 +20,7 @@
     ],
     "devDependencies": {
         "cordova": "^8.1.0",
-        "cordova-plugin-inappbrowser": "^4.1.0"
+        "eslint-config-indico": "^1.2.1"
     },
     "license": "GPL-3.0",
     "scripts": {

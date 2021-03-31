@@ -6,23 +6,23 @@
 // LICENSE file for more details.
 
 function NavigationController($scope, $location, Storage, IndicoApi) {
-  const scanQRCode = (callback) => {
+  const scanQRCode = callback => {
     cordova.plugins.barcodeScanner.scan(
-      (result) => {
+      result => {
         try {
           if (!result.cancelled) callback(JSON.parse(result.text));
         } catch {
           showAlert('Invalid QR');
         }
       },
-      (error) => {
+      error => {
         showAlert('Scanning error', error);
-      },
+      }
     );
   };
 
   $scope.doCheckin = () => {
-    scanQRCode((data) => {
+    scanQRCode(data => {
       const eventId = data.event_id;
       const serverId = getKey(data.server_url);
       const registrantId = data.registrant_id;
@@ -39,13 +39,13 @@ function NavigationController($scope, $location, Storage, IndicoApi) {
         return;
       }
 
-      $location.path('registrant').search({ serverId, eventId, registrantId, checkinSecret });
+      $location.path('registrant').search({serverId, eventId, registrantId, checkinSecret});
       $scope.$apply();
     });
   };
 
   $scope.addEvent = function () {
-    scanQRCode(async (data) => {
+    scanQRCode(async data => {
       const eventData = {
         eventId: data.event_id,
         serverId: getKey(data.server?.base_url),
@@ -53,7 +53,7 @@ function NavigationController($scope, $location, Storage, IndicoApi) {
         date: data.date,
       };
 
-      if (Object.values(eventData).some((i) => typeof i === 'undefined')) {
+      if (Object.values(eventData).some(i => typeof i === 'undefined')) {
         showAlert('That QR is not a valid Indico event');
         return;
       }

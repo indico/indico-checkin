@@ -8,8 +8,8 @@
 function RegistrantsController($routeParams, $scope, $location, Storage, IndicoApi) {
   $scope.$on('$viewContentLoaded', async function () {
     $scope.loading = true;
-    const { event: eventId, server: serverId } = $routeParams;
-    const { title } = Storage.getEvent(serverId, eventId);
+    const {event: eventId, server: serverId} = $routeParams;
+    const {title} = Storage.getEvent(serverId, eventId);
     const server = Storage.getServer(serverId);
 
     try {
@@ -34,10 +34,10 @@ function RegistrantsController($routeParams, $scope, $location, Storage, IndicoA
   });
 
   $scope.goToRegistrant = function (registrant) {
-    const { server: serverId, event: eventId } = $routeParams;
-    const { registrant_id: registrantId, checkin_secret: checkinSecret } = registrant;
+    const {server: serverId, event: eventId} = $routeParams;
+    const {registrant_id: registrantId, checkin_secret: checkinSecret} = registrant;
 
-    $location.path('registrant').search({ serverId, eventId, registrantId, checkinSecret });
+    $location.path('registrant').search({serverId, eventId, registrantId, checkinSecret});
   };
 
   $scope.isRegistrantListEmpty = function () {

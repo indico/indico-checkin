@@ -16,7 +16,7 @@ function showConfirm(title, text = '', buttonLabels, callback = () => {}) {
 function generateRandomString(size) {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(size));
-  return Array.from(randomBytes, (byte) => alphabet[byte % alphabet.length]).join('');
+  return Array.from(randomBytes, byte => alphabet[byte % alphabet.length]).join('');
 }
 
 function sha256(message) {
@@ -37,7 +37,7 @@ function buildUrl(baseUrl, params) {
 
 function urlEncodeForm(params) {
   return Object.keys(params)
-    .map((key) => key + '=' + params[key])
+    .map(key => key + '=' + params[key])
     .join('&');
 }
 
@@ -46,7 +46,7 @@ function getSearchParams(url, searchDivider = '?') {
   const urlParts = url.split(searchDivider);
 
   const searchParams = {};
-  urlParts[1].split('&').forEach((segment) => {
+  urlParts[1].split('&').forEach(segment => {
     [k, v] = segment.split('=');
     searchParams[k] = v;
   });
