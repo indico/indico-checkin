@@ -1,28 +1,21 @@
-// This file is part of Indico.
-// Copyright (C) 2002 - 2021 CERN
-//
-// Indico is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see the
-// LICENSE file for more details.
-
 const app = {
-  initialize: function () {
+  initialize() {
     this.bindEvents();
   },
 
-  bindEvents: function () {
+  bindEvents() {
     document.addEventListener('deviceready', this.onDeviceReady, false);
     document.addEventListener('offline', this.checkConnection, false);
     document.addEventListener('online', this.checkConnection, false);
   },
 
-  onDeviceReady: function () {
+  onDeviceReady() {
     app.receivedEvent('deviceready');
   },
 
-  receivedEvent: function () {},
+  receivedEvent() {},
 
-  checkConnection: function () {
+  checkConnection() {
     if (navigator.connection.type === Connection.NONE) {
       showAlert('No network connection detected. Check settings.');
     }

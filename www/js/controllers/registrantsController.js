@@ -1,10 +1,3 @@
-// This file is part of Indico.
-// Copyright (C) 2002 - 2021 CERN
-//
-// Indico is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see the
-// LICENSE file for more details.
-
 function RegistrantsController($routeParams, $scope, $location, Storage, IndicoApi) {
   $scope.$on('$viewContentLoaded', async function () {
     $scope.loading = true;
@@ -25,8 +18,8 @@ function RegistrantsController($routeParams, $scope, $location, Storage, IndicoA
       $scope.loading = false;
       $scope.registrants = result.registrants;
       $scope.$emit('changeTitle', title);
-    } catch {
-      showAlert('Error', 'There was a problem retrieving the attende list');
+    } catch (e) {
+      showAlert('Error', `There was a problem retrieving the attendee list: ${e.message}`);
       $location.path('events');
     }
 

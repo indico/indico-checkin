@@ -1,10 +1,3 @@
-// This file is part of Indico.
-// Copyright (C) 2002 - 2021 CERN
-//
-// Indico is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see the
-// LICENSE file for more details.
-
 function RegistrantController($scope, $location, Storage, IndicoApi) {
   $scope.$on('$viewContentLoaded', async function () {
     const {serverId, eventId, registrantId, checkinSecret} = $location.search();
@@ -20,8 +13,12 @@ function RegistrantController($scope, $location, Storage, IndicoApi) {
         result = await IndicoApi.getRegistrant(reauthServer, eventId, registrantId);
       }
 
+      if (result.status === 404) {
+        throw new Error('Registration not found');
+      }
+
       if (result.registrant.checkin_secret !== checkinSecret) {
-        throw new Error('The secret key of the QR code does not match the key of the registrant');
+        throw new Error('The checkin secret of the QR code does not match that of the registrant');
       }
 
       $scope.registrant = result.registrant;

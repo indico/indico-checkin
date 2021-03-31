@@ -1,0 +1,17 @@
+env:
+  browser: true
+  es6: true
+
+extends:
+  - 'indico'
+  - 'indico/prettier'
+
+rules:
+  no-implicit-globals: off
+  no-unused-vars: off
+  no-undef: off
+  strict: off
+  prefer-template: error
+
+parserOptions:
+  ecmaVersion: 2018

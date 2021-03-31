@@ -1,10 +1,3 @@
-// This file is part of Indico.
-// Copyright (C) 2002 - 2021 CERN
-//
-// Indico is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see the
-// LICENSE file for more details.
-
 function showAlert(title, text = '', callback = () => {}) {
   navigator.notification.alert(text, callback, title);
 }
@@ -37,17 +30,17 @@ function buildUrl(baseUrl, params) {
 
 function urlEncodeForm(params) {
   return Object.keys(params)
-    .map(key => key + '=' + params[key])
+    .map(key => `${key}=${params[key]}`)
     .join('&');
 }
 
 function getSearchParams(url, searchDivider = '?') {
-  if (url == '' || !url || !url.includes(searchDivider)) return {};
+  if (url === '' || !url || !url.includes(searchDivider)) return {};
   const urlParts = url.split(searchDivider);
 
   const searchParams = {};
   urlParts[1].split('&').forEach(segment => {
-    [k, v] = segment.split('=');
+    const [k, v] = segment.split('=');
     searchParams[k] = v;
   });
 
@@ -57,8 +50,8 @@ function getSearchParams(url, searchDivider = '?') {
 function getKey(str) {
   if (!str || str === '') return undefined;
 
-  let hash = 0,
-    chr;
+  let hash = 0;
+  let chr;
 
   for (let i = 0; i < str.length; i++) {
     chr = str.charCodeAt(i);
@@ -74,5 +67,8 @@ function formatDate(date) {
 
   const d = new Date(date);
 
-  return `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+  return `${d.toLocaleDateString()} ${d.toLocaleTimeString(undefined, {
+    timeStyle: 'short',
+    hour24: false,
+  })}`;
 }

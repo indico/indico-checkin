@@ -1,10 +1,3 @@
-// This file is part of Indico.
-// Copyright (C) 2002 - 2021 CERN
-//
-// Indico is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see the
-// LICENSE file for more details.
-
 angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function () {
   const generateCodeChallenge = async codeVerifier => {
     const hash = await sha256(codeVerifier);
@@ -16,7 +9,7 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
       const authBrowser = cordova.InAppBrowser.open(authUrl, '_blank', 'location=no');
 
       authBrowser.addEventListener('loadstart', e => {
-        if (e.url.indexOf(redirectUri) == 0) {
+        if (e.url.startsWith(redirectUri)) {
           authBrowser.close();
           // clear session cookie from browser so it's not sent on further fetches
           window.cookies.clear();
@@ -101,18 +94,24 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
     }
   }
 
-  function getServerData(server, version) {
-    const serverDataVersion = {
-      1: server => ({
-        serverId: getKey(server.base_url || server.baseUrl),
-        clientId: server.consumer_key || server.consumerKey,
-        baseUrl: server.base_url || server.baseUrl,
-        authUrl: server.auth_url,
-        tokenUrl: server.token_url,
-        scope: 'registrants',
-        callbackUrl: 'http://localhost',
-      }),
-      2: async server => {
+  async function getServerData(server, version) {
+    if (!version) {
+      throw new Error('Incompatible QR.');
+    }
+
+    switch (version) {
+      case 1:
+        return {
+          serverId: getKey(server.base_url),
+          clientId: server.consumer_key,
+          baseUrl: server.base_url,
+          authUrl: server.auth_url,
+          tokenUrl: server.token_url,
+          scope: 'registrants',
+          callbackUrl: 'http://localhost',
+        };
+
+      default: {
         const oAuthDiscoveryUrl = `${server.base_url}/.well-known/oauth-authorization-server`;
         const res = await fetch(oAuthDiscoveryUrl);
         const data = await res.json();
@@ -127,13 +126,8 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
           usePkce: true,
           callbackUrl: 'http://localhost',
         };
-      },
-      0: () => {
-        throw new Error('Incompatible QR.');
-      },
-    };
-
-    return serverDataVersion[version || '0'](server);
+      }
+    }
   }
 
   async function getRegistrants(server, eventId) {
@@ -151,7 +145,11 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
     const res = await fetch(registrantUrl, {
       headers: {Authorization: `Bearer ${server.token}`},
     });
-    data = await res.json();
+    if (res.status === 404) {
+      return {status: res.status};
+    }
+
+    const data = await res.json();
     data.registration_date = formatDate(data.registration_date);
     data.checkin_date = formatDate(data.checkin_date);
 

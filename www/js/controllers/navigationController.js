@@ -1,10 +1,3 @@
-// This file is part of Indico.
-// Copyright (C) 2002 - 2021 CERN
-//
-// Indico is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see the
-// LICENSE file for more details.
-
 function NavigationController($scope, $location, Storage, IndicoApi) {
   const scanQRCode = callback => {
     cordova.plugins.barcodeScanner.scan(
@@ -76,7 +69,7 @@ function NavigationController($scope, $location, Storage, IndicoApi) {
           Storage.addServer(authenticatedServer);
         } catch (e) {
           console.error(e);
-          showAlert('Authentication problem');
+          showAlert(`Authentication problem: ${e.message}`);
           return;
         }
       }

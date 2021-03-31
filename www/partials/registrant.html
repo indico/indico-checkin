@@ -5,9 +5,7 @@
         <h3 class="panel-title">
           <div>{{registrant.full_name}}</div>
           <small>
-            <a href="mailto:{{registrant.personal_data.email}}">
-              {{registrant.personal_data.email}}
-            </a>
+            <a href="mailto:{{registrant.personal_data.email}}">{{registrant.personal_data.email}}</a>
           </small>
         </h3>
       </div>
@@ -54,17 +52,13 @@
           <tr ng-show="registrant.personal_data.email">
             <th>Email</th>
             <td>
-              <a href="mailto:{{registrant.personal_data.email}}"
-                >{{registrant.personal_data.email}}</a
-              >
+              <a href="mailto:{{registrant.personal_data.email}}">{{registrant.personal_data.email}}</a>
             </td>
           </tr>
           <tr ng-show="registrant.personal_data.phone">
             <th>Phone</th>
             <td>
-              <a href="tel:{{registrant.personal_data.phone}}"
-                >{{registrant.personal_data.phone}}</a
-              >
+              <a href="tel:{{registrant.personal_data.phone}}">{{registrant.personal_data.phone}}</a>
             </td>
           </tr>
 
@@ -74,7 +68,7 @@
           </tr>
           <tr ng-show="registrant.ticket_price">
             <th>Paid</th>
-            <td>{{registrant.paid && 'Yes' || 'No' }}</td>
+            <td>{{registrant.paid ? 'Yes' : 'No' }}</td>
           </tr>
           <tr ng-show="registrant.amount_paid">
             <th>Amount paid</th>
