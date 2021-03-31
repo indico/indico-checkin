@@ -1,9 +1,12 @@
 angular.module('Checkinapp.storageService', []).service('Storage', function () {
+  const STORAGE_VERSION = 1;
+  const eventsKey = `events-${STORAGE_VERSION}`;
+  const serversKey = `servers-${STORAGE_VERSION}`;
   const eventKey = (serverId, eventId) => `${serverId}_${eventId}`;
 
   // event storage functions
   function getEvents() {
-    return JSON.parse(localStorage.getItem('events')) || {};
+    return JSON.parse(localStorage.getItem(eventsKey)) || {};
   }
 
   function getEvent(serverId, eventId) {
@@ -13,18 +16,18 @@ angular.module('Checkinapp.storageService', []).service('Storage', function () {
   function addEvent(event) {
     const events = getEvents();
     events[eventKey(event.serverId, event.eventId)] = event;
-    localStorage.setItem('events', JSON.stringify(events));
+    localStorage.setItem(eventsKey, JSON.stringify(events));
   }
 
   function deleteEvent(serverId, eventId) {
     const events = getEvents();
     delete events[eventKey(serverId, eventId)];
-    localStorage.setItem('events', JSON.stringify(events));
+    localStorage.setItem(eventsKey, JSON.stringify(events));
   }
 
   // server storage functions
   function getServers() {
-    return JSON.parse(localStorage.getItem('servers')) || {};
+    return JSON.parse(localStorage.getItem(serversKey)) || {};
   }
 
   function getServer(serverId) {
@@ -34,13 +37,13 @@ angular.module('Checkinapp.storageService', []).service('Storage', function () {
   function addServer(server) {
     const servers = getServers();
     servers[server.serverId] = server;
-    localStorage.setItem('servers', JSON.stringify(servers));
+    localStorage.setItem(serversKey, JSON.stringify(servers));
   }
 
   function deleteServer(serverId) {
     const servers = getServers();
     delete servers[serverId];
-    localStorage.setItem('servers', JSON.stringify(servers));
+    localStorage.setItem(serversKey, JSON.stringify(servers));
   }
 
   // exports

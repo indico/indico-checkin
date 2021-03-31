@@ -59,5 +59,5 @@ function getKey(str) {
     hash |= 0;
   }
 
-  return `checkin-${hash}`;
+  return hash;
 }
