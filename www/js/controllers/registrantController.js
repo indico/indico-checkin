@@ -45,7 +45,7 @@ function RegistrantController($scope, $location, Storage, IndicoApi) {
       result = await IndicoApi.doCheckin(reauthServer, eventId, registrantId, !currentValue);
     }
 
-    $scope.registrant.checkin_date = formatDate(result.checkin.checkin_date);
+    $scope.registrant.checkin_date = result.checkin.checkin_date;
     $scope.registrant.checked_in = result.checkin.checked_in;
     $scope.$apply();
   };

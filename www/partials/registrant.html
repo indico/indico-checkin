@@ -25,11 +25,11 @@
           </tr>
           <tr ng-show="registrant.checked_in">
             <th>Check-in date</th>
-            <td>{{registrant.checkin_date}}</td>
+            <td>{{registrant.checkin_date | date:'dd-MM-yyyy HH:mm'}}</td>
           </tr>
           <tr>
             <th>Registration date</th>
-            <td>{{registrant.registration_date}}</td>
+            <td>{{registrant.registration_date | date:'dd-MM-yyyy HH:mm'}}</td>
           </tr>
           <!-- If fields are disabled on the server side they will be
           undefined and we want to hide them. -->

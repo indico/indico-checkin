@@ -61,14 +61,3 @@ function getKey(str) {
 
   return `checkin-${hash}`;
 }
-
-function formatDate(date) {
-  if (!date) return;
-
-  const d = new Date(date);
-
-  return `${d.toLocaleDateString()} ${d.toLocaleTimeString(undefined, {
-    timeStyle: 'short',
-    hour24: false,
-  })}`;
-}

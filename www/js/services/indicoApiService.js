@@ -150,8 +150,6 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
     }
 
     const data = await res.json();
-    data.registration_date = formatDate(data.registration_date);
-    data.checkin_date = formatDate(data.checkin_date);
 
     return {status: res.status, registrant: data};
   }
