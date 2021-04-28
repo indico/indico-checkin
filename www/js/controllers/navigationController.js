@@ -41,7 +41,7 @@ function NavigationController($scope, $location, Storage, IndicoApi) {
     scanQRCode(async data => {
       const eventData = {
         eventId: data.event_id,
-        serverId: getKey(data.server?.base_url),
+        serverId: getKey(data.server ? data.server.base_url : null),
         title: data.title,
         date: data.date,
       };
