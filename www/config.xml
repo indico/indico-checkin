@@ -72,6 +72,6 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value="To scan ticket QR codes" />
     </plugin>
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-        <string>To scan barcodes</string>
+        <string>To easily scan Indico ticket barcodes</string>
     </edit-config>
 </widget>
