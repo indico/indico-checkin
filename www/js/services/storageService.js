@@ -3,6 +3,7 @@ angular.module('Checkinapp.storageService', []).service('Storage', function () {
   const eventsKey = `events-${STORAGE_VERSION}`;
   const serversKey = `servers-${STORAGE_VERSION}`;
   const eventKey = (serverId, eventId) => `${serverId}_${eventId}`;
+  const registrantsKey = (serverId, eventId) => `registrants-${STORAGE_VERSION}-${serverId}_${eventId}`;
 
   // event storage functions
   function getEvents() {
@@ -23,6 +24,8 @@ angular.module('Checkinapp.storageService', []).service('Storage', function () {
     const events = getEvents();
     delete events[eventKey(serverId, eventId)];
     localStorage.setItem(eventsKey, JSON.stringify(events));
+
+    deleteRegistrants(serverId, eventId);
   }
 
   // server storage functions
@@ -46,6 +49,48 @@ angular.module('Checkinapp.storageService', []).service('Storage', function () {
     localStorage.setItem(serversKey, JSON.stringify(servers));
   }
 
+  // registrant cache functions
+  function getRegistrants(serverId, eventId) {
+    return JSON.parse(localStorage.getItem(registrantsKey(serverId, eventId))) || [];
+  }
+
+  function setRegistrants(serverId, eventId, registrants) {
+    localStorage.setItem(registrantsKey(serverId, eventId), JSON.stringify(registrants));
+  }
+
+  function getRegistrant(serverId, eventId, registrantId) {
+    return getRegistrants(serverId, eventId).filter(registrant => registrant.id === registrantId);
+  }
+
+  function checkinRegistrant(serverId, eventId, registrantId, checkinStatus) {
+    const registrants = getRegistrants(serverId, eventId);
+    const registrant = registrants.find(registrant => registrant.registrant_id === registrantId);
+
+    if (registrant) {
+      registrant.checked_in = checkinStatus;
+      setRegistrants(serverId, eventId, registrants);
+      return checkinStatus;
+    }
+
+  }
+
+  function deleteRegistrants(serverId, eventId) {
+    Object.keys(localStorage).forEach(storedKey => {
+      if (storedKey === registrantsKey(serverId, eventId)) {
+        localStorage.removeItem(storedKey);
+      }
+    });
+  }
+
+  // settings storage functions
+  function getAutoCheckin() {
+    return JSON.parse(localStorage.getItem('autoCheckin')) || false;
+  }
+
+  function setAutoCheckin(value) {
+    localStorage.setItem('autoCheckin', value);
+  }
+
   // exports
   return {
     getEvents,
@@ -55,5 +100,12 @@ angular.module('Checkinapp.storageService', []).service('Storage', function () {
     getServer,
     addServer,
     deleteServer,
+    getRegistrants,
+    getRegistrant,
+    setRegistrants,
+    checkinRegistrant,
+    deleteRegistrants,
+    getAutoCheckin,
+    setAutoCheckin,
   };
 });

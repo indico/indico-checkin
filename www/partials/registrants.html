@@ -6,29 +6,37 @@
         <div>No attendees</div>
       </h3>
     </div>
-    <div ng-hide="isRegistrantListEmpty()" class="panel panel-default">
+    <div ng-hide="isRegistrantListEmpty()" id="registrants-list-container" class="panel panel-default">
       <div class="panel-heading">
-        <div class="pull-right badge bg-blue">{{registrants.length}}</div>
+        <div ng-show="loading" id="registrants-spinner-container" class="pull-right"></div>
+        <div ng-hide="loading" class="pull-right badge bg-blue">{{totalCount}}</div>
         <h3 class="panel-title">Attendees</h3>
       </div>
-      <div class="list-group registrants">
-        <div class="list-group-item spinner-center" ng-if="loading">
-          <div class="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
+      <div
+        class="list-group registrants"
+        infinite-scroll="showMoreRegistrants()"
+        infinite-scroll-distance="1"
+      >
+        <input
+          ng-model="filter"
+          ng-change="updateRegistrants()"
+          type="text"
+          class="list-group-item"
+          placeholder="Type to search..."
+        />
         <a
-          ng-repeat="registrant in registrants | orderBy: 'registrant_id'"
+          ng-repeat="registrant in registrants track by registrant.registrant_id"
           class="list-group-item"
           ng-click="goToRegistrant(registrant)"
         >
           <div ng-show="registrant.checked_in" class="pull-right checked">
             <span class="glyphicon glyphicon-ok green"></span>
           </div>
-          <h4 class="list-group-item-heading">{{registrant.full_name}}</h4>
+          <span>
+            {{::registrant.personal_data.title}}
+            {{::registrant.personal_data.firstName}}
+            <strong>{{::registrant.personal_data.surname}}</strong>
+          </span>
         </a>
       </div>
     </div>

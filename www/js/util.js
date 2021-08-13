@@ -61,3 +61,25 @@ function getKey(str) {
 
   return hash;
 }
+
+function scanQRCode(callback) {
+  cordova.plugins.barcodeScanner.scan(
+    result => {
+      try {
+        if (!result.cancelled) callback(JSON.parse(result.text));
+      } catch {
+        showAlert('Invalid QR');
+      }
+    },
+    error => {
+      showAlert('Scanning error', error);
+    },
+    {
+      showFlipCameraButton: false,
+      showTorchButton: true,
+      prompt: 'Place the QR-Code inside the rectangle.',
+      formats: 'QR_CODE',
+      resultDisplayDuration: 0
+    }
+  );
+}

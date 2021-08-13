@@ -13,7 +13,7 @@ const app = {
     app.receivedEvent('deviceready');
   },
 
-  receivedEvent() {},
+  receivedEvent() { },
 
   checkConnection() {
     if (navigator.connection.type === Connection.NONE) {
@@ -26,6 +26,12 @@ angular
   .module('Checkinapp', [
     'ngTouch',
     'ngRoute',
+    'infinite-scroll',
+    'Checkinapp.eventsController',
+    'Checkinapp.navigationController',
+    'Checkinapp.registrantController',
+    'Checkinapp.registrantsController',
+    'Checkinapp.settingsController',
     'Checkinapp.storageService',
     'Checkinapp.indicoApiService',
   ])
@@ -42,6 +48,10 @@ angular
       .when('/registrant', {
         templateUrl: 'partials/registrant.html',
         controller: 'RegistrantController',
+      })
+      .when('/settings', {
+        templateUrl: 'partials/settings.html',
+        controller: 'SettingsController'
       })
       .otherwise({
         redirectTo: '/',

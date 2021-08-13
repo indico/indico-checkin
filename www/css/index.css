@@ -19,32 +19,35 @@
  * along with Indico check-in; if not, see <http://www.gnu.org/licenses/>.
  */
 
-body {
+ body {
   padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 .checkin-nav {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.05);
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 0 rgba(255,255,255,.1);
 }
 
 header.checkin-nav {
-  background-color: #0b63a5;
-  height: 46px;
+  background-color: #0B63A5;
+  border-bottom: 1px solid #0b4571;
+  height: 50px;
   color: #ffffff;
 }
 
 header.checkin-nav > .title {
   color: #ffffff;
-  font-size: 1.2em;
+  font-size: 1.4em;
+  font-weight: bold;
   position: absolute;
   left: 1.6em;
   right: 1.6em;
   text-align: center;
   display: inline-block;
-  line-height: 46px;
-  height: 46px;
+  line-height: 50px;
+  height: 50px;
   margin: 0px 10px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,187 +58,231 @@ header.checkin-nav > a {
   font-size: 1.2em;
   text-align: center;
   float: left;
-  line-height: 46px;
-  min-width: 46px;
+  line-height: 50px;
+  min-width: 50px;
+}
+
+header.checkin-nav > a.settings-icon {
+float: right;
 }
 
 header.checkin-nav > a:hover {
-  color: #0e80d8;
+color: #0e80d8;
 }
 
 footer.checkin-nav {
-  min-height: 50px;
-  line-height: 50px;
+  min-height: 60px;
+  line-height: 55px;
+  padding-top: 5px;
   border-bottom: none;
-  border-top: 1px solid #0e80d8;
+  border-top: 1px solid #0b63a5;
   background-color: #eee;
 }
 
 footer.checkin-nav nav {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-box;
-  display: -o-box;
-  display: box;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-box-pack: justify;
-  -o-box-pack: justify;
-  box-pack: justify;
-  width: 100%;
-  font-size: 11px;
-  margin: 0;
+display: -webkit-box;
+display: -moz-box;
+display: -ms-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: justify;
+-moz-box-pack: justify;
+-ms-box-pack: justify;
+-o-box-pack: justify;
+box-pack: justify;
+width: 100%;
+font-size: 11px;
+margin: 0;
 }
 
 footer.checkin-nav > nav a {
-  display: block;
-  padding: 0;
-  height: 50px;
-  line-height: 30px;
-  text-align: center;
-  text-decoration: none;
-  padding: 5px 0;
+display: block;
+padding: 0;
+height: 50px;
+line-height: 30px;
+text-align: center;
+text-decoration: none;
+padding: 5px 0;
 }
 
 footer.checkin-nav nav .glyphicon {
-  font-size: 1.8em;
-  display: block;
-  width: inherit;
+font-size: 1.8em;
+display: block;
+width: inherit;
 }
 
 footer.checkin-nav nav > a {
-  color: #0b63a5;
+color: #0b63a5;
 }
 
 footer.checkin-nav nav > a:hover {
-  color: #0e80d8;
+color: #0e80d8;
 }
 
 .blue {
-  color: #0b63a5;
+color: #0b63a5;
 }
 
 .green {
-  color: #5cb85c;
+color: #5cb85c;
 }
 
 .bg-blue {
-  background-color: #0b63a5;
+background-color: #0b63a5;
 }
 
 .empty-list {
-  font-size: 4em;
-  margin: 20px;
+font-size: 4em;
+margin: 20px;
 }
 
 /* Override Bootstrap style*/
 
 h3.panel-title {
-  font-size: 24px;
+  font-size: 1.4em;
   font-weight: bold;
 }
 
-h4.list-group-item-heading {
-  white-space: pre;
+.registrants h4.list-group-item-heading {
+  font-size: 1em;
+  margin-top: 1px;
+  margin-bottom: 1px;
   word-wrap: break-word;
 }
 
 .badge {
-  font-size: 20px;
+  font-size: 1.3em;
 }
 
-div.registrants .checked {
-  font-size: 18px;
+div.registrants .checked  {
+  font-size: 1em;
   margin-left: 10px;
 }
+
+div.registrants input.list-group-item  {
+  width: 100%;
+}
+
+
 
 .toggle-button {
   -webkit-box-sizing: border-box;
   border: 1px solid #999;
-  box-shadow: 0 0 5px rgba(100, 100, 100, 0.3) inset;
-  width: 6em;
+  box-shadow: 0 0 5px rgba(100,100,100,0.3) inset;
+  width: 8em;
   display: block;
   background: #ddd;
-  height: 2em;
+  height: 2.7em;
+  line-height: 2.35em;
   cursor: pointer;
   position: relative;
 }
 
 .toggle-button .toggle {
-  -webkit-box-sizing: border-box;
-  position: absolute;
-  left: 0px;
-  -webkit-transition: left background-color border-color;
-  -webkit-transition-duration: 0.25s;
-  width: 50%;
-  height: 100%;
-  background: #aaa;
-  text-align: center;
-  border: 1px solid #888;
+-webkit-box-sizing: border-box;
+position: absolute;
+left: 0px;
+-webkit-transition: left background-color border-color;
+-webkit-transition-duration: 0.25s;
+width: 50%;
+height: 100%;
+background: #aaa;
+text-align: center;
+border: 1px solid #888;
 }
 
 .toggle-button.toggled .toggle {
-  box-shadow: 0 0 0px rgba(255, 255, 255, 0.8) inset;
-  background-color: #0b63a5;
-  border-color: #0e80d8;
-  left: 3em;
+  box-shadow: 0 0 0px rgba(255,255,255,0.8) inset;
+  background-color: #0B63A5;
+  border-color: #0E80D8;
+  left: 4em;
 }
 
 .toggle-button .toggle::before {
-  color: #666;
-  display: inline-block;
-  font-size: 0.9em;
-  content: 'NO';
-  line-height: 2em;
-  font-weight: bold;
+color: #666;
+display: inline-block;
+font-size: 0.9em;
+content: 'NO';
+line-height: 2em;
+font-weight: bold;
 }
 
 .toggle-button.toggled .toggle::before {
-  content: 'YES';
-  color: #eee !important;
+content: 'YES';
+color: #eee !important;
 }
 
 .spinner-center {
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
 }
 
 .lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
+display: inline-block;
+position: relative;
+width: 80px;
+height: 80px;
 }
 .lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 5px solid #333;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #333 transparent transparent transparent;
+box-sizing: border-box;
+display: block;
+position: absolute;
+width: 64px;
+height: 64px;
+margin: 8px;
+border: 5px solid #333;
+border-radius: 50%;
+animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+border-color: #333 transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
+animation-delay: -0.45s;
 }
 .lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
+animation-delay: -0.3s;
 }
 .lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
+animation-delay: -0.15s;
 }
 @keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
 }
 
-.table > tbody > tr > th {
-  vertical-align: middle;
+.pull-right .btn {
+  margin-top: -4px;
+}
+
+.panel .table th, .panel .table td {
+  padding: 10px 15px;
+}
+.panel .table td.condensed, .panel .table td.condensed {
+  padding: 4px 15px;
+}
+.panel .registration th {
+  width: 45%;
+}
+.panel .table td.description {
+  border-top: none;
+  padding: 0 15px 10px 15px;
+  color: #888;
+}
+
+#events-empty-spinner-container,
+#events-spinner-container,
+#registrant-spinner-container,
+#registrants-spinner-container {
+  display: block;
+  position: relative;
+  height: 1.4em;
+  width: 2em;
+}
+
+.spinner-center {
+  margin-left: auto;
+  margin-right: auto;
 }

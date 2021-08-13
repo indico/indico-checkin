@@ -3,22 +3,21 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <div>{{registrant.full_name}}</div>
+          <div ng-show="loading" id="registrant-spinner-container" class="pull-right"></div>
+          <div ng-show="registrant.full_name">{{registrant.full_name}}</div>
+          <div ng-show="!registrant.full_name">Attendee</div>
           <small>
             <a href="mailto:{{registrant.personal_data.email}}">{{registrant.personal_data.email}}</a>
           </small>
         </h3>
       </div>
-      <table class="table table-condensed">
+      <table ng-show="!loading" class="table table-condensed registration">
         <tbody>
           <tr>
             <th>Checked in</th>
-            <td>
-              <div
-                class="toggle-button"
-                ng-class="{toggled: registrant.checked_in}"
-                ng-click="checkinRegistrant($event)"
-              >
+            <td class="condensed">
+              <div class="toggle-button" ng-class="{toggled: registrant.checked_in}"
+                ng-click="checkinRegistrant($event)">
                 <div class="toggle"></div>
               </div>
             </td>

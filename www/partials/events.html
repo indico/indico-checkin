@@ -6,25 +6,17 @@
         <div>No events</div>
         <small>Please click in 'Add event' if you want to start the check-in process</small>
       </h3>
+      <div ng-show="loading" id="events-empty-spinner-container" class="spinner-center"></div>
     </div>
     <div ng-hide="isEventListEmpty()" class="panel panel-default">
       <div class="panel-heading">
-        <div class="pull-right">
-          <button
-            type="button"
-            class="btn btn-primary btn-sm"
-            ng-click="editMode=true"
-            ng-show="!editMode"
-          >
+        <div ng-show="loading" id="events-spinner-container" class="pull-right"></div>
+        <div ng-hide="loading" class="pull-right">
+          <button type="button" class="btn btn-primary btn-sm" ng-click="editMode=true" ng-show="!editMode">
             <span class="glyphicon glyphicon-edit"></span>
             Edit
           </button>
-          <button
-            type="button"
-            class="btn btn-danger btn-sm"
-            ng-click="editMode=false"
-            ng-show="editMode"
-          >
+          <button type="button" class="btn btn-danger btn-sm" ng-click="editMode=false" ng-show="editMode">
             <span class="glyphicon glyphicon-remove"></span>
             Cancel
           </button>
@@ -32,17 +24,11 @@
         <h3 class="panel-title">Events</h3>
       </div>
       <div class="list-group">
-        <a
-          ng-repeat="event in events | orderBy: '-date'"
-          class="list-group-item"
-          ng-click="goToRegistrants(event.serverId, event.eventId)"
-        >
+        <a ng-repeat="event in eventArray | orderBy: '-date'" class="list-group-item"
+          ng-click="goToRegistrants(event.serverId, event.eventId)">
           <div ng-show="editMode" class="pull-right">
-            <button
-              type="button"
-              class="btn btn-lg btn-danger"
-              ng-click="deleteEvent($event, event.serverId, event.eventId)"
-            >
+            <button type="button" class="btn btn-lg btn-danger"
+              ng-click="deleteEvent($event, event.serverId, event.eventId)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </div>

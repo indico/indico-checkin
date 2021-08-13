@@ -1,4 +1,4 @@
-angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function () {
+angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', ['Storage', function (Storage) {
   const generateCodeChallenge = async codeVerifier => {
     const hash = await sha256(codeVerifier);
     return base64UrlEncode(hash);
@@ -34,7 +34,7 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
 
       try {
         const authBrowserResult = await browserSignOn(authUrl.href, server.callbackUrl);
-        const {access_token: accessToken} = getSearchParams(authBrowserResult, '#');
+        const { access_token: accessToken } = getSearchParams(authBrowserResult, '#');
 
         resolve({...server, token: accessToken});
       } catch (e) {
@@ -60,7 +60,7 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
 
       try {
         const authBrowserResult = await browserSignOn(authUrl.href, server.callbackUrl);
-        const {code, state: responseState, error} = getSearchParams(authBrowserResult);
+        const { code, state: responseState, error } = getSearchParams(authBrowserResult);
 
         if (error || !code || state !== responseState) reject();
 
@@ -113,7 +113,14 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
 
       default: {
         const oAuthDiscoveryUrl = `${server.base_url}/.well-known/oauth-authorization-server`;
-        const res = await fetch(oAuthDiscoveryUrl);
+
+        let res;
+        try {
+          res = await fetch(oAuthDiscoveryUrl);
+        } catch (e) {
+          throw new Error('Could not get authentication information.');
+        }
+
         const data = await res.json();
 
         return {
@@ -133,38 +140,40 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
   async function getRegistrants(server, eventId) {
     const registrantsUrl = `${server.baseUrl}/api/events/${eventId}/registrants`;
     const res = await fetch(registrantsUrl, {
-      headers: {Authorization: `Bearer ${server.token}`},
+      headers: { Authorization: `Bearer ${server.token}` },
     });
     const data = await res.json();
 
-    return {status: res.status, registrants: data.registrants};
+    Storage.setRegistrants(server.serverId, eventId, data.registrants);
+
+    return { status: res.status, registrants: data.registrants };
   }
 
   async function getRegistrant(server, eventId, registrantId) {
     const registrantUrl = `${server.baseUrl}/api/events/${eventId}/registrants/${registrantId}`;
     const res = await fetch(registrantUrl, {
-      headers: {Authorization: `Bearer ${server.token}`},
+      headers: { Authorization: `Bearer ${server.token}` },
     });
     if (res.status === 404) {
-      return {status: res.status};
+      return { status: res.status };
     }
 
     const data = await res.json();
 
-    return {status: res.status, registrant: data};
+    return { status: res.status, registrant: data };
   }
 
-  async function doCheckin(server, eventId, registrantId, value) {
+  async function doCheckin(server, eventId, registrantId, value = true) {
     const checkinUrl = `${server.baseUrl}/api/events/${eventId}/registrants/${registrantId}`;
     const body = JSON.stringify({checked_in: value});
     const res = await fetch(checkinUrl, {
-      headers: {'Authorization': `Bearer ${server.token}`, 'Content-Type': 'application/json'},
+      headers: { 'Authorization': `Bearer ${server.token}`, 'Content-Type': 'application/json' },
       method: 'PATCH',
       body,
     });
     const data = await res.json();
 
-    return {status: res.status, checkin: data};
+    return { status: res.status, checkin: data };
   }
 
   return {
@@ -174,4 +183,4 @@ angular.module('Checkinapp.indicoApiService', []).service('IndicoApi', function 
     getRegistrant,
     doCheckin,
   };
-});
+}]);

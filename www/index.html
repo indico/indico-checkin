@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" ng-app="Checkinapp">
+
   <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self' * gap://ready; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
     />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/on-off-switch.css" />
+    <link rel="stylesheet" type="text/css" href="css/spin.css" />
+
     <title>Check in</title>
   </head>
+
   <body ng-controller="NavigationController">
     <header class="navbar-fixed-top checkin-nav">
       <a ng-hide="isCurrentLocation('/')" ng-click="back()">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
       <span class="title centered">{{title}}</span>
+      <a class="settings-icon" ng-show="isCurrentLocation('/')" ng-click="showSettings()">
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
     </header>
     <div class="container">
       <ng-view></ng-view>
@@ -42,14 +47,18 @@
       </nav>
     </footer>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="js/lib/angular.js"></script>
     <script type="text/javascript" src="js/lib/angular-route.js"></script>
     <script type="text/javascript" src="js/lib/angular-touch.js"></script>
+    <script type="text/javascript" src="js/lib/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="js/lib/spin.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/controllers/navigationController.js"></script>
     <script type="text/javascript" src="js/controllers/eventsController.js"></script>
     <script type="text/javascript" src="js/controllers/registrantsController.js"></script>
     <script type="text/javascript" src="js/controllers/registrantController.js"></script>
+    <script type="text/javascript" src="js/controllers/settingsController.js"></script>
     <script type="text/javascript" src="js/services/storageService.js"></script>
     <script type="text/javascript" src="js/services/indicoApiService.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
@@ -57,4 +66,5 @@
       app.initialize();
     </script>
   </body>
+
 </html>
