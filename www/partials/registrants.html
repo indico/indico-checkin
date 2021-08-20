@@ -5,10 +5,11 @@
       <h3>
         <div>No attendees</div>
       </h3>
+      <div ng-show="loading" id="empty-spinner-container" class="spinner-center"></div>
     </div>
     <div ng-hide="isRegistrantListEmpty()" id="registrants-list-container" class="panel panel-default">
       <div class="panel-heading">
-        <div ng-show="loading" id="registrants-spinner-container" class="pull-right"></div>
+        <div ng-show="loading" id="spinner-container" class="pull-right"></div>
         <div ng-hide="loading" class="pull-right badge bg-blue">{{totalCount}}</div>
         <h3 class="panel-title">Attendees</h3>
       </div>

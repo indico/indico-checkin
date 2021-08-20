@@ -6,11 +6,11 @@
         <div>No events</div>
         <small>Please click in 'Add event' if you want to start the check-in process</small>
       </h3>
-      <div ng-show="loading" id="events-empty-spinner-container" class="spinner-center"></div>
+      <div ng-show="loading" id="empty-spinner-container" class="spinner-center"></div>
     </div>
     <div ng-hide="isEventListEmpty()" class="panel panel-default">
       <div class="panel-heading">
-        <div ng-show="loading" id="events-spinner-container" class="pull-right"></div>
+        <div ng-show="loading" id="spinner-container" class="pull-right"></div>
         <div ng-hide="loading" class="pull-right">
           <button type="button" class="btn btn-primary btn-sm" ng-click="editMode=true" ng-show="!editMode">
             <span class="glyphicon glyphicon-edit"></span>

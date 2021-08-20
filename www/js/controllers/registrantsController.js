@@ -19,7 +19,7 @@ angular.module('Checkinapp.registrantsController', []).controller('RegistrantsCo
       const spinner = new Spinner({lines: 8, length: 4, width: 3, radius: 3, color: '#464646', speed: 0.7}).spin();
       $scope.loading = true;
 
-      document.getElementById('registrants-spinner-container').appendChild(spinner.el);
+      document.getElementById('spinner-container').appendChild(spinner.el);
 
       try {
         let result = await IndicoApi.getRegistrants(server, eventId);

@@ -6,7 +6,7 @@ angular.module('Checkinapp.registrantController', []).controller('RegistrantCont
   function ($scope, $location, Storage, IndicoApi) {
     const spinner = new Spinner({lines: 8, length: 4, width: 3, radius: 3, color: '#464646', speed: 0.7}).spin();
     $scope.loading = true;
-    document.getElementById('registrant-spinner-container').appendChild(spinner.el);
+    document.getElementById('spinner-container').appendChild(spinner.el);
 
     async function doCheckin(server, eventId, registrantId, value = true) {
       let result = await IndicoApi.doCheckin(server, eventId, registrantId, value);
