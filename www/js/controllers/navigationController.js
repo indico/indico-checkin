@@ -29,6 +29,7 @@ angular.module('Checkinapp.navigationController', []).controller('NavigationCont
           checkinSecret,
           scanned: true,
         });
+        $scope.$emit('$locationChangeSuccess');
         $scope.$apply();
       });
     };
@@ -37,8 +38,12 @@ angular.module('Checkinapp.navigationController', []).controller('NavigationCont
       const spinnerList = new Spinner({lines: 8, length: 4, width: 3, radius: 3, color: '#464646', speed: 0.7}).spin();
       const spinnerEmpty = new Spinner({lines: 8, length: 4, width: 3, radius: 3, color: '#464646', speed: 0.7}).spin();
       $scope.loading = true;
-      document.getElementById('events-spinner-container').appendChild(spinnerList.el);
-      document.getElementById('events-empty-spinner-container').appendChild(spinnerEmpty.el);
+
+      document.getElementById('spinner-container').appendChild(spinnerList.el);
+      const emptySpinnerContainer = document.getElementById('empty-spinner-container');
+      if (emptySpinnerContainer) {
+        emptySpinnerContainer.appendChild(spinnerEmpty.el);
+      }
 
       scanQRCode(async data => {
         const eventData = {
