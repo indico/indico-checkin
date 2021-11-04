@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!-- 1 5 0 0 3  = version 1.5.0, rev 03 -->
-<widget android-versionCode="15003" id="ch.cern.indico.checkin" version="1.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget android-versionCode="16000" id="ch.cern.indico.checkin" version="1.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Indico check-in</name>
     <description>
         Check-in application for Indico conferences.
