@@ -28,6 +28,9 @@
     <preference name="SplashScreenSpinnerColor" value="#03a4e4" />
     <preference name="SplashScreenDelay" value="4000" />
     <platform name="android">
+        <edit-config xmlns:android="http://schemas.android.com/apk/res/android" file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
         <icon gap:density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
         <icon gap:density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
         <icon gap:density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
