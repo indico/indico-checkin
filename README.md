@@ -28,6 +28,11 @@ find the SDK.
 $ cordova platform add android
 ```
 
+**Note:** You need to have Android build tools 29.0.2 installed *and not have installed any version greater than 29.0.2*.
+Due to a [bug](https://github.com/apache/cordova-android/issues/1290) in `cordova-android` < 10.0, which this project uses,
+it's not possible to specify the build tools version with `--gradleArg=-PcdvBuildToolsVersion=29.0.2`. Because of this, it
+will always try to use the latest installed and fail with `Build-tool is missing DX` if they are greater than 29.0.2.
+
 If you intend to use the emulator you may need to [create an AVD](https://developer.android.com/studio/run/managing-avds.html)
 if you don't yet have one. If you want to use a physical device, just make sure you connect it via USB.
 
