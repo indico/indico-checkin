@@ -51,7 +51,7 @@
         "CAMERA_USAGE_DESCRIPTION": "To scan ticket QR codes",
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "com.bez4pieci.cookies": {},
+      "cordova-remove-cookies": {},
       "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
