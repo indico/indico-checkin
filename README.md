@@ -9,7 +9,7 @@ An early description of the project (for historical purposes) can be found [here
 
 We leverage [Apache Cordova](https://cordova.apache.org/)'s multi-platform capabilities to create a simple yet useful
 web application.
-First of all, you'll have to install Cordova:
+First of all, you'll have to install Cordova (note: npm v7 or greater required):
 
 ```sh
 $ npm install -g cordova
