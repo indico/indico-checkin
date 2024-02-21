@@ -1,3 +1,6 @@
+> [!WARNING]
+> This application will be discontinued with the upcoming release of Indico 3.3 (Q1 2024) and replaced with a new [Checkin-in app](https://github.com/indico/indico-checkin-pwa). We recommend everyone to use the new application starting with Indico 3.3.
+
 # Indico check in mobile application
 
 This application was initially developed during the CERN OpenLab Summer Student Programme.
